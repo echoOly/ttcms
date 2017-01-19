@@ -1,0 +1,64 @@
+{
+    "name": "medz/ttcms",
+    "type": "project",
+    "description": "cms",
+    "keywords": ["ttcms", "thinkphp"],
+    "homepage": "http://www.9aipay.com",
+    "license": "Private",
+    "license-url": "./LICENSE",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+    ],
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "medz/vendor-pack-pinyin",
+                "version": "dev-master",
+                "dist": {
+                    "url": "https://github.com/jifei/Pinyin/archive/master.zip",
+                    "type": "zip"
+                },
+                "autoload": {
+                    "classmap": ["Pinyin.php"]
+                }
+            }
+        }
+    ],
+    "require": {
+        "php": ">=5.3.12",
+        "ext-curl": "*",
+        "ext-gd": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-mcrypt": "*",
+        "ext-zlib": "*",
+        "ext-zip": "*",
+        "medz/vendor-pack-pinyin": "@dev",
+        "medz/filesystem": "~1.0",
+        "medz/emoji-format": "^1.0",
+        "symfony/polyfill-mbstring": "~1.0",
+        "illuminate/database": "4.1.*",
+        "jpush/jpush": "^3.4",
+        "zhiyicx/thinksns-old-code": "^1.0",
+        "zhiyicx/thinksns-theme-stv1": "^1.0"
+    },
+    "config": {
+        "vendor-dir": "src/vendor/",
+        "preferred-install": "dist"
+    },
+    "autoload": {
+        "classmap": [
+            "src/Ts.php"
+        ],
+        "psr-4": {
+            "Ts\\": "src/"
+        }
+    },
+    "suggest":{
+        "medz/vendor-pack-pinyin": "This is a converted Chinese characters spelling library.",
+        "medz/filesystem": "Medz Filesystem Component.",
+        "symfony/polyfill-mbstring": "This component provides a partial, native PHP implementation for the[Mbstring](http://php.net/mbstring) extension."
+    }
+}
