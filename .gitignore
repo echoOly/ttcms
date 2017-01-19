@@ -2,13 +2,8 @@
 /.svn/
 /server/
 /config/config.inc.php
-/apps/Information/
-!/api/thinksns/UserApi.class.php
-!/api/thinksns/WeiboStatusesApi.class.php
-!./data/upload/
-./data/
-!./data/database/*
-./data/lang/*
+/data/
+!/data/database/*
 /_runtime/
 /src/vendor
 /vendor
