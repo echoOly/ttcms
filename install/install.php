@@ -27,8 +27,8 @@ include 'install_lang.php';
 
 $timestamp = time();
 $ip = getip();
-$installfile = 'ThinkSNS.sql';
-$installdbname = 'thinksns_4_r2';
+$installfile = 'ttcms.sql';
+$installdbname = 'ttcms';
 $thinksns_config_file = 'config.inc.php';
 $_SESSION['thinksns_install'] = $timestamp;
 
@@ -67,7 +67,6 @@ if (!get_magic_quotes_gpc()) {
 <div id='content'>
 <div id='pageheader'>
 	<div id="logo">
-		<img src="images/thinksns.gif" border="0" alt="ThinkSNS" />
 		<span class="h1"><?php echo $i_message['install_wizard']; ?></span>
 	</div>
 </div>
@@ -242,7 +241,7 @@ foreach ($writeable as $value) {
 
 <h5><?php echo $i_message['install_mysql_prefix']; ?></h5>
 
-<p><input type="text" name="db_prefix" value="ts_" size="40" class='input' placeholder="<?php echo $i_message['install_mysql_prefix_intro']; ?>" /></p>
+<p><input type="text" name="db_prefix" value="tt_" size="40" class='input' placeholder="<?php echo $i_message['install_mysql_prefix_intro']; ?>" /></p>
 
 <h5><?php echo $i_message['site_url']; ?></h5>
 <p><?php echo $i_message['site_url_intro']; ?></p>
@@ -587,7 +586,6 @@ if ($thinksns_rebuild) {
 }
 ?>
 </div>
-<div class='copyright'>ThinkSNS <?php echo $_TSVERSION; ?> &#169; copyright 2008-<?php echo date('Y') ?> www.ThinkSNS.com All Rights Reserved</div>
 </div>
 <div style="display:none;">
 <script src="http://s79.cnzz.com/stat.php?id=1702264&web_id=1702264" language="JavaScript" charset="gb2312"></script>

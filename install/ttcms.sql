@@ -6112,7 +6112,6 @@ CREATE TABLE `tt_user` (
   KEY `uname` (`uname`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_user VALUES ('1','','dff4573c396dda676ef6651d78856a94','11111','管理员','admin@admin.com','1','北京 北京市 海淀区','1','1','1','1484728385','1','','','1','2','10','127.0.0.1','zh-cn','PRC','0','G','','1484825180','0','0','管理员 guanliyuan','','0','0','','','1');
 
 DROP TABLE IF EXISTS tt_user_blacklist;
 CREATE TABLE `tt_user_blacklist` (
@@ -12452,7 +12451,6 @@ CREATE TABLE `tt_user` (
   KEY `uname` (`uname`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_user VALUES ('1','','dff4573c396dda676ef6651d78856a94','11111','管理员','admin@admin.com','1','北京 北京市 海淀区','1','1','1','1484728385','1','','','1','2','10','127.0.0.1','zh-cn','PRC','0','G','','1484825180','0','0','管理员 guanliyuan','','0','0','','','1');
 
 DROP TABLE IF EXISTS tt_user_blacklist;
 CREATE TABLE `tt_user_blacklist` (
