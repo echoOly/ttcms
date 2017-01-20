@@ -2,8 +2,9 @@
 /server/
 /config/config.inc.php
 /data/
-!/data/database/*
+!/data/database/*.php
 /src/vendor
+/storage
 /vendor
 /composer.lock
 /composer-temp.phar
