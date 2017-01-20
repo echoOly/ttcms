@@ -1,4 +1,5 @@
 /.htaccess
+/composer.phar
 /server/
 /config/config.inc.php
 /data/
