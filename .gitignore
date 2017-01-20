@@ -5,7 +5,7 @@
 !/data/database/*
 /src/vendor
 /vendor
-/storage
 /composer.lock
+/composer-temp.phar
 .DS_Store
 /resources/theme
