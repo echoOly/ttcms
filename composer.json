@@ -1,5 +1,5 @@
 {
-    "name": "medz/ttcms",
+    "name": "ttcms/ttcms",
     "type": "project",
     "description": "cms",
     "keywords": ["ttcms", "thinkphp"],
@@ -42,7 +42,6 @@
         "illuminate/database": "4.1.*",
         "jpush/jpush": "^3.4",
         "zhiyicx/thinksns-old-code": "^1.0",
-        "zhiyicx/thinksns-theme-stv1": "^1.0"
     },
     "config": {
         "vendor-dir": "src/vendor/",

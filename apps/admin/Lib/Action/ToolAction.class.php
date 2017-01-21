@@ -13,71 +13,6 @@ class ToolAction extends AdministratorAction
     //删除异常数据
     public function cleanErrorData()
     {
-        $str = 'alipay_jilu:;atme:;attach:;attach_t:;blog:;blog_category:;channel:;channel_follow:;check_info:;collection:;comment:app_uid;comment:;comment:to_uid;credit_user:;denounce:;denounce:fuid;develop:;diy_page:;diy_widget:;document:deleteUid;document_attach:;document_draft:;document_lock:;event:;event_photo:;event_user:;feed:;feedback:;find_password:;group:;group_atme:;group_attachment:;group_comment:app_uid;group_comment:;group_comment:to_uid;group_feed:;group_invite_verify:;group_log:;group_member:;group_post:;group_topic:;group_user_count:;invite_code:inviter_uid;invite_code:receiver_uid;login:;login_logs:;login_record:;medal_user:;message_content:from_uid;message_list:from_uid;message_member:member_uid;notify_email:;notify_message:;online:;online_logs:;online_logs_bak:;poppk:cUid;poppk_vote:;poster:;sitelist_site:;survey_answer:;task_receive:;task_user:;template_record:;tipoff:;tipoff:bonus_uid;tipoff_log:;tips:;user_app:;user_blacklist:;user_category_link:;user_change_style:;user_count:;user_credit_history:;user_data:;user_department:;user_follow:;user_follow_group:;user_follow_group_link:;user_group_link:;user_official:;user_online:;user_privacy:;user_profile:;user_verified:;vote:;vote_user:;vtask:assigner_uid;vtask:deal_uid;vtask_log:;vtask_process:assigner_uid;vtask_process:deal_uid;weiba:;weiba:admin_uid;weiba_apply:follower_uid;weiba_apply:manager_uid;weiba_favorite:;weiba_favorite:post_uid;weiba_follow:follower_uid;weiba_log:;weiba_post:post_uid;weiba_post:last_reply_uid;weiba_reply:post_uid;weiba_reply:;weiba_reply:to_uid;x_article:;x_logs:';
-        $arr = explode(';', $str);
-        foreach ($arr as $v) {
-            $info = explode(':', $v);
-            $table = C('DB_PREFIX').$info[0];
-            $field = empty($info[1]) ? 'uid' : $info[1];
-
-            $sql = 'DELETE FROM '.$table.' WHERE '.$field.' NOT IN (SELECT uid FROM '.C('DB_PREFIX').'user) and '.$field.' !=0 ';
-            M()->execute($sql);
-        }
-        $this->success('操作完成！');
-    }
-
-    //刷新评论楼层
-    public function refreshCommentOrder()
-    {
-        $postList = D('weiba_post')->field('post_id')->findAll();
-        foreach ($postList as $v) {
-            $replyList = D('weiba_reply')->where('post_id='.$v['post_id'].' AND is_del=0')->order('reply_id ASC')->findAll();
-            foreach ($replyList as $key => $val) {
-                D('weiba_reply')->where('reply_id='.$val['reply_id'])->setField('storey', $key + 1);
-            }
-            D('weiba_post')->where('post_id='.$v['post_id'])->setField('reply_all_count', count($replyList)); //总回复统计数加1
-        }
-        $this->success('操作完成！');
-    }
-
-    //清除幽灵粉丝
-    public function cleanErrorFollow()
-    {
-        $info = model('Xdata')->get('admin_config:register');
-        $map['uid'] = array(
-                'in',
-                $info['default_follow'],
-        );
-        $user = M('User')->where($map)->field('uid')->findAll();
-        if (empty($user)) {
-            $info['default_follow'] = '';
-        } else {
-            $uids = getSubByKey($user, 'uid');
-            $info['default_follow'] = implode(',', $uids);
-        }
-        unset($map);
-
-        model('Xdata')->put('admin_config:register', $info);
-
-        $sql = 'SELECT follow_id,uid FROM `'.C('DB_PREFIX').'user_follow` WHERE fid NOT IN (SELECT uid FROM '.C('DB_PREFIX').'user)';
-        $list = M()->query($sql);
-        if (empty($list)) {
-            $this->success('操作完成！');
-        }
-
-        foreach ($list as $vo) {
-            $follow_id[] = $vo['follow_id'];
-            $map['uid'] = $vo['uid'];
-            $map['key'] = 'following_count';
-            M('user_data')->where($map)->setDec('value');
-        }
-        unset($map);
-
-        $map['follow_id'] = array(
-                'in',
-                $follow_id,
-        );
-        $res = M('user_follow')->where($map)->delete();
         $this->success('操作完成！');
     }
 
@@ -495,23 +430,4 @@ class ToolAction extends AdministratorAction
         $this->display();
     }
 
-    public function test()
-    {
-        makeMd5File('apps/page', 'app', 'merge');
-    }
-
-    public function refreshWeiboComment()
-    {
-        set_time_limit(0);
-        $feedIds = model('Feed')->order('feed_id DESC')->getAsFieldArray('feed_id');
-        $cmap['app'] = 'public';
-        $cmap['table'] = 'feed';
-        $cmap['is_del'] = 0;
-        foreach ($feedIds as $feedId) {
-            $cmap['row_id'] = $feedId;
-            $count = model('Comment')->where($cmap)->count();
-            model('Feed')->where('feed_id='.$feedId)->setField('comment_count', $count);
-        }
-        $this->success('操作完成！');
-    }
 }

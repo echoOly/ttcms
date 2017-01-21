@@ -46,7 +46,7 @@ class HomeAction extends AdministratorAction
 
         // 服务器信息
         //$site_version = model('Xdata')->get('siteopt:site_system_version');
-        $serverInfo[L('PUBLIC_CORE_VERSION')] = 'TS V'.C('VERSION');
+        $serverInfo[L('PUBLIC_CORE_VERSION')] = 'TTCMS V'.C('VERSION');
         $serverInfo[L('PUBLIC_SERVER_PHP')] = PHP_OS.' / PHP v'.PHP_VERSION;
         $serverInfo[L('PUBLIC_SERVER_SOFT')] = $_SERVER['SERVER_SOFTWARE'];
         $serverInfo[L('PUBLIC_UPLOAD_PERMISSION')] = (@ini_get('file_uploads')) ? ini_get('upload_max_filesize') : '<font color="red">no</font>';
@@ -105,11 +105,6 @@ class HomeAction extends AdministratorAction
         $serverInfo[L('PUBLIC_DATABASE_SIZE')] = byte_format($dbsize);
         $statistics[L('PUBLIC_SERVER_INFORMATION')] = $serverInfo;
         unset($serverInfo);
-
-        // 开发团队
-        $statistics[L('PUBLIC_DEV_TEAM')] = array(
-            L('PUBLIC_COPYRIGHT') => '<a href="http://www.zhishisoft.com" target="_blank">'.L('PUBLIC_COMPANY').'</a>',
-        );
 
         $this->assign('statistics', $statistics);
         $this->display();

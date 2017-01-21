@@ -68,8 +68,8 @@ class GlobalAction extends AdministratorAction
         }
         $data[] = $_POST;
         $_LOG['data'] = serialize($data);
-        $_LOG['ctime'] = time();
-        M('AdminLog')->add($_LOG);
+
+        LogRecord('admin_global', 'doAddCreditType', $_LOG, true);
 
         $res = M('credit_type')->add($_POST);
         if ($res) {
@@ -123,8 +123,8 @@ class GlobalAction extends AdministratorAction
         }
         $data[] = $_POST;
         $_LOG['data'] = serialize($data);
-        $_LOG['ctime'] = time();
-        M('AdminLog')->add($_LOG);
+
+        LogRecord('admin_global', 'doEditCreditType', $_LOG, true);
 
         if ($res) {
             $db_prefix = C('DB_PREFIX');
@@ -168,8 +168,8 @@ class GlobalAction extends AdministratorAction
         $data[] = '全局 - 积分配置 - 积分类型 ';
         $data[] = $typeName;
         $_LOG['data'] = serialize($data);
-        $_LOG['ctime'] = time();
-        M('AdminLog')->add($_LOG);
+
+        LogRecord('admin_global', 'doDeleteCreditType', $_LOG, true);
 
         //清除type信息和对应字段
         $res = M('credit_type')->where($map)->delete();
@@ -234,8 +234,7 @@ class GlobalAction extends AdministratorAction
         }
         $data[] = $_POST;
         $_LOG['data'] = serialize($data);
-        $_LOG['ctime'] = time();
-        M('AdminLog')->add($_LOG);
+        LogRecord('admin_global', 'doAddCredit', $_LOG, true);
 
         $res = M('credit_setting')->add($_POST);
         if ($res) {
@@ -296,8 +295,8 @@ class GlobalAction extends AdministratorAction
         }
         $data[] = $_POST;
         $_LOG['data'] = serialize($data);
-        $_LOG['ctime'] = time();
-        M('AdminLog')->add($_LOG);
+
+        LogRecord('admin_global', 'editCredit', $_LOG, true);
         $id = $_POST['id'];
         unset($_POST['id']);
         $res = M('credit_setting')->where('id='.$id)->save($_POST);
@@ -329,8 +328,8 @@ class GlobalAction extends AdministratorAction
         $data[] = '全局 - 积分配置 - 积分规则 ';
         $data[] = M('credit_setting')->where($map)->findAll();
         $_LOG['data'] = serialize($data);
-        $_LOG['ctime'] = time();
-        M('AdminLog')->add($_LOG);
+
+        LogRecord('admin_global', 'doDeleteCredit', $_LOG, true);
 
         $res = M('credit_setting')->where($map)->delete();
         if ($res) {
@@ -404,8 +403,8 @@ class GlobalAction extends AdministratorAction
         $data['1']['active'] = $_POST['active'];
         $data['1']['action'] = $_POST['action'];
         $_LOG['data'] = serialize($data);
-        $_LOG['ctime'] = time();
-        M('AdminLog')->add($_LOG);
+
+        LogRecord('admin_global', 'doCreditUser', $_LOG, true);
 
         $this->success('保存成功');
     }

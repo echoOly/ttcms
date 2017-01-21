@@ -19,11 +19,7 @@ class ApplicationAction extends AdministratorAction
     protected $type = array(
         'false'   => '仅展示',
         'url'     => 'URL地址',
-        'weiba'   => '微吧',
         'post'    => '帖子',
-        'weibo'   => '微博',
-        'topic'   => '话题',
-        'channel' => '频道',
         'user'    => '用户',
     );
 
@@ -225,7 +221,7 @@ class ApplicationAction extends AdministratorAction
     {
         $this->pageKeyList = array('user', 'content', 'time', 'doaction');
         array_push($this->pageTab, array(
-            'title' => 'APP反馈管理',
+            'title' => '反馈管理',
             'hash'  => 'feedback',
             'url'   => U('admin/Application/feedback'),
         ));

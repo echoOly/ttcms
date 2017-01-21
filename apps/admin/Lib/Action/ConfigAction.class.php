@@ -175,7 +175,7 @@ class ConfigAction extends AdministratorAction
         $detailData = model('Xdata')->get($this->systemdata_list.':'.$this->systemdata_key);
         $this->onsubmit = 'admin.checkRegisterConfig(this)';
 
-        $this->onload[] = 'admin.registerConfigDefault('.$detailData['personal_open'].', '.$detailData['interester_open'].')';
+        $this->onload[] = 'admin.registerConfigDefault('.$detailData['personal_open'].', '.(int)$detailData['interester_open'].')';
 
         $this->displayConfig();
     }
@@ -1405,69 +1405,6 @@ class ConfigAction extends AdministratorAction
     public function footer()
     {
         $this->announcement(2);
-    }
-
-    /**
-     * 系统配置 - 分享配置.
-     */
-    public function feed()
-    {
-        $this->pageKeyList = array(
-                'weibo_nums',
-                'weibo_type',
-                'weibo_uploadvideo_open',
-                'weibo_premission',
-                'weibo_send_info',
-                'weibo_default_topic',
-                'weibo_at_me',
-        );
-        $this->opt['weibo_type'] = array(
-                'face'       => '表情',
-                'at'         => '好友',
-                'image'      => L('PUBLIC_IMAGE_STREAM'),
-                'video'      => '视频',
-                'file'       => L('PUBLIC_FILE_STREAM'),
-                'topic'      => '话题',
-                'contribute' => '投稿',
-        );
-        $this->opt['weibo_uploadvideo_open'] = array(
-                '0' => L('PUBLIC_SYSTEMD_FALSE'),
-                '1' => L('PUBLIC_SYSTEMD_TRUE'),
-        );
-        $this->opt['weibo_premission'] = array(
-                'repost'  => L('PUBLIC_SHARE_WEIBO'),
-                'comment' => L('PUBLIC_CONCENT_WEIBO'),
-                'audit'   => '先审后发',
-        );
-        $this->opt['weibo_at_me'] = array(
-                0 => '全站用户',
-                1 => '关注用户',
-        );
-
-        $this->pageTab[] = array('title' => '分享配置', 'tabHash' => 'feed', 'url' => U('admin/Config/feed'));
-        $this->pageTab[] = array('title' => '分享视频信息API配置', 'tabHash' => 'feedVideo', 'url' => U('admin/Config/feedVideo'));
-
-        $this->displayConfig();
-    }
-
-    /**
-     * 配置获取第三方视频信息接口信息.
-     *
-     * @author Medz Seven <lovevipdsw@vip.qq.com>
-     **/
-    public function feedVideo()
-    {
-        $this->pageTab[] = array('title' => '分享配置', 'tabHash' => 'feed', 'url' => U('admin/Config/feed'));
-        $this->pageTab[] = array('title' => '分享视频信息API配置', 'tabHash' => 'feedVideo', 'url' => U('admin/Config/feedVideo'));
-
-        $this->pageTitle['feedVideo'] = '分享第三方视频信息接口信息配置';
-
-        $this->systemdata_list = 'outside';
-        $this->systemdata_key = 'video';
-
-        $this->pageKeyList = array('youku_client_id', 'tudou_app_key');
-
-        $this->displayConfig();
     }
 
     /**
