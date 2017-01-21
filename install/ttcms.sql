@@ -17,13 +17,38 @@ CREATE TABLE `tt_addons` (
   UNIQUE KEY `name` (`name`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_addons VALUES ('3','RelatedUser','可能感兴趣的人','t3','根据当前用户推荐可能感兴趣的人','3.0','1','','','3.0','0');
-INSERT INTO tt_addons VALUES ('4','Login','分享同步V3','智士软件','第三方账号登录插件','3.0','1','','t.thinksns.com','3.0','0');
-INSERT INTO tt_addons VALUES ('6','AdSpace','广告位 - 官方版','智士软件','广告位官方版','1.0','1','','http://www.thinksns.com','3.0','0');
-INSERT INTO tt_addons VALUES ('9','FeedTop','分享置顶','云脉网','分享置顶','1.0','1','','','3.0','0');
-INSERT INTO tt_addons VALUES ('13','Contribute','分享投稿','thinksns','向频道管理员投稿','3.0','1','','http://www.thinksns.com','3.0','0');
-INSERT INTO tt_addons VALUES ('20','InviteTest','邀请内测 - 官方版','while','邀请内测插件（官方版） - 以发放邀请码的方式邀请用户测试','1.0','0','','master@xiew.net','4.0','0');
-INSERT INTO tt_addons VALUES ('21','FeedTopHome','空间分享置顶','智士软件','空间分享置顶','1.0','1','','http://www.thinksns.com','3.0','0');
+INSERT INTO tt_addons VALUES ('3','RelatedUser','可能感兴趣的人','t3','根据当前用户推荐可能感兴趣的人','3.0','0','','','3.0','0');
+INSERT INTO tt_addons VALUES ('4','Login','分享同步','智士软件','第三方账号登录插件','3.0','1','','','3.0','0');
+INSERT INTO tt_addons VALUES ('6','AdSpace','广告位 - 官方版','智士软件','广告位官方版','1.0','0','','','3.0','0');
+INSERT INTO tt_addons VALUES ('9','FeedTop','分享置顶','云脉网','分享置顶','1.0','0','','','3.0','0');
+INSERT INTO tt_addons VALUES ('13','Contribute','分享投稿','thinksns','向频道管理员投稿','3.0','0','','','3.0','0');
+INSERT INTO tt_addons VALUES ('20','InviteTest','邀请内测 - 官方版','while','邀请内测插件（官方版） - 以发放邀请码的方式邀请用户测试','1.0','0','','','4.0','0');
+INSERT INTO tt_addons VALUES ('21','FeedTopHome','空间分享置顶','智士软件','空间分享置顶','1.0','0','','','3.0','0');
+
+DROP TABLE IF EXISTS tt_app_tag;
+CREATE TABLE `tt_app_tag` (
+  `app` char(15) NOT NULL COMMENT '所属应用',
+  `table` char(15) NOT NULL COMMENT '所属表名',
+  `row_id` int(11) DEFAULT '0' COMMENT '所属应用的内容的编号或者用户编号',
+  `tag_id` int(11) NOT NULL COMMENT 'Tag 编号',
+  UNIQUE KEY `app` (`table`,`row_id`,`tag_id`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO tt_app_tag VALUES ('public','user','1','6');
+INSERT INTO tt_app_tag VALUES ('public','user','1','11');
+INSERT INTO tt_app_tag VALUES ('public','user','1','12');
+
+DROP TABLE IF EXISTS tt_application_slide;
+CREATE TABLE `tt_application_slide` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
+  `image` int(10) NOT NULL COMMENT '图片ID',
+  `type` varchar(20) NOT NULL DEFAULT 'false' COMMENT '类型',
+  `data` varchar(255) NOT NULL DEFAULT '' COMMENT '数据',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='客户端幻灯设置表';
+
+INSERT INTO tt_application_slide VALUES ('1','asasd','83','url','ZX');
 
 DROP TABLE IF EXISTS tt_area;
 CREATE TABLE `tt_area` (
@@ -3362,7 +3387,7 @@ CREATE TABLE `tt_attach` (
   `height` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`attach_id`),
   KEY `userId` (`uid`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_attach VALUES ('82','','','0','','1','1484815544','请求量.png','image/png','404498','png','2bb0d8ef8d0d5075fb8d85e99af776a6','0','0','2017/0119/16/','58807cb84f3fb42de7c8.png','0','0','2560','1402');
 INSERT INTO tt_attach VALUES ('72','','','0','feed_image','1','1436956686','557141a953668.png','image/png','14850','png','dcba2a008076198e9520da29fd5a3713','0','0','2015/0715/18/','55a6380e408a3.png','0','0','48','10');
@@ -3375,6 +3400,7 @@ INSERT INTO tt_attach VALUES ('78','','','0','feed_image','1','1436956782','5571
 INSERT INTO tt_attach VALUES ('79','','','0','feed_image','1','1436956793','5571428166417.png','image/png','14872','png','aaf37a251443585f35e5982f37671c09','0','0','2015/0715/18/','55a6387915016.png','0','0','48','10');
 INSERT INTO tt_attach VALUES ('80','','','0','feed_image','1','1436956802','5571429aa4fe3.png','image/png','14873','png','cda48ace4d5b691e81d13bb6f12acf55','0','0','2015/0715/18/','55a6388241e1d.png','0','0','48','10');
 INSERT INTO tt_attach VALUES ('81','','','0','feed_image','1','1436956809','557142bfdca0c.png','image/png','14846','png','ac8dab678ddcf3d536996910025d3e89','0','0','2015/0715/18/','55a6388988dc5.png','0','0','48','10');
+INSERT INTO tt_attach VALUES ('83','','','0','admin_image','1','1485002633','IMG_8672.jpg','image/jpeg','2058402','jpg','801e125d3b2090eb122e96cf0cd85851','0','0','2017/0121/20/','58835789153389b74635.jpg','0','0','3456','5184');
 
 DROP TABLE IF EXISTS tt_credit_record;
 CREATE TABLE `tt_credit_record` (
@@ -3389,11 +3415,15 @@ CREATE TABLE `tt_credit_record` (
   `detail` varchar(255) DEFAULT NULL COMMENT 'API所需描述',
   `reason` varchar(255) DEFAULT NULL COMMENT '驳回理由',
   PRIMARY KEY (`rid`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_credit_record VALUES ('1','40','1','1','用户登录','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1484730034','{\"experience\":\"+1\",\"score\":\"+2\"}','');
 INSERT INTO tt_credit_record VALUES ('2','40','1','1','用户登录','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1484808006','{\"experience\":\"+1\",\"score\":\"+2\"}','');
 INSERT INTO tt_credit_record VALUES ('3','186','1','1','个人主页被访问','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1484814912','{\"experience\":\"+1\",\"score\":\"+2\"}','');
+INSERT INTO tt_credit_record VALUES ('4','40','1','1','用户登录','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1484889836','{\"experience\":\"+1\",\"score\":\"+2\"}','');
+INSERT INTO tt_credit_record VALUES ('5','186','1','1','个人主页被访问','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1484931501','{\"experience\":\"+1\",\"score\":\"+2\"}','');
+INSERT INTO tt_credit_record VALUES ('6','186','1','1','个人主页被访问','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1485004233','{\"experience\":\"+1\",\"score\":\"+2\"}','');
+INSERT INTO tt_credit_record VALUES ('7','186','1','1','个人主页被访问','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1485007535','{\"experience\":\"+1\",\"score\":\"+2\"}','');
 
 DROP TABLE IF EXISTS tt_credit_setting;
 CREATE TABLE `tt_credit_setting` (
@@ -3453,7 +3483,7 @@ INSERT INTO tt_credit_setting VALUES ('188','collect_weibo','收藏分享','weib
 INSERT INTO tt_credit_setting VALUES ('189','report_weibo','举报分享','weibo','','0','','','1','1');
 INSERT INTO tt_credit_setting VALUES ('190','collected_weibo','分享被收藏','weibo','','0','','','1','1');
 INSERT INTO tt_credit_setting VALUES ('191','reported_weibo','分享被举报','weibo','','0','','','-1','-1');
-INSERT INTO tt_credit_setting VALUES ('192','recommend_to_channel','推荐至频道','channel','','0','','','1','1');
+INSERT INTO tt_credit_setting VALUES ('192','recommend_to_channel','推荐至频道','channel','day','0','','','1','1');
 INSERT INTO tt_credit_setting VALUES ('193','unrecommend_to_channel','取消推荐至频道','channel','','0','','','1','1');
 INSERT INTO tt_credit_setting VALUES ('194','publish_topic','发表帖子','weiba','','0','','','5','5');
 INSERT INTO tt_credit_setting VALUES ('195','forward_topic','转发帖子','weiba','','0','','','0','0');
@@ -3503,23 +3533,7 @@ CREATE TABLE `tt_credit_user` (
   KEY `uid` (`uid`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_credit_user VALUES ('1','1','6','3');
-
-DROP TABLE IF EXISTS tt_denounce;
-CREATE TABLE `tt_denounce` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `from` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '资源来源位置',
-  `aid` int(10) NOT NULL COMMENT '资源ID',
-  `state` tinyint(3) NOT NULL COMMENT '状态',
-  `uid` int(10) NOT NULL COMMENT '举报人',
-  `fuid` int(10) NOT NULL COMMENT '被举报人',
-  `reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '举报原因',
-  `content` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '举报内容',
-  `ctime` int(10) NOT NULL COMMENT '举报时间',
-  `source_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '资源来源页面',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
+INSERT INTO tt_credit_user VALUES ('1','1','14','7');
 
 DROP TABLE IF EXISTS tt_expression;
 CREATE TABLE `tt_expression` (
@@ -3594,11 +3608,34 @@ CREATE TABLE `tt_invite_code` (
   `receiver_email` varchar(50) DEFAULT NULL COMMENT '邀请人注册邮箱',
   `ctime` int(11) NOT NULL COMMENT '注册时间',
   PRIMARY KEY (`invite_code_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_invite_code VALUES ('1','1','bdb270149075268e','0','0','link','0','0','','1484815603');
 INSERT INTO tt_invite_code VALUES ('2','1','94e190d12461d2b9','0','0','link','0','0','','1484815603');
 INSERT INTO tt_invite_code VALUES ('3','1','7f19ddb93617b30a','0','0','link','0','0','','1484815603');
+INSERT INTO tt_invite_code VALUES ('4','1','16aeef2f9a5c770a','0','1','email','0','0','','1484931067');
+INSERT INTO tt_invite_code VALUES ('5','1','67197a44f55035ef','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('6','1','6d4053960ff01b1e','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('7','1','2598690a3e916df2','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('8','1','c86476deab4aeb35','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('9','1','8f4a130e75c46f3d','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('10','1','5e6e2ea778921509','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('11','1','c69c252824afc8cf','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('12','1','538dcb1909aa55a8','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('13','1','c4135314dfd9df62','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('14','1','7ded77fa3bc67e2a','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('15','1','f86b5c6c2b5457fd','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('16','1','9995b359cb38099f','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('17','1','9e869b7571f1ef2a','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('18','1','da8867867fd4bf94','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('19','1','488c6760d0191c63','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('20','1','9bc0178e7add0364','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('21','1','ee74c3b21509368f','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('22','1','c2623c3ed3a8ca2f','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('23','1','0a45c5eebe7d1bbf','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('24','1','c5159a9d06ff1b7f','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('25','1','c005c69692467e1d','0','0','email','0','0','','1485010194');
+INSERT INTO tt_invite_code VALUES ('26','1','9d5e6543cbdcbf3c','0','0','email','0','0','','1485010715');
 
 DROP TABLE IF EXISTS tt_invite_test;
 CREATE TABLE `tt_invite_test` (
@@ -3646,7 +3683,7 @@ INSERT INTO tt_lang VALUES ('17','NOTIFY_NEW_MESSAGE_CONTENT','PUBLIC','0','您�
 INSERT INTO tt_lang VALUES ('18','NOTIFY_NEW_MESSAGE_TITLE','PUBLIC','0','[ {site} ]您收到1封新的私信','[{site}]You received a new private message','[{site} ]您收到1封新的私信');
 INSERT INTO tt_lang VALUES ('19','NOTIFY_SHARE_USER_CONTENT','PUBLIC','0','您的好友 {name} 给您转发了内容：【{content}】快去<a href=\"{sourceurl}\" target=\"_blank\">看看</a>吧。','Your friend {name} shared [{content}] with you ,<a href=\"{sourceurl}\" target=\'_blank\'> go and see it</a>.','您的好友 {name} 給您轉發了內容：【{content}】，快去<a href=\"{sourceurl}\" target=\'_blank\'>看看</a>吧。');
 INSERT INTO tt_lang VALUES ('20','NOTIFY_SHARE_USER_TITLE','PUBLIC','0','[ {site} ]您收到1条新的转发','[{site}] You received a new share','[ {site} ]您收到1條新的轉發');
-INSERT INTO tt_lang VALUES ('21','','','','您有微事务需要处理','','');
+INSERT INTO tt_lang VALUES ('21','','','0','您有微事务需要处理','','');
 INSERT INTO tt_lang VALUES ('22','NOTIFY_REGISTER_INVATE_TITLE','PUBLIC','0','[ {site} ]您的好友 {name} 邀请您注册网站','[{site}] Your friend {name} invited you register for the site','[ {site} ]您的好友 {name} 邀請您註冊網站');
 INSERT INTO tt_lang VALUES ('23','NOTIFY_REGISTER_INVATE_OK_CONTENT','PUBLIC','0','您的好友 <a href=\"{space_url}\" target=\'_blank\' style=\"text-decoration:none;color:#3366cc;\">{name}</a> 刚刚注册开通了帐号，系统已经自动为你们互相关注，快去<a href=\"{space_url}\" target=\"_blank\">TA的主页</a>看看吧。',' You friend {name} has just opened the account, the system has automatically mutual concern for you, go and say hello with TA. <a href=\"{spaceurl}\" target=\"_blank\">Go to his/her home page >></a>','您邀請的好友 {name} 剛剛註冊開通了帳號，系統已經自動為你們互相關注，快去跟TA打聲招呼吧。<a href=\"{spaceurl}\" target=\"_blank\">去TA的主頁看看>></a>');
 INSERT INTO tt_lang VALUES ('24','NOTIFY_REGISTER_INVATE_OK_TITLE','PUBLIC','0','[ {site} ]您的好友 {name} 开通了帐号','[{site}] Your friend {name} opened the account','[ {site} ]您的好友 {name} 開通了帳號');
@@ -3781,7 +3818,7 @@ INSERT INTO tt_lang VALUES ('156','PUBLIC_SYSTEM_MANAGEMENT','PUBLIC','0','后�
 INSERT INTO tt_lang VALUES ('157','PUBLIC_LOGOUT','PUBLIC','0','退出','Logout','退出');
 INSERT INTO tt_lang VALUES ('158','PUBLIC_SYSTEM','PUBLIC','0','系统','System','系統');
 INSERT INTO tt_lang VALUES ('159','PUBLIC_SYSTEM_INFO','PUBLIC','0','系统信息','System Message','系統信息');
-INSERT INTO tt_lang VALUES ('161','PUBLIC_WELCOME_TIPS','PUBLIC','0','欢迎使用ThinkSNS社会化沟通、协作、管理平台','Welcome to use ThinkSNS social communication, collaboration, and management platform','歡迎使用ThinkSNS社會化溝通、協作、管理平台');
+INSERT INTO tt_lang VALUES ('161','PUBLIC_WELCOME_TIPS','PUBLIC','0','欢迎使用TTCMS社会化沟通、协作、管理平台','Welcome to use TTCMS social communication, collaboration, and management platform','歡迎使用TTCMS社會化溝通、協作、管理平台');
 INSERT INTO tt_lang VALUES ('162','PUBLIC_SERVER_INFO','PUBLIC','0','服务器信息','Server Information','服務器信息');
 INSERT INTO tt_lang VALUES ('163','PUBLIC_CORE_VERSION','PUBLIC','0','核心版本','Core Version','核心版本');
 INSERT INTO tt_lang VALUES ('164','PUBLIC_SERVER_PHP','PUBLIC','0','服务器系统及PHP版本','Server system and PHP version','服務器系統及PHP版本');
@@ -4106,7 +4143,7 @@ INSERT INTO tt_lang VALUES ('501','PUBLIC_CHANGE_ONE','PUBLIC','0','换一张','
 INSERT INTO tt_lang VALUES ('502','PUBLIC_TRANSFER_USER','PUBLIC','0','将用户转移至下面的部门下','Transfer the user to the following departments','將用戶轉移至下面的部門下');
 INSERT INTO tt_lang VALUES ('503','PUBLIC_SELECT_USERGROUP','PUBLIC','0','请选择用户组','Please select the user group','請選擇用戶組');
 INSERT INTO tt_lang VALUES ('504','PUBLIC_HELLO','PUBLIC','0','您好','Hello','您好');
-INSERT INTO tt_lang VALUES ('505','PUBLIC_WELCOME','PUBLIC','0','欢迎使用ThinkSNS社会化沟通、协作、管理平台','Welcome to use ThinkSNS social communication, collaboration, and management platform','歡迎使用ThinkSNS社會化溝通、協作、管理平台');
+INSERT INTO tt_lang VALUES ('505','PUBLIC_WELCOME','PUBLIC','0','欢迎使用TTCMS社会化沟通、协作、管理平台','Welcome to use TTCMS social communication, collaboration, and management platform','歡迎使用TTCMS社會化溝通、協作、管理平台');
 INSERT INTO tt_lang VALUES ('506','PUBLIC_FOLD_TIPS','PUBLIC','0','提示：点击标题可以折叠栏目','Tip: Click on the title can be folded part','提示：點擊標題可以折疊欄目');
 INSERT INTO tt_lang VALUES ('507','PUBLIC_USER＿INFORMATION','PUBLIC','0','用户信息','User Information','用戶信息');
 INSERT INTO tt_lang VALUES ('508','PUBLIC_TOTAL_REGISTERED_USERS','PUBLIC','0','总注册用户','Total registered users','總注冊用戶');
@@ -5171,7 +5208,7 @@ CREATE TABLE `tt_login_record` (
   PRIMARY KEY (`login_record_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_login_record VALUES ('1','1','0.0.0.0','','1484825180','0');
+INSERT INTO tt_login_record VALUES ('1','1','0.0.0.0','','1484915009','0');
 
 DROP TABLE IF EXISTS tt_navi;
 CREATE TABLE `tt_navi` (
@@ -5188,16 +5225,32 @@ CREATE TABLE `tt_navi` (
   `order_sort` int(11) DEFAULT NULL COMMENT '应用排序 默认255',
   PRIMARY KEY (`navi_id`),
   KEY `status_postion` (`status`,`position`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_navi VALUES ('1','首页','square','{website}','_self','0','0','1','0','0','1');
 INSERT INTO tt_navi VALUES ('12','首页','index','{website}','_self','1','2','1','0','0','1');
 INSERT INTO tt_navi VALUES ('7','朋友圈','public','{website}/index.php?app=public','_self','1','0','1','0','0','1');
-INSERT INTO tt_navi VALUES ('14','广场','square','{website}/index.php?app=square&mod=Index&act=index','_self','1','2','1','0','0','2');
-INSERT INTO tt_navi VALUES ('37','TS 官网','TS','http://www.thinksns.com','_blank','1','1','1','0','0','2');
-INSERT INTO tt_navi VALUES ('38','智士官网','zhishisoft','http://www.zhishisoft.com/','_blank','1','1','1','0','0','3');
-INSERT INTO tt_navi VALUES ('39','联系我们','connect us','http://www.thinksns.com/buy.html','_blank','1','1','1','0','0','4');
-INSERT INTO tt_navi VALUES ('40','关于我们','ABOUTUS','http://www.thinksns.com/about.html','_blank','1','1','1','0','0','1');
+INSERT INTO tt_navi VALUES ('37','TTCMS官网','TTCMS','http://www.9aipay.com','_blank','1','1','1','0','0','2');
+INSERT INTO tt_navi VALUES ('39','联系我们','connect us','http://www.9aipay.com/buy.html','_blank','1','1','1','0','0','4');
+INSERT INTO tt_navi VALUES ('40','关于我们','ABOUTUS','http://www.9aipay.com/about.html','_blank','1','1','1','0','0','1');
+
+DROP TABLE IF EXISTS tt_notify_email;
+CREATE TABLE `tt_notify_email` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `uid` int(10) NOT NULL COMMENT 'UiD',
+  `node` varchar(50) NOT NULL COMMENT '节点名称',
+  `appname` varchar(50) NOT NULL COMMENT '应用名称',
+  `email` varchar(250) NOT NULL COMMENT '邮件接受地址',
+  `is_send` tinyint(2) NOT NULL COMMENT '是否已经发送',
+  `title` varchar(250) NOT NULL COMMENT '邮件标题',
+  `body` text NOT NULL COMMENT '邮件内容',
+  `ctime` int(11) NOT NULL COMMENT '添加时间',
+  `sendtime` int(11) NOT NULL COMMENT '发送时间',
+  `from_uid` int(11) NOT NULL DEFAULT '0' COMMENT '发送人uid',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='邮件发送队列表';
+
+INSERT INTO tt_notify_email VALUES ('1','0','register_invate','public','1042745891@qq.com','0','','<style>a.email_btn,a.email_btn:link,a.email_btn:visited{background:#0F8CA8;padding:5px 10px;color:#fff;width:80px;text-align:center;}</style><div style=\"width:540px;border:#0F8CA8 solid 2px;margin:0 auto\"><div style=\"color:#bbb;background:#0f8ca8;padding:5px;overflow:hidden;zoom:1\"><div style=\"float:right;height:15px;line-height:15px;padding:10px 0;display:none\">2012年07月15日</div>\n					<div style=\"float:left;overflow:hidden;position:relative\"><a><img style=\"border:0 none\" src=\"http://localhost/ttcms/resources/theme/stv1/_static/image/logo.png\"></a></div></div>\n					<div style=\"background:#fff;padding:20px;min-height:300px;position:relative\">		<div style=\"font-size:14px;\">			\n						            	<p style=\"padding:0 0 20px;margin:0;font-size:12px\"></p>\n						            </div></div><div style=\"background:#fff;\">\n			            <div style=\"text-align:center;height:18px;line-height:18px;color:#999;padding:6px 0;font-size:12px\">若不想再收到此类邮件，请点击<a href=\"http://localhost/ttcms/index.php?app=public&mod=Account&act=notify\" style=\"text-decoration:none;color:#3366cc\">设置</a></div>\n			            <div style=\"line-height:18px;text-align:center\"><p style=\"color:#999;font-size:12px\">©2012 TTCMS All Rights Reserved.</p></div>\n			        </div></div>','1485010715','0','0');
 
 DROP TABLE IF EXISTS tt_online;
 CREATE TABLE `tt_online` (
@@ -5214,8 +5267,8 @@ CREATE TABLE `tt_online` (
   KEY `uid_activeTime` (`uid`,`activeTime`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_online VALUES ('1','0','guest','public','::1','Google','1484810859');
-INSERT INTO tt_online VALUES ('2','1','管理员','public','::1','Google','1484825103');
+INSERT INTO tt_online VALUES ('1','0','guest','public','::1','Google','1485001224');
+INSERT INTO tt_online VALUES ('2','1','管理员','public','::1','Google','1485004954');
 
 DROP TABLE IF EXISTS tt_online_logs;
 CREATE TABLE `tt_online_logs` (
@@ -5232,109 +5285,93 @@ CREATE TABLE `tt_online_logs` (
   `ext` varchar(20) NOT NULL COMMENT '扩展字段',
   `statsed` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否已经统计过',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=207 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_online_logs VALUES ('29','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('28','2017-01-19','0','guest','public/Register/index','http://localhost/thinksns/index.php?app=public&mod=Register&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('27','2017-01-19','0','guest','people/Index/index','http://localhost/thinksns/index.php?app=people','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('26','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('25','2017-01-19','1','管理员','weiba/Index/myWeiba','http://localhost/thinksns/index.php?app=weiba&mod=Index&act=myWeiba&type=myFollowing','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('24','2017-01-19','1','管理员','weiba/Index/weibaList','http://localhost/thinksns/index.php?app=weiba&mod=Index&act=weibaList','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('10','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('11','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('12','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('13','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people&mod=Index&act=index&type=tag','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('14','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people&mod=Index&act=index&type=area','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('15','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people&mod=Index&act=index&type=verify','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('16','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people&mod=Index&act=index&type=official','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('17','2017-01-19','1','管理员','channel/Index/index','http://localhost/thinksns/index.php?app=channel','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('18','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('19','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('20','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('21','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index&type=channel','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('23','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('22','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('30','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('31','2017-01-19','0','guest','public/Passport/login','http://localhost/thinksns/','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('32','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('33','2017-01-19','0','guest','public/Passport/login','http://localhost/thinksns/','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('34','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('35','2017-01-19','0','guest','public/Passport/login','http://localhost/thinksns/','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('36','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('37','2017-01-19','0','guest','public/Register/index','http://localhost/thinksns/index.php?app=public&mod=Register&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('38','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('39','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('40','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('41','2017-01-19','0','guest','public/Passport/login','http://localhost/thinksns/','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('42','2017-01-19','0','guest','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('43','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('44','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('45','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('46','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('47','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('48','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('49','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('50','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('51','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('52','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('53','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('54','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('55','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('56','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('57','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('58','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('59','2017-01-19','1','管理员','public/Account/index','http://localhost/thinksns/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('60','2017-01-19','1','管理员','public/Rank/index','http://localhost/thinksns/index.php?app=public&mod=Rank&act=index&type=2','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('61','2017-01-19','1','管理员','public/Profile/index','http://localhost/thinksns/index.php?app=public&mod=Profile&act=index&uid=1','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('62','2017-01-19','1','管理员','public/Profile/collection','http://localhost/thinksns/index.php?app=public&mod=Profile&act=collection&tab=collect','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('63','2017-01-19','1','管理员','public/Profile/following','http://localhost/thinksns/index.php?app=public&mod=Profile&act=following&tab=following&uid=1','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('64','2017-01-19','1','管理员','public/Profile/follower','http://localhost/thinksns/index.php?app=public&mod=Profile&act=follower&tab=follow&uid=1','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('65','2017-01-19','1','管理员','public/Account/index','http://localhost/thinksns/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('66','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('67','2017-01-19','1','管理员','public/Account/domain','http://localhost/thinksns/index.php?app=public&mod=Account&act=domain','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('68','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('69','2017-01-19','1','管理员','public/Account/domain','http://localhost/thinksns/index.php?app=public&mod=Account&act=domain','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('70','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('71','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('72','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('73','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('74','2017-01-19','1','管理员','public/Account/tag','http://localhost/thinksns/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('75','2017-01-19','1','管理员','public/Account/edu','http://localhost/thinksns/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('76','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('77','2017-01-19','1','管理员','public/Account/domain','http://localhost/thinksns/index.php?app=public&mod=Account&act=domain','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('78','2017-01-19','1','管理员','public/Account/authenticate','http://localhost/thinksns/index.php?app=public&mod=Account&act=authenticate','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('79','2017-01-19','1','管理员','public/Account/scoredetail','http://localhost/thinksns/index.php?app=public&mod=Account&act=scoredetail','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('80','2017-01-19','1','管理员','public/Account/scorerule','http://localhost/thinksns/index.php?app=public&mod=Account&act=scorerule','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('81','2017-01-19','1','管理员','public/Account/scorelevel','http://localhost/thinksns/index.php?app=public&mod=Account&act=scorelevel','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('82','2017-01-19','1','管理员','public/Account/scorecharge','http://localhost/thinksns/index.php?app=public&mod=Account&act=scorecharge','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('83','2017-01-19','1','管理员','public/Account/scoretransfer','http://localhost/thinksns/index.php?app=public&mod=Account&act=scoretransfer','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('84','2017-01-19','1','管理员','public/Account/scorecharge','http://localhost/thinksns/index.php?app=public&mod=Account&act=scorecharge','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('85','2017-01-19','1','管理员','public/Account/notify','http://localhost/thinksns/index.php?app=public&mod=Account&act=notify','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('86','2017-01-19','1','管理员','public/Account/blacklist','http://localhost/thinksns/index.php?app=public&mod=Account&act=blacklist','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('87','2017-01-19','1','管理员','public/Account/security','http://localhost/thinksns/index.php?app=public&mod=Account&act=security','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('88','2017-01-19','1','管理员','public/Account/bind','http://localhost/thinksns/index.php?app=public&mod=Account&act=bind','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('89','2017-01-19','1','管理员','public/Invite/invite','http://localhost/thinksns/index.php?app=public&mod=Invite&act=invite','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('90','2017-01-19','1','管理员','public/Invite/linvite','http://localhost/thinksns/index.php?app=public&mod=Invite&act=linvite','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('91','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('92','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('93','2017-01-19','1','管理员','public/Account/index','http://localhost/thinksns/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('94','2017-01-19','1','管理员','public/Account/authenticate','http://localhost/thinksns/index.php?app=public&mod=Account&act=authenticate','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('95','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('96','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('97','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('98','2017-01-19','1','管理员','public/Account/authenticate','http://localhost/thinksns/index.php?app=public&mod=Account&act=authenticate','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('99','2017-01-19','1','管理员','public/Account/scoredetail','http://localhost/thinksns/index.php?app=public&mod=Account&act=scoredetail','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('100','2017-01-19','1','管理员','public/Account/edu','http://localhost/thinksns/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('101','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('102','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('103','2017-01-19','0','guest','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','1','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('104','2017-01-19','0','guest','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','1','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('105','2017-01-19','0','guest','public/Passport/login','http://localhost/thinksns/','1','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('106','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('107','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('108','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('109','2017-01-19','0','guest','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','1','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('110','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
+INSERT INTO tt_online_logs VALUES ('206','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','0');
+INSERT INTO tt_online_logs VALUES ('205','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('204','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('203','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('202','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('201','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('200','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('199','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('198','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('197','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('196','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('195','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('194','2017-01-21','1','管理员1','public/Account/avatar','http://localhost/ttcms/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('193','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('192','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('191','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('190','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('189','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('188','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('187','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('186','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('185','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('184','2017-01-21','1','管理员1','public/Account/avatar','http://localhost/ttcms/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('183','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('182','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('181','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('180','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('179','2017-01-21','1','管理员1','public/Account/privacy','http://localhost/ttcms/index.php?app=public&mod=Account&act=privacy','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('178','2017-01-21','1','管理员1','public/Account/privacy','http://localhost/ttcms/index.php?app=public&mod=Account&act=privacy','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('174','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('173','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('172','2017-01-21','1','管理员1','public/Profile/index','http://localhost/ttcms/index.php?app=public&mod=Profile&act=index&uid=1','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('171','2017-01-21','1','管理员1','public/Medal/index','http://localhost/ttcms/index.php?app=public&mod=Medal&act=index&type=1&uid=1','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('170','2017-01-21','1','管理员1','public/Medal/index','http://localhost/ttcms/index.php?app=public&mod=Medal&act=index&type=2&uid=1','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('158','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('156','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('157','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('155','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('154','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('152','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('153','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('151','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('150','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('149','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('147','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('146','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('144','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('145','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('143','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('141','2017-01-21','1','管理员','public/Account/privacy','http://localhost/ttcms/index.php?app=public&mod=Account&act=privacy','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('140','2017-01-21','1','管理员','public/Account/scoretransfer','http://localhost/ttcms/index.php?app=public&mod=Account&act=scoretransfer','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('136','2017-01-21','1','管理员','public/Account/scoredetail','http://localhost/ttcms/index.php?app=public&mod=Account&act=scoredetail','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('135','2017-01-21','1','管理员','public/Account/authenticate','http://localhost/ttcms/index.php?app=public&mod=Account&act=authenticate','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('134','2017-01-21','1','管理员','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('133','2017-01-21','1','管理员','public/Profile/index','http://localhost/ttcms/index.php?app=public&mod=Profile&act=index&uid=1','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('132','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index&type=following','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('131','2017-01-21','0','guest','public/Register/index','http://localhost/ttcms/index.php?app=public&mod=Register&act=index&t=email&invite=67197a44f55035ef','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('130','2017-01-21','0','guest','public/Register/index','http://localhost/ttcms/index.php?app=public&mod=Register&act=index&t=phone&invite=67197a44f55035ef','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('129','2017-01-21','0','guest','public/Register/index','http://localhost/ttcms/index.php?app=public&mod=Register&act=index&invite=67197a44f55035ef','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('128','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('125','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('122','2017-01-21','1','管理员','public/Medal/index','http://localhost/ttcms/index.php?app=public&mod=Medal&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('168','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('167','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('160','2017-01-21','1','管理员','public/Account/privacy','http://localhost/ttcms/index.php?app=public&mod=Account&act=privacy','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('161','2017-01-21','1','管理员','public/Account/notify','http://localhost/ttcms/index.php?app=public&mod=Account&act=notify','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('162','2017-01-21','1','管理员','public/Account/privacy','http://localhost/ttcms/index.php?app=public&mod=Account&act=privacy','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('163','2017-01-21','1','管理员','public/Account/security','http://localhost/ttcms/index.php?app=public&mod=Account&act=security','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('177','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('176','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('175','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('148','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('142','2017-01-21','0','guest','public/Register/index','http://localhost/ttcms/index.php?app=public&mod=Register&act=index&t=email&invite=67197a44f55035ef','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('139','2017-01-21','1','管理员','public/Account/scorecharge','http://localhost/ttcms/index.php?app=public&mod=Account&act=scorecharge','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('138','2017-01-21','1','管理员','public/Account/scorelevel','http://localhost/ttcms/index.php?app=public&mod=Account&act=scorelevel','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('137','2017-01-21','1','管理员','public/Account/scorerule','http://localhost/ttcms/index.php?app=public&mod=Account&act=scorerule','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('127','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('126','2017-01-21','0','guest','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('124','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('123','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('169','2017-01-21','1','管理员1','public/Medal/index','http://localhost/ttcms/index.php?app=public&mod=Medal&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('166','2017-01-21','1','管理员','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('165','2017-01-21','1','管理员','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('164','2017-01-21','1','管理员','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('159','2017-01-21','1','管理员','public/Account/notify','http://localhost/ttcms/index.php?app=public&mod=Account&act=notify','0','0','::1','Google','','1');
 
 DROP TABLE IF EXISTS tt_online_stats;
 CREATE TABLE `tt_online_stats` (
@@ -5349,10 +5386,12 @@ CREATE TABLE `tt_online_stats` (
   `most_online` int(11) NOT NULL DEFAULT '0' COMMENT '最大在线人数',
   PRIMARY KEY (`id`),
   KEY `day` (`day`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_online_stats VALUES ('1','2017-01-18','1','1','9','1','1','1484731382','2');
-INSERT INTO tt_online_stats VALUES ('2','2017-01-19','1','15','46','1','1','1484812610','2');
+INSERT INTO tt_online_stats VALUES ('2','2017-01-19','1','19','101','1','1','1484812610','2');
+INSERT INTO tt_online_stats VALUES ('3','2017-01-20','1','5','11','1','1','1484925228','2');
+INSERT INTO tt_online_stats VALUES ('4','2017-01-21','1','21','85','1','0','1485003688','1');
 
 DROP TABLE IF EXISTS tt_permission_group;
 CREATE TABLE `tt_permission_group` (
@@ -5426,7 +5465,7 @@ CREATE TABLE `tt_schedule` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_schedule VALUES ('3','addons/Online/checkOnline','MINUTE','1','','','2013-03-01 18:18:00','0000-00-00 00:00:00','2017-01-19 19:26:00','自动更新统计数','0');
+INSERT INTO tt_schedule VALUES ('3','addons/Online/checkOnline','MINUTE','1','','','2013-03-01 18:18:00','0000-00-00 00:00:00','2017-01-21 23:06:00','自动更新统计数','0');
 INSERT INTO tt_schedule VALUES ('4','addons/Message/doSendFeedMail','MINUTE','1','','','2013-07-01 11:21:00','2015-07-01 11:21:01','2015-07-01 11:21:00','每分钟都检查并发送一批邮件，给最近没登录的用户','0');
 INSERT INTO tt_schedule VALUES ('5','addons/Video/video_transfer','MINUTE','1','','','2014-05-23 11:53:00','2016-05-23 11:53:30','2015-07-14 17:05:00','视频转码','0');
 
@@ -5486,6 +5525,33 @@ INSERT INTO tt_search_select VALUES ('1','public','0','用户','1');
 INSERT INTO tt_search_select VALUES ('2','public','0','分享','2');
 INSERT INTO tt_search_select VALUES ('3','ask','27','问答','1');
 
+DROP TABLE IF EXISTS tt_sensitive_category;
+CREATE TABLE `tt_sensitive_category` (
+  `sensitive_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(225) NOT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `ext` text,
+  PRIMARY KEY (`sensitive_category_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO tt_sensitive_category VALUES ('1','默认','0','1','');
+INSERT INTO tt_sensitive_category VALUES ('2','涉黄','0','2','');
+
+DROP TABLE IF EXISTS tt_sensitive_word;
+CREATE TABLE `tt_sensitive_word` (
+  `sensitive_word_id` int(11) NOT NULL AUTO_INCREMENT,
+  `word` varchar(45) NOT NULL,
+  `replace` varchar(45) NOT NULL DEFAULT '',
+  `type` tinyint(4) NOT NULL,
+  `sensitive_category_id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `ctime` int(11) NOT NULL,
+  PRIMARY KEY (`sensitive_word_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO tt_sensitive_word VALUES ('1','草','','1','2','1','1484932341');
+
 DROP TABLE IF EXISTS tt_sms;
 CREATE TABLE `tt_sms` (
   `phone` varchar(50) NOT NULL COMMENT '手机号码|兼容email验证码',
@@ -5505,7 +5571,7 @@ CREATE TABLE `tt_system_config` (
   `mtime` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `list_key` (`list`,`key`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=6714 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6719 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_system_config VALUES ('119','pageKey','admin_Home_logsArchive','a:4:{s:3:\"key\";a:10:{s:4:\"Name\";s:4:\"Name\";s:6:\"Engine\";s:6:\"Engine\";s:7:\"Version\";s:7:\"Version\";s:4:\"Rows\";s:4:\"Rows\";s:11:\"Data_length\";s:11:\"Data_length\";s:9:\"Data_free\";s:9:\"Data_free\";s:11:\"Create_time\";s:11:\"Create_time\";s:11:\"Update_time\";s:11:\"Update_time\";s:9:\"Collation\";s:9:\"Collation\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:10:{s:4:\"Name\";s:6:\"表名\";s:6:\"Engine\";s:12:\"数据引擎\";s:7:\"Version\";s:6:\"版本\";s:4:\"Rows\";s:6:\"条数\";s:11:\"Data_length\";s:12:\"数据大小\";s:9:\"Data_free\";s:12:\"数据空闲\";s:11:\"Create_time\";s:12:\"创建时间\";s:11:\"Update_time\";s:12:\"最后纪录\";s:9:\"Collation\";s:9:\"字符集\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:10:{s:4:\"Name\";s:1:\"0\";s:6:\"Engine\";s:1:\"0\";s:7:\"Version\";s:1:\"1\";s:4:\"Rows\";s:1:\"0\";s:11:\"Data_length\";s:1:\"0\";s:9:\"Data_free\";s:1:\"1\";s:11:\"Create_time\";s:1:\"0\";s:11:\"Update_time\";s:1:\"0\";s:9:\"Collation\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:10:{s:4:\"Name\";s:0:\"\";s:6:\"Engine\";s:0:\"\";s:7:\"Version\";s:0:\"\";s:4:\"Rows\";s:0:\"\";s:11:\"Data_length\";s:0:\"\";s:9:\"Data_free\";s:0:\"\";s:11:\"Create_time\";s:0:\"\";s:11:\"Update_time\";s:0:\"\";s:9:\"Collation\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2012-03-28 18:49:33');
 INSERT INTO tt_system_config VALUES ('137','pageKey','admin_Config_addannoun','a:6:{s:3:\"key\";a:4:{s:2:\"id\";s:2:\"id\";s:5:\"title\";s:5:\"title\";s:7:\"content\";s:7:\"content\";s:6:\"attach\";s:6:\"attach\";}s:8:\"key_name\";a:4:{s:2:\"id\";s:2:\"ID\";s:5:\"title\";s:12:\"公告标题\";s:7:\"content\";s:12:\"公告内容\";s:6:\"attach\";s:6:\"附件\";}s:8:\"key_type\";a:4:{s:2:\"id\";s:6:\"hidden\";s:5:\"title\";s:4:\"text\";s:7:\"content\";s:8:\"textarea\";s:6:\"attach\";s:4:\"file\";}s:11:\"key_default\";a:4:{s:2:\"id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:7:\"content\";s:0:\"\";s:6:\"attach\";s:0:\"\";}s:9:\"key_tishi\";a:4:{s:2:\"id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:7:\"content\";s:0:\"\";s:6:\"attach\";s:0:\"\";}s:14:\"key_javascript\";a:4:{s:2:\"id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:7:\"content\";s:0:\"\";s:6:\"attach\";s:0:\"\";}}','2012-04-12 17:39:54');
@@ -5532,7 +5598,6 @@ INSERT INTO tt_system_config VALUES ('639','pageKey','admin_Apps_editCreditNode'
 INSERT INTO tt_system_config VALUES ('641','pageKey','admin_Apps_editFeedNode','a:6:{s:3:\"key\";a:5:{s:2:\"id\";s:2:\"id\";s:7:\"appname\";s:7:\"appname\";s:8:\"nodetype\";s:8:\"nodetype\";s:8:\"nodeinfo\";s:8:\"nodeinfo\";s:3:\"xml\";s:3:\"xml\";}s:8:\"key_name\";a:5:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:6:\"应用\";s:8:\"nodetype\";s:6:\"类型\";s:8:\"nodeinfo\";s:12:\"类型别名\";s:3:\"xml\";s:12:\"模板内容\";}s:8:\"key_type\";a:5:{s:2:\"id\";s:6:\"hidden\";s:7:\"appname\";s:4:\"text\";s:8:\"nodetype\";s:4:\"text\";s:8:\"nodeinfo\";s:4:\"text\";s:3:\"xml\";s:8:\"textarea\";}s:11:\"key_default\";a:5:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:8:\"nodetype\";s:0:\"\";s:8:\"nodeinfo\";s:0:\"\";s:3:\"xml\";s:0:\"\";}s:9:\"key_tishi\";a:5:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:8:\"nodetype\";s:0:\"\";s:8:\"nodeinfo\";s:0:\"\";s:3:\"xml\";s:0:\"\";}s:14:\"key_javascript\";a:5:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:8:\"nodetype\";s:0:\"\";s:8:\"nodeinfo\";s:0:\"\";s:3:\"xml\";s:0:\"\";}}','2012-06-07 06:43:09');
 INSERT INTO tt_system_config VALUES ('732','pageKey','admin_Config_nav','a:4:{s:3:\"key\";a:12:{s:7:\"navi_id\";s:7:\"navi_id\";s:9:\"navi_name\";s:9:\"navi_name\";s:8:\"app_name\";s:8:\"app_name\";s:3:\"url\";s:3:\"url\";s:6:\"target\";s:6:\"target\";s:6:\"status\";s:6:\"status\";s:8:\"position\";s:8:\"position\";s:5:\"guest\";s:5:\"guest\";s:11:\"is_app_navi\";s:11:\"is_app_navi\";s:9:\"parent_id\";s:9:\"parent_id\";s:10:\"order_sort\";s:10:\"order_sort\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:12:{s:7:\"navi_id\";s:8:\"导航ID\";s:9:\"navi_name\";s:12:\"导航名称\";s:8:\"app_name\";s:12:\"英文名称\";s:3:\"url\";s:12:\"链接地址\";s:6:\"target\";s:12:\"打开方式\";s:6:\"status\";s:6:\"状态\";s:8:\"position\";s:12:\"导航位置\";s:5:\"guest\";s:12:\"游客可见\";s:11:\"is_app_navi\";s:18:\"应用内部导航\";s:9:\"parent_id\";s:9:\"父导航\";s:10:\"order_sort\";s:12:\"应用排序\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:12:{s:7:\"navi_id\";s:1:\"0\";s:9:\"navi_name\";s:1:\"0\";s:8:\"app_name\";s:1:\"0\";s:3:\"url\";s:1:\"0\";s:6:\"target\";s:1:\"0\";s:6:\"status\";s:1:\"0\";s:8:\"position\";s:1:\"0\";s:5:\"guest\";s:1:\"1\";s:11:\"is_app_navi\";s:1:\"1\";s:9:\"parent_id\";s:1:\"1\";s:10:\"order_sort\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:12:{s:7:\"navi_id\";s:0:\"\";s:9:\"navi_name\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:3:\"url\";s:0:\"\";s:6:\"target\";s:0:\"\";s:6:\"status\";s:0:\"\";s:8:\"position\";s:0:\"\";s:5:\"guest\";s:0:\"\";s:11:\"is_app_navi\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";s:10:\"order_sort\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2012-06-21 15:41:00');
 INSERT INTO tt_system_config VALUES ('740','pageKey','admin_Apps_editPermNode','a:6:{s:3:\"key\";a:6:{s:2:\"id\";s:2:\"id\";s:7:\"appname\";s:7:\"appname\";s:7:\"appinfo\";s:7:\"appinfo\";s:6:\"module\";s:6:\"module\";s:4:\"rule\";s:4:\"rule\";s:8:\"ruleinfo\";s:8:\"ruleinfo\";}s:8:\"key_name\";a:6:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:6:\"应用\";s:7:\"appinfo\";s:12:\"应用别名\";s:6:\"module\";s:6:\"模块\";s:4:\"rule\";s:12:\"权限节点\";s:8:\"ruleinfo\";s:12:\"节点别名\";}s:8:\"key_type\";a:6:{s:2:\"id\";s:6:\"hidden\";s:7:\"appname\";s:4:\"text\";s:7:\"appinfo\";s:4:\"text\";s:6:\"module\";s:5:\"radio\";s:4:\"rule\";s:4:\"text\";s:8:\"ruleinfo\";s:4:\"text\";}s:11:\"key_default\";a:6:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:7:\"appinfo\";s:0:\"\";s:6:\"module\";s:0:\"\";s:4:\"rule\";s:0:\"\";s:8:\"ruleinfo\";s:0:\"\";}s:9:\"key_tishi\";a:6:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:7:\"appinfo\";s:0:\"\";s:6:\"module\";s:0:\"\";s:4:\"rule\";s:0:\"\";s:8:\"ruleinfo\";s:0:\"\";}s:14:\"key_javascript\";a:6:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:7:\"appinfo\";s:0:\"\";s:6:\"module\";s:0:\"\";s:4:\"rule\";s:0:\"\";s:8:\"ruleinfo\";s:0:\"\";}}','2012-06-27 13:43:43');
-INSERT INTO tt_system_config VALUES ('810','searchPageKey','S_admin_Home_logs','a:5:{s:3:\"key\";a:5:{s:5:\"uname\";s:5:\"uname\";s:8:\"app_name\";s:8:\"app_name\";s:5:\"ctime\";s:5:\"ctime\";s:7:\"isAdmin\";s:7:\"isAdmin\";s:7:\"keyword\";s:7:\"keyword\";}s:8:\"key_name\";a:5:{s:5:\"uname\";s:12:\"用户帐号\";s:8:\"app_name\";s:12:\"操作详情\";s:5:\"ctime\";s:12:\"时间范围\";s:7:\"isAdmin\";s:12:\"知识类型\";s:7:\"keyword\";s:15:\"查询关键字\";}s:8:\"key_type\";a:5:{s:5:\"uname\";s:4:\"text\";s:8:\"app_name\";s:6:\"select\";s:5:\"ctime\";s:4:\"date\";s:7:\"isAdmin\";s:8:\"checkbox\";s:7:\"keyword\";s:4:\"text\";}s:9:\"key_tishi\";a:5:{s:5:\"uname\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:7:\"isAdmin\";s:0:\"\";s:7:\"keyword\";s:0:\"\";}s:14:\"key_javascript\";a:5:{s:5:\"uname\";s:0:\"\";s:8:\"app_name\";s:27:\"admin.selectLog(this.value)\";s:5:\"ctime\";s:0:\"\";s:7:\"isAdmin\";s:0:\"\";s:7:\"keyword\";s:0:\"\";}}','2012-07-03 11:44:51');
 INSERT INTO tt_system_config VALUES ('811','pageKey','admin_Home_logs','a:4:{s:3:\"key\";a:10:{s:2:\"id\";s:2:\"id\";s:3:\"uid\";s:3:\"uid\";s:5:\"uname\";s:5:\"uname\";s:8:\"app_name\";s:8:\"app_name\";s:2:\"ip\";s:2:\"ip\";s:4:\"data\";s:4:\"data\";s:5:\"ctime\";s:5:\"ctime\";s:7:\"isAdmin\";s:7:\"isAdmin\";s:9:\"type_info\";s:9:\"type_info\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:10:{s:2:\"id\";s:2:\"ID\";s:3:\"uid\";s:8:\"用户ID\";s:5:\"uname\";s:12:\"用户帐号\";s:8:\"app_name\";s:12:\"操作详情\";s:2:\"ip\";s:2:\"IP\";s:4:\"data\";s:12:\"知识数据\";s:5:\"ctime\";s:12:\"记录时间\";s:7:\"isAdmin\";s:6:\"类型\";s:9:\"type_info\";s:12:\"知识类型\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:10:{s:2:\"id\";s:1:\"1\";s:3:\"uid\";s:1:\"0\";s:5:\"uname\";s:1:\"0\";s:8:\"app_name\";s:1:\"0\";s:2:\"ip\";s:1:\"0\";s:4:\"data\";s:1:\"0\";s:5:\"ctime\";s:1:\"0\";s:7:\"isAdmin\";s:1:\"0\";s:9:\"type_info\";s:1:\"1\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:10:{s:2:\"id\";s:0:\"\";s:3:\"uid\";s:0:\"\";s:5:\"uname\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:2:\"ip\";s:0:\"\";s:4:\"data\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:7:\"isAdmin\";s:0:\"\";s:9:\"type_info\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2012-07-03 11:45:09');
 INSERT INTO tt_system_config VALUES ('1071','pageKey','admin_Department_index','a:6:{s:3:\"key\";a:6:{s:13:\"department_id\";s:13:\"department_id\";s:5:\"title\";s:5:\"title\";s:14:\"parent_dept_id\";s:14:\"parent_dept_id\";s:13:\"display_order\";s:13:\"display_order\";s:5:\"ctime\";s:5:\"ctime\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:6:{s:13:\"department_id\";s:8:\"部门ID\";s:5:\"title\";s:12:\"部门名称\";s:14:\"parent_dept_id\";s:12:\"上级部门\";s:13:\"display_order\";s:6:\"顺序\";s:5:\"ctime\";s:12:\"添加时间\";s:8:\"DOACTION\";s:6:\"操作\";}s:8:\"key_type\";a:6:{s:13:\"department_id\";s:6:\"hidden\";s:5:\"title\";s:4:\"text\";s:14:\"parent_dept_id\";s:6:\"select\";s:13:\"display_order\";s:6:\"hidden\";s:5:\"ctime\";s:6:\"hidden\";s:8:\"DOACTION\";s:6:\"hidden\";}s:11:\"key_default\";a:6:{s:13:\"department_id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:14:\"parent_dept_id\";s:0:\"\";s:13:\"display_order\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}s:9:\"key_tishi\";a:6:{s:13:\"department_id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:14:\"parent_dept_id\";s:0:\"\";s:13:\"display_order\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}s:14:\"key_javascript\";a:6:{s:13:\"department_id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:14:\"parent_dept_id\";s:38:\"admin.selectDepart(this.value,$(this))\";s:13:\"display_order\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2012-07-13 12:50:00');
 INSERT INTO tt_system_config VALUES ('1073','pageKey','admin_Config_announcement','a:4:{s:3:\"key\";a:5:{s:2:\"id\";s:2:\"id\";s:5:\"title\";s:5:\"title\";s:3:\"uid\";s:3:\"uid\";s:4:\"sort\";s:4:\"sort\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:5:{s:2:\"id\";s:2:\"ID\";s:5:\"title\";s:12:\"公告标题\";s:3:\"uid\";s:9:\"发布者\";s:4:\"sort\";s:6:\"排序\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:5:{s:2:\"id\";s:1:\"0\";s:5:\"title\";s:1:\"0\";s:3:\"uid\";s:1:\"0\";s:4:\"sort\";s:1:\"1\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:5:{s:2:\"id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:3:\"uid\";s:0:\"\";s:4:\"sort\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2012-07-13 13:50:15');
@@ -5658,15 +5723,14 @@ INSERT INTO tt_system_config VALUES ('6515','pageKey','admin_Config_setUcenter',
 INSERT INTO tt_system_config VALUES ('6517','pageKey','admin_Apps_preinstall','a:6:{s:3:\"key\";a:19:{s:6:\"app_id\";s:6:\"app_id\";s:8:\"app_name\";s:8:\"app_name\";s:9:\"app_alias\";s:9:\"app_alias\";s:9:\"app_entry\";s:9:\"app_entry\";s:11:\"description\";s:11:\"description\";s:6:\"status\";s:6:\"status\";s:9:\"host_type\";s:9:\"host_type\";s:8:\"icon_url\";s:8:\"icon_url\";s:14:\"large_icon_url\";s:14:\"large_icon_url\";s:11:\"admin_entry\";s:11:\"admin_entry\";s:16:\"statistics_entry\";s:16:\"statistics_entry\";s:12:\"company_name\";s:12:\"company_name\";s:13:\"display_order\";s:13:\"display_order\";s:7:\"version\";s:7:\"version\";s:7:\"api_key\";s:7:\"api_key\";s:10:\"secure_key\";s:10:\"secure_key\";s:13:\"add_front_top\";s:13:\"add_front_top\";s:17:\"add_front_applist\";s:17:\"add_front_applist\";s:9:\"add_tonav\";s:9:\"add_tonav\";}s:8:\"key_name\";a:19:{s:6:\"app_id\";s:8:\"应用ID\";s:8:\"app_name\";s:15:\"应用英文名\";s:9:\"app_alias\";s:12:\"应用名称\";s:9:\"app_entry\";s:12:\"前台入口\";s:11:\"description\";s:12:\"应用描述\";s:6:\"status\";s:12:\"应用状态\";s:9:\"host_type\";s:12:\"托管类别\";s:8:\"icon_url\";s:12:\"图标地址\";s:14:\"large_icon_url\";s:15:\"大图标地址\";s:11:\"admin_entry\";s:12:\"后台入口\";s:16:\"statistics_entry\";s:12:\"统计入口\";s:12:\"company_name\";s:12:\"公司名称\";s:13:\"display_order\";s:6:\"排序\";s:7:\"version\";s:6:\"版本\";s:7:\"api_key\";s:7:\"API_KEY\";s:10:\"secure_key\";s:10:\"SECURE_KEY\";s:13:\"add_front_top\";s:24:\"添加到前台应用框\";s:17:\"add_front_applist\";s:27:\"添加到前台应用列表\";s:9:\"add_tonav\";s:15:\"添加到导航\";}s:8:\"key_type\";a:19:{s:6:\"app_id\";s:6:\"hidden\";s:8:\"app_name\";s:6:\"hidden\";s:9:\"app_alias\";s:4:\"text\";s:9:\"app_entry\";s:6:\"hidden\";s:11:\"description\";s:8:\"textarea\";s:6:\"status\";s:5:\"radio\";s:9:\"host_type\";s:6:\"hidden\";s:8:\"icon_url\";s:6:\"hidden\";s:14:\"large_icon_url\";s:6:\"hidden\";s:11:\"admin_entry\";s:6:\"hidden\";s:16:\"statistics_entry\";s:6:\"hidden\";s:12:\"company_name\";s:4:\"text\";s:13:\"display_order\";s:6:\"hidden\";s:7:\"version\";s:4:\"text\";s:7:\"api_key\";s:6:\"hidden\";s:10:\"secure_key\";s:6:\"hidden\";s:13:\"add_front_top\";s:5:\"radio\";s:17:\"add_front_applist\";s:5:\"radio\";s:9:\"add_tonav\";s:5:\"radio\";}s:11:\"key_default\";a:19:{s:6:\"app_id\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:9:\"app_alias\";s:0:\"\";s:9:\"app_entry\";s:0:\"\";s:11:\"description\";s:0:\"\";s:6:\"status\";s:1:\"1\";s:9:\"host_type\";s:0:\"\";s:8:\"icon_url\";s:0:\"\";s:14:\"large_icon_url\";s:0:\"\";s:11:\"admin_entry\";s:0:\"\";s:16:\"statistics_entry\";s:0:\"\";s:12:\"company_name\";s:12:\"智士软件\";s:13:\"display_order\";s:0:\"\";s:7:\"version\";s:0:\"\";s:7:\"api_key\";s:0:\"\";s:10:\"secure_key\";s:0:\"\";s:13:\"add_front_top\";s:1:\"1\";s:17:\"add_front_applist\";s:1:\"1\";s:9:\"add_tonav\";s:1:\"1\";}s:9:\"key_tishi\";a:19:{s:6:\"app_id\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:9:\"app_alias\";s:39:\"前台展示的应用名称（必填）\";s:9:\"app_entry\";s:0:\"\";s:11:\"description\";s:27:\"前台展示的应用简介\";s:6:\"status\";s:0:\"\";s:9:\"host_type\";s:0:\"\";s:8:\"icon_url\";s:0:\"\";s:14:\"large_icon_url\";s:0:\"\";s:11:\"admin_entry\";s:0:\"\";s:16:\"statistics_entry\";s:0:\"\";s:12:\"company_name\";s:0:\"\";s:13:\"display_order\";s:0:\"\";s:7:\"version\";s:0:\"\";s:7:\"api_key\";s:0:\"\";s:10:\"secure_key\";s:0:\"\";s:13:\"add_front_top\";s:0:\"\";s:17:\"add_front_applist\";s:0:\"\";s:9:\"add_tonav\";s:0:\"\";}s:14:\"key_javascript\";a:19:{s:6:\"app_id\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:9:\"app_alias\";s:0:\"\";s:9:\"app_entry\";s:0:\"\";s:11:\"description\";s:0:\"\";s:6:\"status\";s:0:\"\";s:9:\"host_type\";s:0:\"\";s:8:\"icon_url\";s:0:\"\";s:14:\"large_icon_url\";s:0:\"\";s:11:\"admin_entry\";s:0:\"\";s:16:\"statistics_entry\";s:0:\"\";s:12:\"company_name\";s:0:\"\";s:13:\"display_order\";s:0:\"\";s:7:\"version\";s:0:\"\";s:7:\"api_key\";s:0:\"\";s:10:\"secure_key\";s:0:\"\";s:13:\"add_front_top\";s:0:\"\";s:17:\"add_front_applist\";s:0:\"\";s:9:\"add_tonav\";s:0:\"\";}}','2013-05-10 13:49:36');
 INSERT INTO tt_system_config VALUES ('6523','pageKey','admin_Config_cloudimage','a:6:{s:3:\"key\";a:7:{s:16:\"cloud_image_open\";s:16:\"cloud_image_open\";s:19:\"cloud_image_api_url\";s:19:\"cloud_image_api_url\";s:18:\"cloud_image_bucket\";s:18:\"cloud_image_bucket\";s:24:\"cloud_image_form_api_key\";s:24:\"cloud_image_form_api_key\";s:23:\"cloud_image_prefix_urls\";s:23:\"cloud_image_prefix_urls\";s:17:\"cloud_image_admin\";s:17:\"cloud_image_admin\";s:20:\"cloud_image_password\";s:20:\"cloud_image_password\";}s:8:\"key_name\";a:7:{s:16:\"cloud_image_open\";s:21:\"开启又拍云图片\";s:19:\"cloud_image_api_url\";s:15:\"默认API地址\";s:18:\"cloud_image_bucket\";s:12:\"图片bucket\";s:24:\"cloud_image_form_api_key\";s:15:\"表单API密钥\";s:23:\"cloud_image_prefix_urls\";s:12:\"域名前缀\";s:17:\"cloud_image_admin\";s:15:\"操作员帐号\";s:20:\"cloud_image_password\";s:15:\"操作员密码\";}s:8:\"key_type\";a:7:{s:16:\"cloud_image_open\";s:5:\"radio\";s:19:\"cloud_image_api_url\";s:4:\"text\";s:18:\"cloud_image_bucket\";s:4:\"text\";s:24:\"cloud_image_form_api_key\";s:4:\"text\";s:23:\"cloud_image_prefix_urls\";s:8:\"textarea\";s:17:\"cloud_image_admin\";s:4:\"text\";s:20:\"cloud_image_password\";s:8:\"password\";}s:11:\"key_default\";a:7:{s:16:\"cloud_image_open\";s:1:\"1\";s:19:\"cloud_image_api_url\";s:23:\"http://v0.api.upyun.com\";s:18:\"cloud_image_bucket\";s:0:\"\";s:24:\"cloud_image_form_api_key\";s:0:\"\";s:23:\"cloud_image_prefix_urls\";s:0:\"\";s:17:\"cloud_image_admin\";s:0:\"\";s:20:\"cloud_image_password\";s:0:\"\";}s:9:\"key_tishi\";a:7:{s:16:\"cloud_image_open\";s:0:\"\";s:19:\"cloud_image_api_url\";s:0:\"\";s:18:\"cloud_image_bucket\";s:0:\"\";s:24:\"cloud_image_form_api_key\";s:0:\"\";s:23:\"cloud_image_prefix_urls\";s:75:\"需要在又拍云绑定过的域名，多个域名请用半角逗号分隔\";s:17:\"cloud_image_admin\";s:0:\"\";s:20:\"cloud_image_password\";s:0:\"\";}s:14:\"key_javascript\";a:7:{s:16:\"cloud_image_open\";s:0:\"\";s:19:\"cloud_image_api_url\";s:0:\"\";s:18:\"cloud_image_bucket\";s:0:\"\";s:24:\"cloud_image_form_api_key\";s:0:\"\";s:23:\"cloud_image_prefix_urls\";s:0:\"\";s:17:\"cloud_image_admin\";s:0:\"\";s:20:\"cloud_image_password\";s:0:\"\";}}','2013-05-27 01:33:15');
 INSERT INTO tt_system_config VALUES ('6524','pageKey','admin_Medal_addUserMedal','a:6:{s:3:\"key\";a:7:{s:4:\"user\";s:4:\"user\";s:5:\"medal\";s:5:\"medal\";s:9:\"attach_id\";s:9:\"attach_id\";s:12:\"attach_small\";s:12:\"attach_small\";s:10:\"medal_name\";s:10:\"medal_name\";s:10:\"medal_desc\";s:10:\"medal_desc\";s:4:\"desc\";s:4:\"desc\";}s:8:\"key_name\";a:7:{s:4:\"user\";s:9:\"用户名\";s:5:\"medal\";s:12:\"选择勋章\";s:9:\"attach_id\";s:18:\"上传勋章大图\";s:12:\"attach_small\";s:18:\"上传勋章小图\";s:10:\"medal_name\";s:12:\"勋章名称\";s:10:\"medal_desc\";s:12:\"勋章描述\";s:4:\"desc\";s:12:\"颁发描述\";}s:8:\"key_type\";a:7:{s:4:\"user\";s:4:\"user\";s:5:\"medal\";s:6:\"select\";s:9:\"attach_id\";s:5:\"image\";s:12:\"attach_small\";s:4:\"text\";s:10:\"medal_name\";s:4:\"text\";s:10:\"medal_desc\";s:4:\"text\";s:4:\"desc\";s:4:\"text\";}s:11:\"key_default\";a:7:{s:4:\"user\";s:0:\"\";s:5:\"medal\";s:0:\"\";s:9:\"attach_id\";s:0:\"\";s:12:\"attach_small\";s:0:\"\";s:10:\"medal_name\";s:0:\"\";s:10:\"medal_desc\";s:0:\"\";s:4:\"desc\";s:0:\"\";}s:9:\"key_tishi\";a:7:{s:4:\"user\";s:0:\"\";s:5:\"medal\";s:0:\"\";s:9:\"attach_id\";s:7:\"100x100\";s:12:\"attach_small\";s:5:\"30x30\";s:10:\"medal_name\";s:0:\"\";s:10:\"medal_desc\";s:0:\"\";s:4:\"desc\";s:0:\"\";}s:14:\"key_javascript\";a:7:{s:4:\"user\";s:0:\"\";s:5:\"medal\";s:26:\"admin.addmedal(this.value)\";s:9:\"attach_id\";s:0:\"\";s:12:\"attach_small\";s:0:\"\";s:10:\"medal_name\";s:0:\"\";s:10:\"medal_desc\";s:0:\"\";s:4:\"desc\";s:0:\"\";}}','2013-05-27 10:44:57');
-INSERT INTO tt_system_config VALUES ('6525','pageKey','support_Admin_index','a:6:{s:3:\"key\";a:6:{s:4:\"lang\";s:4:\"lang\";s:7:\"comment\";s:7:\"comment\";s:7:\"retaing\";s:7:\"retaing\";s:10:\"searchWord\";s:10:\"searchWord\";s:6:\"notify\";s:6:\"notify\";s:5:\"audit\";s:5:\"audit\";}s:8:\"key_name\";a:6:{s:4:\"lang\";s:12:\"双语开关\";s:7:\"comment\";s:13:\"评论开关	\";s:7:\"retaing\";s:12:\"评价开关\";s:10:\"searchWord\";s:15:\"推荐搜索词\";s:6:\"notify\";s:18:\"通知服务开关\";s:5:\"audit\";s:18:\"问题审核开关\";}s:8:\"key_type\";a:6:{s:4:\"lang\";s:5:\"radio\";s:7:\"comment\";s:5:\"radio\";s:7:\"retaing\";s:5:\"radio\";s:10:\"searchWord\";s:8:\"textarea\";s:6:\"notify\";s:5:\"radio\";s:5:\"audit\";s:5:\"radio\";}s:11:\"key_default\";a:6:{s:4:\"lang\";s:1:\"1\";s:7:\"comment\";s:1:\"1\";s:7:\"retaing\";s:1:\"1\";s:10:\"searchWord\";s:0:\"\";s:6:\"notify\";s:1:\"1\";s:5:\"audit\";s:1:\"1\";}s:9:\"key_tishi\";a:6:{s:4:\"lang\";s:0:\"\";s:7:\"comment\";s:0:\"\";s:7:\"retaing\";s:0:\"\";s:10:\"searchWord\";s:54:\"多个推荐搜索词之间用英文逗号符号分隔\";s:6:\"notify\";s:0:\"\";s:5:\"audit\";s:60:\"关闭审核后，后台配置的专家将不起实质作用\";}s:14:\"key_javascript\";a:6:{s:4:\"lang\";s:0:\"\";s:7:\"comment\";s:0:\"\";s:7:\"retaing\";s:0:\"\";s:10:\"searchWord\";s:0:\"\";s:6:\"notify\";s:0:\"\";s:5:\"audit\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6526','pageKey','support_Admin_ommissioner','a:6:{s:3:\"key\";a:3:{s:10:\"support_sa\";s:10:\"support_sa\";s:10:\"support_er\";s:10:\"support_er\";s:8:\"feedback\";s:8:\"feedback\";}s:8:\"key_name\";a:3:{s:10:\"support_sa\";s:12:\"服务专员\";s:10:\"support_er\";s:6:\"专家\";s:8:\"feedback\";s:14:\"feedback专员\";}s:8:\"key_type\";a:3:{s:10:\"support_sa\";s:4:\"user\";s:10:\"support_er\";s:4:\"user\";s:8:\"feedback\";s:4:\"user\";}s:11:\"key_default\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}s:9:\"key_tishi\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}s:14:\"key_javascript\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6527','pageKey','support_Admin_questionCategory','a:4:{s:3:\"key\";a:5:{s:11:\"category_id\";s:11:\"category_id\";s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:9:\"parent_id\";s:9:\"parent_id\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:5:{s:11:\"category_id\";s:8:\"分类ID\";s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";s:9:\"parent_id\";s:9:\"父分类\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:5:{s:11:\"category_id\";s:1:\"0\";s:16:\"category_name_cn\";s:1:\"0\";s:16:\"category_name_en\";s:1:\"0\";s:9:\"parent_id\";s:1:\"1\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:5:{s:11:\"category_id\";s:0:\"\";s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6528','pageKey','support_Admin_feedbackCategory','a:4:{s:3:\"key\";a:4:{s:20:\"feedback_category_id\";s:20:\"feedback_category_id\";s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:4:{s:20:\"feedback_category_id\";s:16:\"feedback分类ID\";s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:4:{s:20:\"feedback_category_id\";s:1:\"0\";s:16:\"category_name_cn\";s:1:\"0\";s:16:\"category_name_en\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:4:{s:20:\"feedback_category_id\";s:0:\"\";s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6529','pageKey','support_Admin_addFeedbackType','a:6:{s:3:\"key\";a:2:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";}s:8:\"key_name\";a:2:{s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";}s:8:\"key_type\";a:2:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";}s:11:\"key_default\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}s:9:\"key_tishi\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}s:14:\"key_javascript\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6530','pageKey','support_Admin_addCategory','a:6:{s:3:\"key\";a:3:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:12:\"category_pic\";s:12:\"category_pic\";}s:8:\"key_name\";a:3:{s:16:\"category_name_cn\";s:15:\"中文分类名\";s:16:\"category_name_en\";s:15:\"英文分类名\";s:12:\"category_pic\";s:12:\"分类图片\";}s:8:\"key_type\";a:3:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";s:12:\"category_pic\";s:5:\"image\";}s:11:\"key_default\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}s:9:\"key_tishi\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}s:14:\"key_javascript\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6531','pageKey','support_Admin_addCategory_son','a:6:{s:3:\"key\";a:5:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:16:\"category_tags_cn\";s:16:\"category_tags_cn\";s:16:\"category_tags_en\";s:16:\"category_tags_en\";s:9:\"parent_id\";s:9:\"parent_id\";}s:8:\"key_name\";a:5:{s:16:\"category_name_cn\";s:15:\"中文分类名\";s:16:\"category_name_en\";s:15:\"英文分类名\";s:16:\"category_tags_cn\";s:12:\"中文标签\";s:16:\"category_tags_en\";s:12:\"英文标签\";s:9:\"parent_id\";s:12:\"上级分类\";}s:8:\"key_type\";a:5:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";s:16:\"category_tags_cn\";s:4:\"text\";s:16:\"category_tags_en\";s:4:\"text\";s:9:\"parent_id\";s:6:\"select\";}s:11:\"key_default\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:0:\"\";s:16:\"category_tags_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";}s:9:\"key_tishi\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:39:\"多个标签之间用英文逗号分隔\";s:16:\"category_tags_en\";s:39:\"多个标签之间用英文逗号分隔\";s:9:\"parent_id\";s:0:\"\";}s:14:\"key_javascript\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:0:\"\";s:16:\"category_tags_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";}}','');
+INSERT INTO tt_system_config VALUES ('6525','pageKey','support_Admin_index','a:6:{s:3:\"key\";a:6:{s:4:\"lang\";s:4:\"lang\";s:7:\"comment\";s:7:\"comment\";s:7:\"retaing\";s:7:\"retaing\";s:10:\"searchWord\";s:10:\"searchWord\";s:6:\"notify\";s:6:\"notify\";s:5:\"audit\";s:5:\"audit\";}s:8:\"key_name\";a:6:{s:4:\"lang\";s:12:\"双语开关\";s:7:\"comment\";s:13:\"评论开关	\";s:7:\"retaing\";s:12:\"评价开关\";s:10:\"searchWord\";s:15:\"推荐搜索词\";s:6:\"notify\";s:18:\"通知服务开关\";s:5:\"audit\";s:18:\"问题审核开关\";}s:8:\"key_type\";a:6:{s:4:\"lang\";s:5:\"radio\";s:7:\"comment\";s:5:\"radio\";s:7:\"retaing\";s:5:\"radio\";s:10:\"searchWord\";s:8:\"textarea\";s:6:\"notify\";s:5:\"radio\";s:5:\"audit\";s:5:\"radio\";}s:11:\"key_default\";a:6:{s:4:\"lang\";s:1:\"1\";s:7:\"comment\";s:1:\"1\";s:7:\"retaing\";s:1:\"1\";s:10:\"searchWord\";s:0:\"\";s:6:\"notify\";s:1:\"1\";s:5:\"audit\";s:1:\"1\";}s:9:\"key_tishi\";a:6:{s:4:\"lang\";s:0:\"\";s:7:\"comment\";s:0:\"\";s:7:\"retaing\";s:0:\"\";s:10:\"searchWord\";s:54:\"多个推荐搜索词之间用英文逗号符号分隔\";s:6:\"notify\";s:0:\"\";s:5:\"audit\";s:60:\"关闭审核后，后台配置的专家将不起实质作用\";}s:14:\"key_javascript\";a:6:{s:4:\"lang\";s:0:\"\";s:7:\"comment\";s:0:\"\";s:7:\"retaing\";s:0:\"\";s:10:\"searchWord\";s:0:\"\";s:6:\"notify\";s:0:\"\";s:5:\"audit\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6526','pageKey','support_Admin_ommissioner','a:6:{s:3:\"key\";a:3:{s:10:\"support_sa\";s:10:\"support_sa\";s:10:\"support_er\";s:10:\"support_er\";s:8:\"feedback\";s:8:\"feedback\";}s:8:\"key_name\";a:3:{s:10:\"support_sa\";s:12:\"服务专员\";s:10:\"support_er\";s:6:\"专家\";s:8:\"feedback\";s:14:\"feedback专员\";}s:8:\"key_type\";a:3:{s:10:\"support_sa\";s:4:\"user\";s:10:\"support_er\";s:4:\"user\";s:8:\"feedback\";s:4:\"user\";}s:11:\"key_default\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}s:9:\"key_tishi\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}s:14:\"key_javascript\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6527','pageKey','support_Admin_questionCategory','a:4:{s:3:\"key\";a:5:{s:11:\"category_id\";s:11:\"category_id\";s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:9:\"parent_id\";s:9:\"parent_id\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:5:{s:11:\"category_id\";s:8:\"分类ID\";s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";s:9:\"parent_id\";s:9:\"父分类\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:5:{s:11:\"category_id\";s:1:\"0\";s:16:\"category_name_cn\";s:1:\"0\";s:16:\"category_name_en\";s:1:\"0\";s:9:\"parent_id\";s:1:\"1\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:5:{s:11:\"category_id\";s:0:\"\";s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6528','pageKey','support_Admin_feedbackCategory','a:4:{s:3:\"key\";a:4:{s:20:\"feedback_category_id\";s:20:\"feedback_category_id\";s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:4:{s:20:\"feedback_category_id\";s:16:\"feedback分类ID\";s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:4:{s:20:\"feedback_category_id\";s:1:\"0\";s:16:\"category_name_cn\";s:1:\"0\";s:16:\"category_name_en\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:4:{s:20:\"feedback_category_id\";s:0:\"\";s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6529','pageKey','support_Admin_addFeedbackType','a:6:{s:3:\"key\";a:2:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";}s:8:\"key_name\";a:2:{s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";}s:8:\"key_type\";a:2:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";}s:11:\"key_default\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}s:9:\"key_tishi\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}s:14:\"key_javascript\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6530','pageKey','support_Admin_addCategory','a:6:{s:3:\"key\";a:3:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:12:\"category_pic\";s:12:\"category_pic\";}s:8:\"key_name\";a:3:{s:16:\"category_name_cn\";s:15:\"中文分类名\";s:16:\"category_name_en\";s:15:\"英文分类名\";s:12:\"category_pic\";s:12:\"分类图片\";}s:8:\"key_type\";a:3:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";s:12:\"category_pic\";s:5:\"image\";}s:11:\"key_default\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}s:9:\"key_tishi\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}s:14:\"key_javascript\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6531','pageKey','support_Admin_addCategory_son','a:6:{s:3:\"key\";a:5:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:16:\"category_tags_cn\";s:16:\"category_tags_cn\";s:16:\"category_tags_en\";s:16:\"category_tags_en\";s:9:\"parent_id\";s:9:\"parent_id\";}s:8:\"key_name\";a:5:{s:16:\"category_name_cn\";s:15:\"中文分类名\";s:16:\"category_name_en\";s:15:\"英文分类名\";s:16:\"category_tags_cn\";s:12:\"中文标签\";s:16:\"category_tags_en\";s:12:\"英文标签\";s:9:\"parent_id\";s:12:\"上级分类\";}s:8:\"key_type\";a:5:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";s:16:\"category_tags_cn\";s:4:\"text\";s:16:\"category_tags_en\";s:4:\"text\";s:9:\"parent_id\";s:6:\"select\";}s:11:\"key_default\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:0:\"\";s:16:\"category_tags_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";}s:9:\"key_tishi\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:39:\"多个标签之间用英文逗号分隔\";s:16:\"category_tags_en\";s:39:\"多个标签之间用英文逗号分隔\";s:9:\"parent_id\";s:0:\"\";}s:14:\"key_javascript\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:0:\"\";s:16:\"category_tags_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";}}','0000-00-00 00:00:00');
 INSERT INTO tt_system_config VALUES ('6534','pageKey','admin_Home_schedule','a:4:{s:3:\"key\";a:10:{s:2:\"id\";s:2:\"id\";s:6:\"method\";s:6:\"method\";s:13:\"schedule_type\";s:13:\"schedule_type\";s:8:\"modifier\";s:8:\"modifier\";s:7:\"dirlist\";s:7:\"dirlist\";s:5:\"month\";s:5:\"month\";s:14:\"start_datetime\";s:14:\"start_datetime\";s:12:\"end_datetime\";s:12:\"end_datetime\";s:13:\"last_run_time\";s:13:\"last_run_time\";s:4:\"info\";s:4:\"info\";}s:8:\"key_name\";a:10:{s:2:\"id\";s:2:\"ID\";s:6:\"method\";s:12:\"执行函数\";s:13:\"schedule_type\";s:6:\"类型\";s:8:\"modifier\";s:12:\"执行频率\";s:7:\"dirlist\";s:7:\"dirlist\";s:5:\"month\";s:5:\"month\";s:14:\"start_datetime\";s:12:\"开始时间\";s:12:\"end_datetime\";s:12:\"失效时间\";s:13:\"last_run_time\";s:12:\"上次执行\";s:4:\"info\";s:6:\"简介\";}s:10:\"key_hidden\";a:10:{s:2:\"id\";s:1:\"0\";s:6:\"method\";s:1:\"0\";s:13:\"schedule_type\";s:1:\"0\";s:8:\"modifier\";s:1:\"0\";s:7:\"dirlist\";s:1:\"1\";s:5:\"month\";s:1:\"1\";s:14:\"start_datetime\";s:1:\"0\";s:12:\"end_datetime\";s:1:\"0\";s:13:\"last_run_time\";s:1:\"0\";s:4:\"info\";s:1:\"0\";}s:14:\"key_javascript\";a:10:{s:2:\"id\";s:0:\"\";s:6:\"method\";s:0:\"\";s:13:\"schedule_type\";s:0:\"\";s:8:\"modifier\";s:0:\"\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:0:\"\";s:12:\"end_datetime\";s:0:\"\";s:13:\"last_run_time\";s:0:\"\";s:4:\"info\";s:0:\"\";}}','2013-07-01 11:10:55');
-INSERT INTO tt_system_config VALUES ('6535','pageKey','admin_Home_newschedule','a:6:{s:3:\"key\";a:8:{s:11:\"task_to_run\";s:11:\"task_to_run\";s:13:\"schedule_type\";s:13:\"schedule_type\";s:8:\"modifier\";s:8:\"modifier\";s:7:\"dirlist\";s:7:\"dirlist\";s:5:\"month\";s:5:\"month\";s:14:\"start_datetime\";s:14:\"start_datetime\";s:12:\"end_datetime\";s:12:\"end_datetime\";s:4:\"info\";s:4:\"info\";}s:8:\"key_name\";a:8:{s:11:\"task_to_run\";s:12:\"执行函数\";s:13:\"schedule_type\";s:12:\"任务类型\";s:8:\"modifier\";s:12:\"执行频率\";s:7:\"dirlist\";s:24:\"某天（默认每天）\";s:5:\"month\";s:24:\"某月（默认每月）\";s:14:\"start_datetime\";s:12:\"开始时间\";s:12:\"end_datetime\";s:12:\"结束时间\";s:4:\"info\";s:6:\"简介\";}s:8:\"key_type\";a:8:{s:11:\"task_to_run\";s:4:\"text\";s:13:\"schedule_type\";s:4:\"text\";s:8:\"modifier\";s:4:\"text\";s:7:\"dirlist\";s:4:\"text\";s:5:\"month\";s:4:\"text\";s:14:\"start_datetime\";s:4:\"date\";s:12:\"end_datetime\";s:4:\"date\";s:4:\"info\";s:4:\"text\";}s:11:\"key_default\";a:8:{s:11:\"task_to_run\";s:0:\"\";s:13:\"schedule_type\";s:0:\"\";s:8:\"modifier\";s:0:\"\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:0:\"\";s:12:\"end_datetime\";s:0:\"\";s:4:\"info\";s:0:\"\";}s:9:\"key_tishi\";a:8:{s:11:\"task_to_run\";s:58:\"计划任务执行的函数，格式为：app/Model/method\";s:13:\"schedule_type\";s:56:\"ONCE、MINUTE、HOURLY、DAILY、WEEKLY、MONTHLY 之一\";s:8:\"modifier\";s:75:\"类型为MONTHLY时必须；ONCE时无效；其他时为可选，默认为1\";s:7:\"dirlist\";s:100:\"指定周或月的一天或多天。只与WEEKLY和MONTHLY共同使用时有效，其他时忽略。\";s:5:\"month\";s:191:\"指定一年中的一个月或多个月.只在schedule_type=MONTHLY时有效，其他时忽略。当modifier=LASTDAY时必须，其他时可选。有效值：Jan - Dec，默认为*(每个月)\";s:14:\"start_datetime\";s:50:\"任务启动时间，使用“Y-m-d H:i:s”格式\";s:12:\"end_datetime\";s:44:\"失效时间，使用“Y-m-d H:i:s”格式\";s:4:\"info\";s:30:\"对计划任务的简要描述\";}s:14:\"key_javascript\";a:8:{s:11:\"task_to_run\";s:0:\"\";s:13:\"schedule_type\";s:0:\"\";s:8:\"modifier\";s:0:\"\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:0:\"\";s:12:\"end_datetime\";s:0:\"\";s:4:\"info\";s:0:\"\";}}','2013-07-01 11:12:31');
 INSERT INTO tt_system_config VALUES ('6537','pageKey','admin_Config_guestNav','a:4:{s:3:\"key\";a:12:{s:7:\"navi_id\";s:7:\"navi_id\";s:9:\"navi_name\";s:9:\"navi_name\";s:8:\"app_name\";s:8:\"app_name\";s:3:\"url\";s:3:\"url\";s:6:\"target\";s:6:\"target\";s:6:\"status\";s:6:\"status\";s:8:\"position\";s:8:\"position\";s:5:\"guest\";s:5:\"guest\";s:11:\"is_app_navi\";s:11:\"is_app_navi\";s:9:\"parent_id\";s:9:\"parent_id\";s:10:\"order_sort\";s:10:\"order_sort\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:12:{s:7:\"navi_id\";s:8:\"导航ID\";s:9:\"navi_name\";s:12:\"导航名称\";s:8:\"app_name\";s:12:\"英文名称\";s:3:\"url\";s:12:\"链接地址\";s:6:\"target\";s:12:\"打开方式\";s:6:\"status\";s:6:\"状态\";s:8:\"position\";s:12:\"导航位置\";s:5:\"guest\";s:12:\"游客可见\";s:11:\"is_app_navi\";s:18:\"应用内部导航\";s:9:\"parent_id\";s:9:\"父导航\";s:10:\"order_sort\";s:6:\"排序\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:12:{s:7:\"navi_id\";s:1:\"0\";s:9:\"navi_name\";s:1:\"0\";s:8:\"app_name\";s:1:\"0\";s:3:\"url\";s:1:\"0\";s:6:\"target\";s:1:\"0\";s:6:\"status\";s:1:\"0\";s:8:\"position\";s:1:\"0\";s:5:\"guest\";s:1:\"1\";s:11:\"is_app_navi\";s:1:\"1\";s:9:\"parent_id\";s:1:\"0\";s:10:\"order_sort\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:12:{s:7:\"navi_id\";s:0:\"\";s:9:\"navi_name\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:3:\"url\";s:0:\"\";s:6:\"target\";s:0:\"\";s:6:\"status\";s:0:\"\";s:8:\"position\";s:0:\"\";s:5:\"guest\";s:0:\"\";s:11:\"is_app_navi\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";s:10:\"order_sort\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2013-07-02 09:17:01');
 INSERT INTO tt_system_config VALUES ('6543','pageKey','admin_Apps_install','a:4:{s:3:\"key\";a:7:{s:8:\"icon_url\";s:8:\"icon_url\";s:8:\"app_name\";s:8:\"app_name\";s:9:\"app_alias\";s:9:\"app_alias\";s:11:\"description\";s:11:\"description\";s:15:\"host_type_alias\";s:15:\"host_type_alias\";s:12:\"company_name\";s:12:\"company_name\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:7:{s:8:\"icon_url\";s:12:\"图标地址\";s:8:\"app_name\";s:12:\"应用名称\";s:9:\"app_alias\";s:12:\"应用别名\";s:11:\"description\";s:12:\"应用描述\";s:15:\"host_type_alias\";s:12:\"托管类型\";s:12:\"company_name\";s:12:\"公司名称\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:7:{s:8:\"icon_url\";s:1:\"0\";s:8:\"app_name\";s:1:\"0\";s:9:\"app_alias\";s:1:\"0\";s:11:\"description\";s:1:\"0\";s:15:\"host_type_alias\";s:1:\"0\";s:12:\"company_name\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:7:{s:8:\"icon_url\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:9:\"app_alias\";s:0:\"\";s:11:\"description\";s:0:\"\";s:15:\"host_type_alias\";s:0:\"\";s:12:\"company_name\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2013-08-15 10:42:39');
 INSERT INTO tt_system_config VALUES ('6547','pageKey','admin_Config_attachimage','a:6:{s:3:\"key\";a:3:{s:15:\"attach_max_size\";s:15:\"attach_max_size\";s:22:\"attach_allow_extension\";s:22:\"attach_allow_extension\";s:10:\"auto_thumb\";s:10:\"auto_thumb\";}s:8:\"key_name\";a:3:{s:15:\"attach_max_size\";s:18:\"图片大小限制\";s:22:\"attach_allow_extension\";s:18:\"允许的扩展名\";s:10:\"auto_thumb\";s:15:\"自动缩略图\";}s:8:\"key_type\";a:3:{s:15:\"attach_max_size\";s:4:\"text\";s:22:\"attach_allow_extension\";s:10:\"stringText\";s:10:\"auto_thumb\";s:5:\"radio\";}s:11:\"key_default\";a:3:{s:15:\"attach_max_size\";s:1:\"2\";s:22:\"attach_allow_extension\";s:11:\"jpg,png,gif\";s:10:\"auto_thumb\";s:1:\"1\";}s:9:\"key_tishi\";a:3:{s:15:\"attach_max_size\";s:56:\"单位：兆(M) 允许使用小数点。如：0.5或2等\";s:22:\"attach_allow_extension\";s:55:\"按回车添加，多个输入后用英文逗号,分割\";s:10:\"auto_thumb\";s:0:\"\";}s:14:\"key_javascript\";a:3:{s:15:\"attach_max_size\";s:0:\"\";s:22:\"attach_allow_extension\";s:0:\"\";s:10:\"auto_thumb\";s:0:\"\";}}','2013-08-17 22:43:25');
@@ -5724,11 +5788,13 @@ INSERT INTO tt_system_config VALUES ('6703','pageKey','admin_Mobile_w3gLogo','a:
 INSERT INTO tt_system_config VALUES ('6704','pageKey','admin_Mobile_w3gAbout','a:6:{s:3:\"key\";a:1:{s:5:\"about\";s:5:\"about\";}s:8:\"key_name\";a:1:{s:5:\"about\";s:12:\"关于我们\";}s:8:\"key_type\";a:1:{s:5:\"about\";s:6:\"editor\";}s:11:\"key_default\";a:1:{s:5:\"about\";s:0:\"\";}s:9:\"key_tishi\";a:1:{s:5:\"about\";s:35:\"设置3G页面关于我们的内容\";}s:14:\"key_javascript\";a:1:{s:5:\"about\";s:0:\"\";}}','2015-07-24 20:32:59');
 INSERT INTO tt_system_config VALUES ('6705','pageKey','admin_Application_socket','a:6:{s:3:\"key\";a:1:{s:12:\"socketaddres\";s:12:\"socketaddres\";}s:8:\"key_name\";a:1:{s:12:\"socketaddres\";s:21:\"Socket服务器地址\";}s:8:\"key_type\";a:1:{s:12:\"socketaddres\";s:4:\"text\";}s:11:\"key_default\";a:1:{s:12:\"socketaddres\";s:0:\"\";}s:9:\"key_tishi\";a:1:{s:12:\"socketaddres\";s:79:\"设置APP端调用的Socket服务器地址，例如”demo.thinksns.com:1243“\";}s:14:\"key_javascript\";a:1:{s:12:\"socketaddres\";s:0:\"\";}}','2015-08-07 17:30:09');
 INSERT INTO tt_system_config VALUES ('6708','pageKey','admin_Application_about','a:6:{s:3:\"key\";a:1:{s:5:\"about\";s:5:\"about\";}s:8:\"key_name\";a:1:{s:5:\"about\";s:12:\"关于我们\";}s:8:\"key_type\";a:1:{s:5:\"about\";s:6:\"editor\";}s:11:\"key_default\";a:1:{s:5:\"about\";s:0:\"\";}s:9:\"key_tishi\";a:1:{s:5:\"about\";s:27:\"设置APP端的关于我们\";}s:14:\"key_javascript\";a:1:{s:5:\"about\";s:0:\"\";}}','2015-08-12 15:20:47');
-INSERT INTO tt_system_config VALUES ('6709','pageKey','admin_Application_feedback','a:4:{s:3:\"key\";a:4:{s:4:\"user\";s:4:\"user\";s:7:\"content\";s:7:\"content\";s:4:\"time\";s:4:\"time\";s:8:\"doaction\";s:8:\"doaction\";}s:8:\"key_name\";a:4:{s:4:\"user\";s:6:\"用户\";s:7:\"content\";s:12:\"反馈内容\";s:4:\"time\";s:12:\"反馈时间\";s:8:\"doaction\";s:6:\"操作\";}s:10:\"key_hidden\";a:4:{s:4:\"user\";s:1:\"0\";s:7:\"content\";s:1:\"0\";s:4:\"time\";s:1:\"0\";s:8:\"doaction\";s:1:\"0\";}s:14:\"key_javascript\";a:4:{s:4:\"user\";s:0:\"\";s:7:\"content\";s:0:\"\";s:4:\"time\";s:0:\"\";s:8:\"doaction\";s:0:\"\";}}','2015-08-13 11:57:04');
 INSERT INTO tt_system_config VALUES ('6710','pageKey','admin_Mobile_setting','a:6:{s:3:\"key\";a:1:{s:6:\"switch\";s:6:\"switch\";}s:8:\"key_name\";a:1:{s:6:\"switch\";s:9:\"开关：\";}s:8:\"key_type\";a:1:{s:6:\"switch\";s:5:\"radio\";}s:11:\"key_default\";a:1:{s:6:\"switch\";s:0:\"\";}s:9:\"key_tishi\";a:1:{s:6:\"switch\";s:26:\"设置3G版本是否开启\";}s:14:\"key_javascript\";a:1:{s:6:\"switch\";s:0:\"\";}}','2015-08-13 16:07:29');
 INSERT INTO tt_system_config VALUES ('6711','pageKey','admin_Application_index','a:4:{s:3:\"key\";a:5:{s:5:\"title\";s:5:\"title\";s:5:\"image\";s:5:\"image\";s:4:\"type\";s:4:\"type\";s:4:\"data\";s:4:\"data\";s:8:\"doAction\";s:8:\"doAction\";}s:8:\"key_name\";a:5:{s:5:\"title\";s:6:\"标题\";s:5:\"image\";s:6:\"图片\";s:4:\"type\";s:6:\"类型\";s:4:\"data\";s:6:\"数据\";s:8:\"doAction\";s:6:\"操作\";}s:10:\"key_hidden\";a:5:{s:5:\"title\";s:1:\"0\";s:5:\"image\";s:1:\"0\";s:4:\"type\";s:1:\"0\";s:4:\"data\";s:1:\"0\";s:8:\"doAction\";s:1:\"0\";}s:14:\"key_javascript\";a:5:{s:5:\"title\";s:0:\"\";s:5:\"image\";s:0:\"\";s:4:\"type\";s:0:\"\";s:4:\"data\";s:0:\"\";s:8:\"doAction\";s:0:\"\";}}','2015-07-31 17:05:01');
 INSERT INTO tt_system_config VALUES ('6712','pageKey','admin_Application_addSlide','a:6:{s:3:\"key\";a:4:{s:5:\"title\";s:5:\"title\";s:5:\"image\";s:5:\"image\";s:4:\"type\";s:4:\"type\";s:4:\"data\";s:4:\"data\";}s:8:\"key_name\";a:4:{s:5:\"title\";s:12:\"轮播标题\";s:5:\"image\";s:12:\"轮播图片\";s:4:\"type\";s:12:\"跳转类型\";s:4:\"data\";s:12:\"类型参数\";}s:8:\"key_type\";a:4:{s:5:\"title\";s:4:\"text\";s:5:\"image\";s:5:\"image\";s:4:\"type\";s:6:\"select\";s:4:\"data\";s:4:\"text\";}s:11:\"key_default\";a:4:{s:5:\"title\";s:0:\"\";s:5:\"image\";s:0:\"\";s:4:\"type\";s:0:\"\";s:4:\"data\";s:0:\"\";}s:9:\"key_tishi\";a:4:{s:5:\"title\";s:30:\"幻灯片显示的文字信息\";s:5:\"image\";s:0:\"\";s:4:\"type\";s:63:\"选择轮播点击后跳转位置，默认仅展示轮播图片\";s:4:\"data\";s:300:\"当存在跳转类型的时候必须设置，否则APP会出错，举例：选择“url地址”,则这里填写url地址，app上点击会跳转到该地址，例如：选择“微吧”，那么类型参数则填写一个微吧的ID，app上点击后直接进入该微吧，其他不一一列举！\";}s:14:\"key_javascript\";a:4:{s:5:\"title\";s:0:\"\";s:5:\"image\";s:0:\"\";s:4:\"type\";s:0:\"\";s:4:\"data\";s:0:\"\";}}','2015-07-31 15:53:09');
 INSERT INTO tt_system_config VALUES ('6713','pageKey','admin_Application_jpush','a:6:{s:3:\"key\";a:2:{s:3:\"key\";s:3:\"key\";s:6:\"secret\";s:6:\"secret\";}s:8:\"key_name\";a:2:{s:3:\"key\";s:7:\"App Key\";s:6:\"secret\";s:13:\"Master Secret\";}s:8:\"key_type\";a:2:{s:3:\"key\";s:4:\"text\";s:6:\"secret\";s:4:\"text\";}s:11:\"key_default\";a:2:{s:3:\"key\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:9:\"key_tishi\";a:2:{s:3:\"key\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:14:\"key_javascript\";a:2:{s:3:\"key\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}','2015-09-02 11:39:48');
+INSERT INTO tt_system_config VALUES ('6716','searchPageKey','S_admin_Home_logs','a:5:{s:3:\"key\";a:5:{s:5:\"uname\";s:5:\"uname\";s:8:\"app_name\";s:8:\"app_name\";s:5:\"ctime\";s:5:\"ctime\";s:7:\"isAdmin\";s:7:\"isAdmin\";s:7:\"keyword\";s:7:\"keyword\";}s:8:\"key_name\";a:5:{s:5:\"uname\";s:12:\"用户帐号\";s:8:\"app_name\";s:12:\"操作详情\";s:5:\"ctime\";s:12:\"时间范围\";s:7:\"isAdmin\";s:12:\"知识类型\";s:7:\"keyword\";s:15:\"查询关键字\";}s:8:\"key_type\";a:5:{s:5:\"uname\";s:4:\"text\";s:8:\"app_name\";s:6:\"select\";s:5:\"ctime\";s:4:\"date\";s:7:\"isAdmin\";s:8:\"checkbox\";s:7:\"keyword\";s:4:\"text\";}s:9:\"key_tishi\";a:5:{s:5:\"uname\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:7:\"isAdmin\";s:0:\"\";s:7:\"keyword\";s:0:\"\";}s:14:\"key_javascript\";a:5:{s:5:\"uname\";s:0:\"\";s:8:\"app_name\";s:27:\"admin.selectLog(this.value)\";s:5:\"ctime\";s:0:\"\";s:7:\"isAdmin\";s:0:\"\";s:7:\"keyword\";s:0:\"\";}}','2017-01-20 21:35:53');
+INSERT INTO tt_system_config VALUES ('6717','pageKey','admin_Home_newschedule','a:6:{s:3:\"key\";a:8:{s:11:\"task_to_run\";s:11:\"task_to_run\";s:13:\"schedule_type\";s:13:\"schedule_type\";s:8:\"modifier\";s:8:\"modifier\";s:7:\"dirlist\";s:7:\"dirlist\";s:5:\"month\";s:5:\"month\";s:14:\"start_datetime\";s:14:\"start_datetime\";s:12:\"end_datetime\";s:12:\"end_datetime\";s:4:\"info\";s:4:\"info\";}s:8:\"key_name\";a:8:{s:11:\"task_to_run\";s:12:\"执行函数\";s:13:\"schedule_type\";s:12:\"任务类型\";s:8:\"modifier\";s:12:\"执行频率\";s:7:\"dirlist\";s:24:\"某天（默认每天）\";s:5:\"month\";s:24:\"某月（默认每月）\";s:14:\"start_datetime\";s:12:\"开始时间\";s:12:\"end_datetime\";s:12:\"结束时间\";s:4:\"info\";s:6:\"简介\";}s:8:\"key_type\";a:8:{s:11:\"task_to_run\";s:4:\"text\";s:13:\"schedule_type\";s:4:\"text\";s:8:\"modifier\";s:4:\"text\";s:7:\"dirlist\";s:4:\"text\";s:5:\"month\";s:4:\"text\";s:14:\"start_datetime\";s:4:\"date\";s:12:\"end_datetime\";s:4:\"date\";s:4:\"info\";s:4:\"text\";}s:11:\"key_default\";a:8:{s:11:\"task_to_run\";s:0:\"\";s:13:\"schedule_type\";s:0:\"\";s:8:\"modifier\";s:0:\"\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:0:\"\";s:12:\"end_datetime\";s:0:\"\";s:4:\"info\";s:0:\"\";}s:9:\"key_tishi\";a:8:{s:11:\"task_to_run\";s:58:\"计划任务执行的函数，格式为：app/Model/method\";s:13:\"schedule_type\";s:56:\"ONCE、MINUTE、HOURLY、DAILY、WEEKLY、MONTHLY 之一\";s:8:\"modifier\";s:75:\"类型为MONTHLY时必须；ONCE时无效；其他时为可选，默认为1\";s:7:\"dirlist\";s:100:\"指定周或月的一天或多天。只与WEEKLY和MONTHLY共同使用时有效，其他时忽略。\";s:5:\"month\";s:191:\"指定一年中的一个月或多个月.只在schedule_type=MONTHLY时有效，其他时忽略。当modifier=LASTDAY时必须，其他时可选。有效值：Jan - Dec，默认为*(每个月)\";s:14:\"start_datetime\";s:50:\"任务启动时间，使用“Y-m-d H:i:s”格式\";s:12:\"end_datetime\";s:44:\"失效时间，使用“Y-m-d H:i:s”格式\";s:4:\"info\";s:30:\"对计划任务的简要描述\";}s:14:\"key_javascript\";a:8:{s:11:\"task_to_run\";s:0:\"\";s:13:\"schedule_type\";s:0:\"\";s:8:\"modifier\";s:0:\"\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:0:\"\";s:12:\"end_datetime\";s:0:\"\";s:4:\"info\";s:0:\"\";}}','2017-01-20 22:11:31');
+INSERT INTO tt_system_config VALUES ('6718','pageKey','admin_Application_feedback','a:4:{s:3:\"key\";a:4:{s:4:\"user\";s:4:\"user\";s:7:\"content\";s:7:\"content\";s:4:\"time\";s:4:\"time\";s:8:\"doaction\";s:8:\"doaction\";}s:8:\"key_name\";a:4:{s:4:\"user\";s:6:\"用户\";s:7:\"content\";s:12:\"反馈内容\";s:4:\"time\";s:12:\"反馈时间\";s:8:\"doaction\";s:6:\"操作\";}s:10:\"key_hidden\";a:4:{s:4:\"user\";s:1:\"0\";s:7:\"content\";s:1:\"0\";s:4:\"time\";s:1:\"0\";s:8:\"doaction\";s:1:\"0\";}s:14:\"key_javascript\";a:4:{s:4:\"user\";s:0:\"\";s:7:\"content\";s:0:\"\";s:4:\"time\";s:0:\"\";s:8:\"doaction\";s:0:\"\";}}','2017-01-21 20:54:34');
 
 DROP TABLE IF EXISTS tt_system_data;
 CREATE TABLE `tt_system_data` (
@@ -5740,7 +5806,7 @@ CREATE TABLE `tt_system_data` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `list_key` (`list`,`key`) USING BTREE,
   KEY `list_id` (`list`,`id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=5230 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5290 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_system_data VALUES ('95','admin_Home','newschedule','a:8:{s:11:\"task_to_run\";s:19:\"admin/Home/schedule\";s:13:\"schedule_type\";s:5:\"DAILY\";s:8:\"modifier\";s:1:\"1\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:19:\"2012-04-10 18:41:54\";s:12:\"end_datetime\";s:19:\"2012-04-26 18:41:56\";s:4:\"info\";s:6:\"简介\";}','2012-04-07 18:47:56');
 INSERT INTO tt_system_data VALUES ('115','admin_Config','announcement','a:2:{s:7:\"is_open\";s:1:\"1\";s:7:\"content\";s:22:\"欢迎使用SociaxTeam\";}','2012-03-26 03:06:29');
@@ -5974,7 +6040,6 @@ INSERT INTO tt_system_data VALUES ('2830','attach','attach_allow_extension','s:5
 INSERT INTO tt_system_data VALUES ('2836','admin_Config','seo_user_profile','a:6:{s:4:\"name\";s:12:\"个人主页\";s:5:\"title\";s:16:\"{uname}的空间\";s:8:\"keywords\";s:7:\"{uname}\";s:3:\"des\";s:10:\"{lastFeed}\";s:4:\"node\";s:0:\"\";s:3:\"sub\";s:6:\"保存\";}','2013-03-12 17:20:08');
 INSERT INTO tt_system_data VALUES ('2837','admin_Config','seo_feed_detail','a:6:{s:4:\"name\";s:15:\"分享详情页\";s:5:\"title\";s:16:\"{uname}的分享\";s:8:\"keywords\";s:7:\"{uname}\";s:3:\"des\";s:9:\"{content}\";s:4:\"node\";s:0:\"\";s:3:\"sub\";s:6:\"保存\";}','2013-03-12 17:20:32');
 INSERT INTO tt_system_data VALUES ('2838','admin_Config','seo_feed_topic','a:6:{s:4:\"name\";s:9:\"话题页\";s:5:\"title\";s:11:\"{topicName}\";s:8:\"keywords\";s:11:\"{topicName}\";s:3:\"des\";s:10:\"{topicDes}\";s:4:\"node\";s:0:\"\";s:3:\"sub\";s:6:\"保存\";}','2013-03-12 17:21:15');
-INSERT INTO tt_system_data VALUES ('2840','admin_Config','seo_login','a:6:{s:4:\"name\";s:9:\"登录页\";s:5:\"title\";s:49:\"ThinkSNS官方社区 - ThinkSNS开源分享系统\";s:8:\"keywords\";s:44:\"ThinkSNS 开源分享 免费分享 开源SNS\";s:3:\"des\";s:600:\"ThinkSNS开源分享程序致力于提供中国最好的分享程序、轻知识系统、SNS社交网络平台解决方案，提供分享源代码免费下载。内置分享插件机制和API体系，功能覆盖微群功能、社区群组、论坛分享整合、cms分享整合、长分享、图片分享、等综合功能，使分享二次开发更简单。系统采用php+mysql开发，开源发布，支持多个分享系统同步登陆，是能与ucenter整合的分享系统。智士软件使企业或个人快速拥有分享建站能力，为客户提供高质量的分享软件平台服务。\";s:4:\"node\";s:0:\"\";s:3:\"sub\";s:6:\"保存\";}','2013-03-12 17:22:34');
 INSERT INTO tt_system_data VALUES ('2841','pageKey','admin_Content_topic','a:4:{s:3:\"key\";a:9:{s:8:\"topic_id\";s:8:\"topic_id\";s:10:\"topic_name\";s:10:\"topic_name\";s:4:\"note\";s:4:\"note\";s:6:\"domain\";s:6:\"domain\";s:3:\"des\";s:3:\"des\";s:3:\"pic\";s:3:\"pic\";s:10:\"topic_user\";s:10:\"topic_user\";s:7:\"outlink\";s:7:\"outlink\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:9:{s:8:\"topic_id\";s:8:\"话题ID\";s:10:\"topic_name\";s:12:\"话题名称\";s:4:\"note\";s:12:\"话题注释\";s:6:\"domain\";s:12:\"话题域名\";s:3:\"des\";s:12:\"详细说明\";s:3:\"pic\";s:12:\"话题图片\";s:10:\"topic_user\";s:18:\"话题人物推荐\";s:7:\"outlink\";s:6:\"外链\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:9:{s:8:\"topic_id\";s:1:\"0\";s:10:\"topic_name\";s:1:\"0\";s:4:\"note\";s:1:\"0\";s:6:\"domain\";s:1:\"0\";s:3:\"des\";s:1:\"0\";s:3:\"pic\";s:1:\"0\";s:10:\"topic_user\";s:1:\"0\";s:7:\"outlink\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:9:{s:8:\"topic_id\";s:0:\"\";s:10:\"topic_name\";s:0:\"\";s:4:\"note\";s:0:\"\";s:6:\"domain\";s:0:\"\";s:3:\"des\";s:0:\"\";s:3:\"pic\";s:0:\"\";s:10:\"topic_user\";s:0:\"\";s:7:\"outlink\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2013-03-13 13:39:18');
 INSERT INTO tt_system_data VALUES ('2852','pageKey','weiba_Admin_addWeiba','a:6:{s:3:\"key\";a:6:{s:10:\"weiba_name\";s:10:\"weiba_name\";s:4:\"logo\";s:4:\"logo\";s:5:\"intro\";s:5:\"intro\";s:12:\"who_can_post\";s:12:\"who_can_post\";s:9:\"admin_uid\";s:9:\"admin_uid\";s:9:\"recommend\";s:9:\"recommend\";}s:8:\"key_name\";a:6:{s:10:\"weiba_name\";s:12:\"微吧名称\";s:4:\"logo\";s:4:\"logo\";s:5:\"intro\";s:12:\"微吧简介\";s:12:\"who_can_post\";s:12:\"发帖权限\";s:9:\"admin_uid\";s:6:\"圈主\";s:9:\"recommend\";s:12:\"是否推荐\";}s:8:\"key_type\";a:6:{s:10:\"weiba_name\";s:4:\"text\";s:4:\"logo\";s:5:\"image\";s:5:\"intro\";s:8:\"textarea\";s:12:\"who_can_post\";s:5:\"radio\";s:9:\"admin_uid\";s:4:\"user\";s:9:\"recommend\";s:5:\"radio\";}s:11:\"key_default\";a:6:{s:10:\"weiba_name\";s:0:\"\";s:4:\"logo\";s:0:\"\";s:5:\"intro\";s:0:\"\";s:12:\"who_can_post\";s:1:\"0\";s:9:\"admin_uid\";s:0:\"\";s:9:\"recommend\";s:1:\"0\";}s:9:\"key_tishi\";a:6:{s:10:\"weiba_name\";s:0:\"\";s:4:\"logo\";s:73:\"附件格式：gif，jpg，jpeg，png，bmp； 附件大小：不超过2M\";s:5:\"intro\";s:0:\"\";s:12:\"who_can_post\";s:0:\"\";s:9:\"admin_uid\";s:0:\"\";s:9:\"recommend\";s:0:\"\";}s:14:\"key_javascript\";a:6:{s:10:\"weiba_name\";s:0:\"\";s:4:\"logo\";s:0:\"\";s:5:\"intro\";s:0:\"\";s:12:\"who_can_post\";s:0:\"\";s:9:\"admin_uid\";s:0:\"\";s:9:\"recommend\";s:0:\"\";}}','2013-03-15 17:53:23');
 INSERT INTO tt_system_data VALUES ('2853','pageKey','category_conf_channel_category','a:6:{s:3:\"key\";a:4:{s:6:\"attach\";s:6:\"attach\";s:9:\"show_type\";s:9:\"show_type\";s:9:\"user_bind\";s:9:\"user_bind\";s:10:\"topic_bind\";s:10:\"topic_bind\";}s:8:\"key_name\";a:4:{s:6:\"attach\";s:12:\"分类图片\";s:9:\"show_type\";s:18:\"默认展示方式\";s:9:\"user_bind\";s:12:\"用户绑定\";s:10:\"topic_bind\";s:12:\"话题绑定\";}s:8:\"key_type\";a:4:{s:6:\"attach\";s:5:\"image\";s:9:\"show_type\";s:5:\"radio\";s:9:\"user_bind\";s:4:\"user\";s:10:\"topic_bind\";s:10:\"stringText\";}s:11:\"key_default\";a:4:{s:6:\"attach\";s:0:\"\";s:9:\"show_type\";s:0:\"\";s:9:\"user_bind\";s:0:\"\";s:10:\"topic_bind\";s:0:\"\";}s:9:\"key_tishi\";a:4:{s:6:\"attach\";s:0:\"\";s:9:\"show_type\";s:0:\"\";s:9:\"user_bind\";s:0:\"\";s:10:\"topic_bind\";s:0:\"\";}s:14:\"key_javascript\";a:4:{s:6:\"attach\";s:0:\"\";s:9:\"show_type\";s:0:\"\";s:9:\"user_bind\";s:0:\"\";s:10:\"topic_bind\";s:0:\"\";}}','2013-03-15 21:38:37');
@@ -6021,35 +6086,19 @@ INSERT INTO tt_system_data VALUES ('4557','weiba_Admin','weibaAdminAuditConfig',
 INSERT INTO tt_system_data VALUES ('4564','guestConfig','','a:11:{s:17:\"weiba/Index/index\";b:1;s:18:\"weiba/Index/detail\";b:1;s:22:\"weiba/Index/postDetail\";b:1;s:20:\"weiba/Index/postList\";b:1;s:21:\"weiba/Index/weibaList\";b:1;s:18:\"square/Index/index\";b:1;s:14:\"people/Index/*\";b:1;s:15:\"develop/Index/*\";b:1;s:16:\"develop/Public/*\";b:1;s:15:\"channel/Index/*\";b:1;s:16:\"blog/Index/index\";b:1;}','2014-12-16 09:50:31');
 INSERT INTO tt_system_data VALUES ('4636','permission','1','a:4:{s:4:\"core\";a:2:{s:6:\"normal\";a:11:{s:9:\"feed_view\";s:1:\"1\";s:9:\"read_data\";s:1:\"1\";s:11:\"invite_user\";s:1:\"1\";s:12:\"send_message\";s:1:\"1\";s:11:\"search_info\";s:1:\"1\";s:11:\"comment_del\";s:1:\"1\";s:8:\"feed_del\";s:1:\"1\";s:9:\"feed_post\";s:1:\"1\";s:12:\"feed_comment\";s:1:\"1\";s:11:\"feed_report\";s:1:\"1\";s:10:\"feed_share\";s:1:\"1\";}s:5:\"admin\";a:5:{s:8:\"feed_del\";s:1:\"1\";s:11:\"comment_del\";s:1:\"1\";s:11:\"message_del\";s:1:\"1\";s:11:\"admin_login\";s:1:\"1\";s:14:\"feed_recommend\";s:1:\"1\";}}s:5:\"weiba\";a:2:{s:6:\"normal\";a:6:{s:10:\"weiba_post\";s:1:\"1\";s:11:\"weiba_reply\";s:1:\"1\";s:9:\"weiba_del\";s:1:\"1\";s:15:\"weiba_del_reply\";s:1:\"1\";s:10:\"weiba_edit\";s:1:\"1\";s:18:\"weiba_apply_manage\";s:1:\"1\";}s:5:\"admin\";a:6:{s:9:\"weiba_del\";s:1:\"1\";s:10:\"weiba_edit\";s:1:\"1\";s:16:\"weiba_global_top\";s:1:\"1\";s:12:\"weiba_marrow\";s:1:\"1\";s:9:\"weiba_top\";s:1:\"1\";s:15:\"weiba_recommend\";s:1:\"1\";}}s:7:\"channel\";a:1:{s:5:\"admin\";a:1:{s:17:\"channel_recommend\";s:1:\"1\";}}s:5:\"vtask\";a:1:{s:5:\"admin\";a:1:{s:15:\"vtask_recommend\";s:1:\"1\";}}}','2015-01-05 16:15:29');
 INSERT INTO tt_system_data VALUES ('4908','weiba_Admin','weibaAuditConfig','a:8:{s:16:\"apply_weiba_open\";i:1;s:13:\"follower_open\";i:0;s:8:\"follower\";i:0;s:10:\"level_open\";i:0;s:5:\"level\";i:0;s:15:\"weiba_post_open\";i:0;s:10:\"weiba_post\";i:0;s:12:\"manager_open\";i:0;}','2015-04-07 10:01:07');
-INSERT INTO tt_system_data VALUES ('5003','login','open','a:6:{i:0;s:4:\"sina\";i:1;s:5:\"qzone\";i:2;s:2:\"qq\";i:3;s:6:\"renren\";i:4;s:5:\"baidu\";i:5;s:6:\"taobao\";}','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5004','login','platformMeta','s:0:\"\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5005','login','sina_wb_akey','s:10:\"2256583756\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5006','login','sina_wb_skey','s:32:\"20dd17063d9760a3164a9bfdf9f45991\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5007','login','qzone_key','s:9:\"100358969\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5008','login','qzone_secret','s:32:\"1000ae79d56306cec5cf6a63ef16f96e\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5009','login','qq_key','s:9:\"801299167\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5010','login','qq_secret','s:32:\"93b62958ac5577bd56364e09cd802878\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5011','login','renren_key','s:32:\"26161c548a3d445799b2396bdf7f7e34\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5012','login','renren_secret','s:32:\"37ec1516560641fc822f0d43a5fdcaf4\";','2015-04-08 00:07:25');
 INSERT INTO tt_system_data VALUES ('5013','login','douban_key','s:32:\"03bf91c53ce11a950b3eb54fb6a34fbf\";','2015-04-08 00:07:25');
 INSERT INTO tt_system_data VALUES ('5014','login','douban_secret','s:16:\"9a84ac4b69207f74\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5015','login','baidu_key','s:24:\"EnqL8gqVVQUbvGnyBm7GdYVv\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5016','login','baidu_secret','s:32:\"O2qxo5WDiBci5xWh2TxQcINR37MW74TN\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5017','login','taobao_key','s:8:\"21353628\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5018','login','taobao_secret','s:32:\"6c334d2e22d4a4d45554a7bcec518c3d\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5019','login','bindemail','i:0;','2015-04-08 00:07:25');
 INSERT INTO tt_system_data VALUES ('5046','permission','3','a:2:{s:4:\"core\";a:1:{s:6:\"normal\";a:11:{s:9:\"feed_view\";s:1:\"1\";s:9:\"read_data\";s:1:\"1\";s:11:\"invite_user\";s:1:\"1\";s:12:\"send_message\";s:1:\"1\";s:11:\"search_info\";s:1:\"1\";s:11:\"comment_del\";s:1:\"1\";s:8:\"feed_del\";s:1:\"1\";s:9:\"feed_post\";s:1:\"1\";s:12:\"feed_comment\";s:1:\"1\";s:11:\"feed_report\";s:1:\"1\";s:10:\"feed_share\";s:1:\"1\";}}s:5:\"weiba\";a:1:{s:6:\"normal\";a:6:{s:10:\"weiba_post\";s:1:\"1\";s:11:\"weiba_reply\";s:1:\"1\";s:9:\"weiba_del\";s:1:\"1\";s:15:\"weiba_del_reply\";s:1:\"1\";s:10:\"weiba_edit\";s:1:\"1\";s:18:\"weiba_apply_manage\";s:1:\"1\";}}}','2015-04-08 04:55:55');
 INSERT INTO tt_system_data VALUES ('5053','InviteTest','bgimg','i:42107;','2015-04-08 10:22:02');
 INSERT INTO tt_system_data VALUES ('5054','InviteTest','rule','s:256:\"<p>\r\n <span style=\"color:#E53333;line-height:1.5;\"><img src=\"/ts4/data/upload/2015/0408/00/55240236b25d6.jpg\" alt=\"\" />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span> \r\n</p>\r\n<p>\r\n <br />\r\n</p>\";','2015-04-08 10:22:02');
 INSERT INTO tt_system_data VALUES ('5058','admin_Config','attachimage','a:3:{s:15:\"attach_max_size\";s:1:\"2\";s:22:\"attach_allow_extension\";s:16:\"png,gif,jpg,jpeg\";s:10:\"auto_thumb\";s:1:\"1\";}','2015-04-11 15:42:55');
 INSERT INTO tt_system_data VALUES ('5064','admin_Config','attach','a:3:{s:16:\"attach_path_rule\";s:7:\"Y/md/H/\";s:15:\"attach_max_size\";s:3:\"100\";s:22:\"attach_allow_extension\";s:59:\"png,jpeg,zip,rar,doc,xls,ppt,docx,xlsx,pptx,pdf,jpg,gif,mp3\";}','2015-05-05 22:42:47');
-INSERT INTO tt_system_data VALUES ('5087','default','default','20','');
+INSERT INTO tt_system_data VALUES ('5087','default','default','20','0000-00-00 00:00:00');
 INSERT INTO tt_system_data VALUES ('5176','weixin','AppId','s:18:\"wxc50b6d3673d0c77f\";','2015-06-10 17:00:53');
 INSERT INTO tt_system_data VALUES ('5177','weixin','AppSecret','s:32:\"a83b0a82238b53098cd18607d2c4ead7\";','2015-06-10 17:00:53');
 INSERT INTO tt_system_data VALUES ('5178','weixin','appidsubmit','s:4:\"true\";','2015-06-10 17:00:53');
 INSERT INTO tt_system_data VALUES ('5179','outside','video','a:2:{s:15:\"youku_client_id\";s:16:\"d8555afde73b6888\";s:13:\"tudou_app_key\";s:16:\"4e9c6b498970d8e4\";}','2015-06-11 10:29:28');
 INSERT INTO tt_system_data VALUES ('5186','channel_Admin','index','a:3:{s:8:\"is_audit\";s:1:\"0\";s:16:\"default_category\";s:2:\"40\";s:9:\"show_type\";s:1:\"1\";}','2015-07-09 12:18:50');
-INSERT INTO tt_system_data VALUES ('5197','admin_Config','site','a:23:{s:11:\"site_closed\";s:1:\"1\";s:9:\"site_name\";s:8:\"ThinkSNS\";s:11:\"site_slogan\";s:30:\"为移动互联网添动力！\";s:20:\"site_header_keywords\";s:45:\"ThinkSNS a开源微博 免费微博 开源SNS\";s:23:\"site_header_description\";s:600:\"ThinkSNS开源微博程序致力于提供中国最好的微博程序、轻博客系统、SNS社交网络平台解决方案，提供微博源代码免费下载。内置微博插件机制和API体系，功能覆盖微群功能、社区群组、论坛微博整合、cms微博整合、长微博、图片微博、等综合功能，使微博二次开发更简单。系统采用php+mysql开发，开源发布，支持多个微博系统同步登陆，是能与ucenter整合的微博系统。智士软件使企业或个人快速拥有微博建站能力，为客户提供高质量的微博软件平台服务。\";s:12:\"site_company\";s:0:\"\";s:11:\"site_footer\";s:38:\"©2012 ZhishiSoft All Rights Reserved.\";s:15:\"site_footer_des\";s:217:\"ThinkSNS是智士软件旗下开源社交软件，适合懂技术的站长和软件公司基于系统进行二次开发商业使用请授权，个人使用请保留ThinkSNS标示。商业授权可直接来电咨询。\";s:9:\"site_logo\";s:5:\"47635\";s:13:\"site_logo_w3g\";s:0:\"\";s:12:\"site_qr_code\";s:5:\"47634\";s:15:\"sina_weibo_link\";s:26:\"http://weibo.com/ithinksns\";s:8:\"login_bg\";s:5:\"45095\";s:18:\"site_closed_reason\";s:120:\"大伙儿不要害怕，我是来测试功能的，一会儿就给你们恢复，这个页面太丑了我要换一个。\";s:10:\"sys_domain\";s:71:\"admin,thinksns,kefu,liuxiaoqing,hujintao,liaosunan,xijinping,zhishisoft\";s:12:\"sys_nickname\";s:187:\"管理员,超级管理员,法轮功,胡锦涛,江泽民,邓小平,小秘书,刘晓庆,廖素南,共产党,党,习近平,李宇春,政府,小胡祖宗,国民党,admin,智士软件,thinksns\";s:9:\"sys_email\";s:23:\"thinksns@zhishisoft.com\";s:9:\"home_page\";s:1:\"0\";s:11:\"sys_version\";s:10:\"2015050501\";s:17:\"site_online_count\";s:1:\"1\";s:15:\"site_rewrite_on\";s:1:\"0\";s:10:\"web_closed\";s:1:\"1\";s:19:\"site_analytics_code\";s:144:\"PHNjcmlwdCBzcmM9Imh0dHA6Ly9zMTEuY256ei5jb20vc3RhdC5waHA/aWQ9MTI1NDkzMjcyNiZ3ZWJfaWQ9MTI1NDkzMjcyNiIgbGFuZ3VhZ2U9IkphdmFTY3JpcHQiPjwvc2NyaXB0Pg==\";}','2015-07-13 18:54:51');
 INSERT INTO tt_system_data VALUES ('5199','cacheconfig','cachetype','s:4:\"File\";','2015-07-14 13:55:21');
 INSERT INTO tt_system_data VALUES ('5200','cacheconfig','cachesetting','s:0:\"\";','2015-07-14 13:55:21');
 INSERT INTO tt_system_data VALUES ('5201','square','channel','s:1:\"0\";','2015-07-14 14:12:07');
@@ -6063,12 +6112,52 @@ INSERT INTO tt_system_data VALUES ('5210','admin_nav','top','a:0:{}','2015-07-14
 INSERT INTO tt_system_data VALUES ('5211','admin_Content','video_config','a:5:{s:11:\"ffmpeg_path\";s:0:\"\";s:12:\"video_server\";s:0:\"\";s:9:\"video_ext\";s:3:\"mp4\";s:10:\"video_size\";s:2:\"20\";s:20:\"video_transfer_async\";s:1:\"1\";}','2015-07-14 14:20:53');
 INSERT INTO tt_system_data VALUES ('5213','admin_Config','register','a:16:{s:13:\"register_type\";s:4:\"open\";s:12:\"account_type\";s:3:\"all\";s:12:\"email_suffix\";s:0:\"\";s:7:\"captcha\";s:0:\"\";s:14:\"register_audit\";s:1:\"0\";s:11:\"need_active\";s:1:\"0\";s:13:\"personal_open\";s:1:\"0\";s:17:\"personal_required\";a:3:{i:0;s:4:\"face\";i:1;s:3:\"tag\";i:2;s:5:\"intro\";}s:7:\"tag_num\";s:1:\"5\";s:15:\"interester_rule\";a:1:{i:0;s:3:\"tag\";}s:19:\"avoidSubmitByReturn\";s:0:\"\";s:20:\"interester_recommend\";s:0:\"\";s:14:\"default_follow\";s:0:\"\";s:11:\"each_follow\";s:0:\"\";s:18:\"default_user_group\";a:1:{i:0;s:1:\"3\";}s:14:\"welcome_notify\";s:0:\"\";}','2015-07-14 15:07:00');
 INSERT INTO tt_system_data VALUES ('5214','admin_Config','feed','a:7:{s:10:\"weibo_nums\";s:3:\"140\";s:10:\"weibo_type\";a:6:{i:0;s:4:\"face\";i:1;s:2:\"at\";i:2;s:5:\"image\";i:3;s:5:\"video\";i:4;s:4:\"file\";i:5;s:5:\"topic\";}s:22:\"weibo_uploadvideo_open\";s:1:\"0\";s:16:\"weibo_premission\";a:2:{i:0;s:6:\"repost\";i:1;s:7:\"comment\";}s:15:\"weibo_send_info\";s:79:\"新注册的童鞋如果体验社区功能欢迎到任务中心去做任务哦~\";s:19:\"weibo_default_topic\";s:0:\"\";s:11:\"weibo_at_me\";s:1:\"0\";}','2015-07-14 15:09:58');
-INSERT INTO tt_system_data VALUES ('5215','admin_Config','email','a:9:{s:14:\"email_sendtype\";s:4:\"smtp\";s:10:\"email_host\";s:14:\"smtp.admin.com\";s:9:\"email_ssl\";s:1:\"0\";s:10:\"email_port\";s:2:\"25\";s:13:\"email_account\";s:15:\"admin@admin.com\";s:14:\"email_password\";s:5:\"admin\";s:17:\"email_sender_name\";s:20:\"ThinkSNS官方社区\";s:18:\"email_sender_email\";s:15:\"admin@admin.com\";s:10:\"email_test\";s:0:\"\";}','2015-07-14 15:11:01');
 INSERT INTO tt_system_data VALUES ('5216','admin_Config','sms','a:5:{s:10:\"sms_server\";s:52:\"http://106.ihuyi.cn/webservice/sms.php?method=Submit\";s:9:\"sms_param\";s:59:\"account=admin&password=admin&mobile={tel}&content={message}\";s:12:\"success_code\";s:14:\"<code>2</code>\";s:9:\"send_type\";s:4:\"post\";s:7:\"service\";s:5:\"ihuyi\";}','2015-07-14 15:11:39');
-INSERT INTO tt_system_data VALUES ('5217','admin_Config','cloudimage','a:7:{s:16:\"cloud_image_open\";s:1:\"0\";s:19:\"cloud_image_api_url\";s:23:\"http://v0.api.upyun.com\";s:18:\"cloud_image_bucket\";s:11:\"thinksns_v4\";s:24:\"cloud_image_form_api_key\";s:26:\"asdPKsdjfshnjfsPQ7cVBRasfd\";s:23:\"cloud_image_prefix_urls\";s:23:\"http://www.thinksns.com\";s:17:\"cloud_image_admin\";s:5:\"admin\";s:20:\"cloud_image_password\";s:5:\"admin\";}','2015-07-14 15:13:06');
-INSERT INTO tt_system_data VALUES ('5218','admin_Config','cloudattach','a:7:{s:17:\"cloud_attach_open\";s:1:\"0\";s:20:\"cloud_attach_api_url\";s:23:\"http://v0.api.upyun.com\";s:19:\"cloud_attach_bucket\";s:8:\"thinksns\";s:25:\"cloud_attach_form_api_key\";s:33:\"ajskdhnajkshbfdajjkdhnakjsndjkans\";s:24:\"cloud_attach_prefix_urls\";s:23:\"http://www.thinksns.com\";s:18:\"cloud_attach_admin\";s:5:\"admin\";s:21:\"cloud_attach_password\";s:5:\"admin\";}','2015-07-14 15:13:43');
 INSERT INTO tt_system_data VALUES ('5228','admin_Credit','level','a:10:{i:0;a:5:{s:5:\"level\";i:1;s:4:\"name\";s:3:\"LV1\";s:5:\"image\";s:2:\"72\";s:5:\"start\";s:1:\"0\";s:3:\"end\";s:2:\"10\";}i:1;a:5:{s:5:\"level\";i:2;s:4:\"name\";s:3:\"LV2\";s:5:\"image\";s:2:\"73\";s:5:\"start\";s:2:\"11\";s:3:\"end\";s:3:\"100\";}i:2;a:5:{s:5:\"level\";i:3;s:4:\"name\";s:3:\"LV3\";s:5:\"image\";s:2:\"74\";s:5:\"start\";s:3:\"101\";s:3:\"end\";s:3:\"500\";}i:3;a:5:{s:5:\"level\";i:4;s:4:\"name\";s:3:\"LV4\";s:5:\"image\";s:2:\"75\";s:5:\"start\";s:3:\"501\";s:3:\"end\";s:4:\"1000\";}i:4;a:5:{s:5:\"level\";i:5;s:4:\"name\";s:3:\"LV5\";s:5:\"image\";s:2:\"76\";s:5:\"start\";s:4:\"1001\";s:3:\"end\";s:4:\"5000\";}i:5;a:5:{s:5:\"level\";i:6;s:4:\"name\";s:3:\"LV6\";s:5:\"image\";s:2:\"77\";s:5:\"start\";s:4:\"5001\";s:3:\"end\";s:4:\"6000\";}i:6;a:5:{s:5:\"level\";i:7;s:4:\"name\";s:3:\"LV7\";s:5:\"image\";s:2:\"78\";s:5:\"start\";s:4:\"6001\";s:3:\"end\";s:4:\"7000\";}i:7;a:5:{s:5:\"level\";i:8;s:4:\"name\";s:3:\"LV8\";s:5:\"image\";s:2:\"79\";s:5:\"start\";s:4:\"7001\";s:3:\"end\";s:4:\"8000\";}i:8;a:5:{s:5:\"level\";i:9;s:4:\"name\";s:3:\"LV9\";s:5:\"image\";s:2:\"80\";s:5:\"start\";s:4:\"8001\";s:3:\"end\";s:4:\"9000\";}i:9;a:5:{s:5:\"level\";i:10;s:4:\"name\";s:4:\"LV10\";s:5:\"image\";s:2:\"81\";s:5:\"start\";s:4:\"9001\";s:3:\"end\";s:7:\"1000000\";}}','2015-07-15 18:40:10');
 INSERT INTO tt_system_data VALUES ('5229','admin_Application','ZB_config','a:2:{s:7:\"version\";s:1:\"1\";s:24:\"cash_exchange_ratio_list\";s:19:\"1:100,2.5:200,4:300\";}','2016-11-15 17:29:38');
+INSERT INTO tt_system_data VALUES ('5233','admin_Config','site','a:23:{s:11:\"site_closed\";s:1:\"1\";s:9:\"site_name\";s:5:\"TTCMS\";s:11:\"site_slogan\";s:30:\"为移动互联网添动力！\";s:20:\"site_header_keywords\";s:41:\"TTCMS 开源微博 免费微博 开源CMS\";s:23:\"site_header_description\";s:597:\"TTCMS开源微博程序致力于提供中国最好的微博程序、轻博客系统、SNS社交网络平台解决方案，提供微博源代码免费下载。内置微博插件机制和API体系，功能覆盖微群功能、社区群组、论坛微博整合、cms微博整合、长微博、图片微博、等综合功能，使微博二次开发更简单。系统采用php+mysql开发，开源发布，支持多个微博系统同步登陆，是能与ucenter整合的微博系统。智士软件使企业或个人快速拥有微博建站能力，为客户提供高质量的微博软件平台服务。\";s:12:\"site_company\";s:0:\"\";s:11:\"site_footer\";s:33:\"©2012 TTCMS All Rights Reserved.\";s:15:\"site_footer_des\";s:95:\"TTCMS是开源cms软件，适合懂技术的站长和软件公司基于系统进行二次开发\";s:6:\"attach\";s:0:\"\";s:9:\"site_logo\";s:5:\"47635\";s:12:\"site_qr_code\";s:5:\"47634\";s:15:\"sina_weibo_link\";s:26:\"http://weibo.com/ithinksns\";s:8:\"login_bg\";s:5:\"45095\";s:18:\"site_closed_reason\";s:120:\"大伙儿不要害怕，我是来测试功能的，一会儿就给你们恢复，这个页面太丑了我要换一个。\";s:10:\"sys_domain\";s:71:\"admin,thinksns,kefu,liuxiaoqing,hujintao,liaosunan,xijinping,zhishisoft\";s:12:\"sys_nickname\";s:187:\"管理员,超级管理员,法轮功,胡锦涛,江泽民,邓小平,小秘书,刘晓庆,廖素南,共产党,党,习近平,李宇春,政府,小胡祖宗,国民党,admin,智士软件,thinksns\";s:9:\"sys_email\";s:18:\"yptangecho@163.com\";s:9:\"home_page\";s:1:\"0\";s:11:\"sys_version\";s:10:\"2015050501\";s:17:\"site_online_count\";s:1:\"1\";s:15:\"site_rewrite_on\";s:1:\"0\";s:10:\"web_closed\";s:1:\"1\";s:19:\"site_analytics_code\";s:144:\"PHNjcmlwdCBzcmM9Imh0dHA6Ly9zMTEuY256ei5jb20vc3RhdC5waHA/aWQ9MTI1NDkzMjcyNiZ3ZWJfaWQ9MTI1NDkzMjcyNiIgbGFuZ3VhZ2U9IkphdmFTY3JpcHQiPjwvc2NyaXB0Pg==\";}','2017-01-21 00:40:42');
+INSERT INTO tt_system_data VALUES ('5234','admin_Config','email','a:9:{s:14:\"email_sendtype\";s:4:\"smtp\";s:10:\"email_host\";s:14:\"smtp.admin.com\";s:9:\"email_ssl\";s:1:\"0\";s:10:\"email_port\";s:2:\"25\";s:13:\"email_account\";s:15:\"admin@admin.com\";s:14:\"email_password\";s:9:\"tt@123456\";s:17:\"email_sender_name\";s:17:\"TTCMS官方社区\";s:18:\"email_sender_email\";s:15:\"admin@admin.com\";s:10:\"email_test\";s:0:\"\";}','2017-01-21 01:01:04');
+INSERT INTO tt_system_data VALUES ('5236','admin_Config','cloudimage','a:7:{s:16:\"cloud_image_open\";s:1:\"0\";s:19:\"cloud_image_api_url\";s:23:\"http://v0.api.upyun.com\";s:18:\"cloud_image_bucket\";s:5:\"ttcms\";s:24:\"cloud_image_form_api_key\";s:26:\"asdPKsdjfshnjfsPQ7cVBRasfd\";s:23:\"cloud_image_prefix_urls\";s:21:\"http://www.9aipay.com\";s:17:\"cloud_image_admin\";s:5:\"admin\";s:20:\"cloud_image_password\";s:6:\"111111\";}','2017-01-21 01:03:15');
+INSERT INTO tt_system_data VALUES ('5237','admin_Config','cloudattach','a:7:{s:17:\"cloud_attach_open\";s:1:\"0\";s:20:\"cloud_attach_api_url\";s:23:\"http://v0.api.upyun.com\";s:19:\"cloud_attach_bucket\";s:5:\"ttcms\";s:25:\"cloud_attach_form_api_key\";s:33:\"ajskdhnajkshbfdajjkdhnakjsndjkans\";s:24:\"cloud_attach_prefix_urls\";s:21:\"http://www.9aipay.com\";s:18:\"cloud_attach_admin\";s:5:\"admin\";s:21:\"cloud_attach_password\";s:6:\"111111\";}','2017-01-21 01:03:30');
+INSERT INTO tt_system_data VALUES ('5238','admin_Config','seo_login','a:6:{s:4:\"name\";s:9:\"登录页\";s:5:\"title\";s:43:\"TTCMS官方社区 - TTCMS开源分享系统\";s:8:\"keywords\";s:41:\"TTCMS 开源分享 免费分享 开源CMS\";s:3:\"des\";s:41:\"TTCMS提供分享源代码免费下载。\";s:4:\"node\";s:0:\"\";s:3:\"sub\";s:6:\"提交\";}','2017-01-21 18:58:39');
+INSERT INTO tt_system_data VALUES ('5273','login','open','a:6:{i:0;s:4:\"sina\";i:1;s:5:\"qzone\";i:2;s:6:\"renren\";i:3;s:5:\"baidu\";i:4;s:6:\"taobao\";i:5;s:6:\"weixin\";}','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5274','login','platformMeta','s:0:\"\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5275','login','sina_wb_akey','s:10:\"2256583756\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5276','login','sina_wb_skey','s:32:\"20dd17063d9760a3164a9bfdf9f45991\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5277','login','qzone_key','s:9:\"100358969\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5278','login','qzone_secret','s:32:\"1000ae79d56306cec5cf6a63ef16f96e\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5279','login','qq_key','s:9:\"801299167\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5280','login','qq_secret','s:32:\"93b62958ac5577bd56364e09cd802878\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5281','login','renren_key','s:32:\"26161c548a3d445799b2396bdf7f7e34\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5282','login','renren_secret','s:32:\"37ec1516560641fc822f0d43a5fdcaf4\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5283','login','baidu_key','s:24:\"EnqL8gqVVQUbvGnyBm7GdYVv\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5284','login','baidu_secret','s:32:\"O2qxo5WDiBci5xWh2TxQcINR37MW74TN\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5285','login','taobao_key','s:8:\"21353628\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5286','login','taobao_secret','s:32:\"6c334d2e22d4a4d45554a7bcec518c3d\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5287','login','weixin_key','s:9:\"801299167\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5288','login','weixin_secret','s:32:\"93b62958ac5577bd56364e09cd802878\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5289','login','bindemail','i:0;','2017-01-21 20:11:33');
+
+DROP TABLE IF EXISTS tt_tag;
+CREATE TABLE `tt_tag` (
+  `tag_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键，标签编号',
+  `name` varchar(255) NOT NULL COMMENT '标签名',
+  PRIMARY KEY (`tag_id`),
+  UNIQUE KEY `tag_name` (`name`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='标签表';
+
+INSERT INTO tt_tag VALUES ('1','Ts粉丝团');
+INSERT INTO tt_tag VALUES ('2','前端工程狮');
+INSERT INTO tt_tag VALUES ('3','画家');
+INSERT INTO tt_tag VALUES ('4','2B青年欢乐多');
+INSERT INTO tt_tag VALUES ('5','cc');
+INSERT INTO tt_tag VALUES ('6','酱油君');
+INSERT INTO tt_tag VALUES ('7','Ios程序猿');
+INSERT INTO tt_tag VALUES ('8','有钱任性');
+INSERT INTO tt_tag VALUES ('9','uuud');
+INSERT INTO tt_tag VALUES ('10','php工程狮');
+INSERT INTO tt_tag VALUES ('11','交互设计狮');
+INSERT INTO tt_tag VALUES ('12','美女');
 
 DROP TABLE IF EXISTS tt_user;
 CREATE TABLE `tt_user` (
@@ -6112,6 +6201,7 @@ CREATE TABLE `tt_user` (
   KEY `uname` (`uname`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+INSERT INTO tt_user VALUES ('1','','dff4573c396dda676ef6651d78856a94','11111','管理员1','admin@admin.com','1','北京 北京市 朝阳区','1','1','1','1484884999','1','','vvyyy','1','2','7','127.0.0.1','zh-cn','PRC','0','G','asdasd','1484915009','0','0','管理员1 guanliyuan1','','0','0','','','1');
 
 DROP TABLE IF EXISTS tt_user_blacklist;
 CREATE TABLE `tt_user_blacklist` (
@@ -6180,15 +6270,6 @@ CREATE TABLE `tt_user_category_link` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS tt_user_change_style;
-CREATE TABLE `tt_user_change_style` (
-  `uid` int(11) unsigned NOT NULL COMMENT '户用UID',
-  `classname` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '皮肤的样式表名称',
-  `background` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '肤的皮背景图片地址',
-  UNIQUE KEY `uid` (`uid`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
 DROP TABLE IF EXISTS tt_user_count;
 CREATE TABLE `tt_user_count` (
   `uid` int(11) NOT NULL,
@@ -6223,11 +6304,11 @@ CREATE TABLE `tt_user_data` (
   `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '前当时间戳',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user-key` (`uid`,`key`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_user_data VALUES ('5','1','view_follower_time','1484814921','2017-01-19 16:35:21');
 INSERT INTO tt_user_data VALUES ('6','1','new_folower_count','0','2017-01-19 16:35:21');
-INSERT INTO tt_user_data VALUES ('19','1','login_error_time','0','2017-01-19 19:26:20');
+INSERT INTO tt_user_data VALUES ('24','1','login_error_time','0','2017-01-20 20:23:29');
 
 DROP TABLE IF EXISTS tt_user_group;
 CREATE TABLE `tt_user_group` (
@@ -6268,14 +6349,6 @@ CREATE TABLE `tt_user_online` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS tt_user_privacy;
-CREATE TABLE `tt_user_privacy` (
-  `uid` int(11) NOT NULL COMMENT '户用UID',
-  `key` varchar(120) NOT NULL COMMENT '配置键名，如weibo_comment（评论）,message（私信）',
-  `value` varchar(120) NOT NULL COMMENT '配置值，0：所有人(不包括你的黑名单用户)；1：我关注的人'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
 DROP TABLE IF EXISTS tt_user_profile;
 CREATE TABLE `tt_user_profile` (
   `uid` int(11) unsigned NOT NULL COMMENT '户用UID',
@@ -6286,6 +6359,9 @@ CREATE TABLE `tt_user_profile` (
   KEY `uid_2` (`uid`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+INSERT INTO tt_user_profile VALUES ('1','22','博士','0');
+INSERT INTO tt_user_profile VALUES ('1','24','撒大声地','0');
+INSERT INTO tt_user_profile VALUES ('1','23','1483286400','0');
 
 DROP TABLE IF EXISTS tt_user_profile_setting;
 CREATE TABLE `tt_user_profile_setting` (
@@ -6313,31 +6389,79 @@ INSERT INTO tt_user_profile_setting VALUES ('22','2','edu_degrees','学历','21'
 INSERT INTO tt_user_profile_setting VALUES ('24','2','edu_school','学校名称','21','1','1','1','0','0','input','\" placeholder=\"请输入学校名称','','','0');
 INSERT INTO tt_user_profile_setting VALUES ('21','1','edu','教育信息','0','1','1','0','0','0','','','','','0');
 
-DROP TABLE IF EXISTS tt_weixin_log;
-CREATE TABLE `tt_weixin_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cTime` int(11) DEFAULT NULL,
-  `cTime_format` varchar(30) DEFAULT NULL,
-  `data` text,
-  `data_post` text,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
-DROP TABLE IF EXISTS tt_x_article;
-CREATE TABLE `tt_x_article` (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '标题',
-  `uid` int(10) NOT NULL COMMENT '发布者ID',
-  `mtime` int(11) NOT NULL COMMENT '修改时间',
-  `sort` tinyint(5) NOT NULL COMMENT '排序',
-  `content` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '内容',
-  `attach` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '附件信息',
-  `type` tinyint(3) NOT NULL COMMENT '类型:1公告，2页脚配置文章',
+DROP TABLE IF EXISTS tt_user_verified;
+CREATE TABLE `tt_user_verified` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `uid` int(11) unsigned NOT NULL COMMENT '户用UID',
+  `usergroup_id` int(11) NOT NULL COMMENT '认证类型，即所申请的认证组的ID',
+  `user_verified_category_id` int(11) NOT NULL DEFAULT '0' COMMENT '认证分类ID',
+  `company` varchar(255) NOT NULL COMMENT '公司名称',
+  `realname` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '真实姓名',
+  `idcard` varchar(50) NOT NULL COMMENT '证件号码',
+  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '联系方式',
+  `info` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '证认信息',
+  `verified` tinyint(2) NOT NULL DEFAULT '0' COMMENT '认证状态，0：否；1：是',
+  `attach_id` varchar(255) NOT NULL COMMENT '认证资料，存储用户上传的ID',
+  `reason` varchar(255) DEFAULT NULL COMMENT '证认理由',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `type` (`type`,`sort`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  UNIQUE KEY `uid` (`uid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+INSERT INTO tt_user_verified VALUES ('1','1','5','7','','asd','430528198810210921','44444444444','','0','','44444');
+
+DROP TABLE IF EXISTS tt_user_verified_category;
+CREATE TABLE `tt_user_verified_category` (
+  `user_verified_category_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '认证分类主键',
+  `title` varchar(225) NOT NULL COMMENT '认证分类名称',
+  `pid` int(11) NOT NULL COMMENT '父分类ID',
+  `sort` int(11) NOT NULL COMMENT '排序值',
+  PRIMARY KEY (`user_verified_category_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+INSERT INTO tt_user_verified_category VALUES ('5','优秀Ts二开公司','6','0');
+INSERT INTO tt_user_verified_category VALUES ('6','合作机构','6','0');
+INSERT INTO tt_user_verified_category VALUES ('7','优秀二次开发者','5','0');
+INSERT INTO tt_user_verified_category VALUES ('8','Ts城市分舵主','5','0');
+INSERT INTO tt_user_verified_category VALUES ('9','Ts铁杆级粉丝','5','0');
+INSERT INTO tt_user_verified_category VALUES ('10','Ts团队人员','5','0');
+INSERT INTO tt_user_verified_category VALUES ('11','小编','5','0');
+
+DROP TABLE IF EXISTS tt_x_logs;
+CREATE TABLE `tt_x_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL COMMENT '用户ID',
+  `uname` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '帐号\r\n',
+  `app_name` char(80) NOT NULL COMMENT '知识所属应用',
+  `group` char(80) DEFAULT NULL COMMENT '知识分组',
+  `action` char(80) NOT NULL COMMENT '知识行为',
+  `ip` varchar(80) DEFAULT NULL COMMENT 'IP地址',
+  `data` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '序列化保存的模板变量',
+  `url` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '记录知识时的URL地址',
+  `ctime` int(11) NOT NULL COMMENT '创建时间',
+  `isAdmin` tinyint(2) NOT NULL COMMENT '是否是管理员知识',
+  `keyword` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '模板变量值',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+INSERT INTO tt_x_logs VALUES ('8','1','管理员','admin','system','dellog','0.0.0.0','a:2:{s:4:\"nums\";i:1;s:3:\"ids\";s:1:\"1\";}','/ttcms/index.php?app=admin&mod=Home&act=_delLogs','1484919878','1','1');
+INSERT INTO tt_x_logs VALUES ('9','1','管理员','admin','config','editPagekey','0.0.0.0','a:2:{s:4:\"name\";s:12:\"计划任务\";s:2:\"k1\";s:30:\"保存修改编辑页面配置\";}','/ttcms/index.php?app=admin&mod=Index&act=savePageConfig','1484921491','1','计划任务 保存修改编辑页面配置');
+INSERT INTO tt_x_logs VALUES ('2','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"站点配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484919241','1','站点配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('3','1','管理员','admin','config','editSearchPagekey','0.0.0.0','a:2:{s:4:\"name\";s:12:\"日志列表\";s:2:\"k1\";s:30:\"保存修改编辑页面配置\";}','/ttcms/index.php?app=admin&mod=Index&act=saveSearchConfig','1484919353','1','日志列表 保存修改编辑页面配置');
+INSERT INTO tt_x_logs VALUES ('4','1','管理员','admin','system','cleanlog','0.0.0.0','a:2:{s:4:\"date\";s:1:\"6\";s:1:\"k\";s:18:\"清理删除知识\";}','/ttcms/index.php?app=admin&mod=Home&act=_cleanLogs','1484919366','1','6 清理删除知识');
+INSERT INTO tt_x_logs VALUES ('5','1','管理员','admin','system','cleanlog','0.0.0.0','a:2:{s:4:\"date\";s:2:\"12\";s:1:\"k\";s:18:\"清理删除知识\";}','/ttcms/index.php?app=admin&mod=Home&act=_cleanLogs','1484919369','1','12 清理删除知识');
+INSERT INTO tt_x_logs VALUES ('6','1','管理员','admin','system','logsArchive','0.0.0.0','a:2:{s:3:\"msg\";s:27:\"没有需要归档的知识\";s:1:\"k\";s:12:\"知识归档\";}','/ttcms/index.php?app=admin&mod=Home&act=_logsArchive','1484919372','1','没有需要归档的知识 知识归档');
+INSERT INTO tt_x_logs VALUES ('7','1','管理员','admin','system','logsArchive','0.0.0.0','a:2:{s:3:\"msg\";s:27:\"没有需要归档的知识\";s:1:\"k\";s:12:\"知识归档\";}','/ttcms/index.php?app=admin&mod=Home&act=_logsArchive','1484919375','1','没有需要归档的知识 知识归档');
+INSERT INTO tt_x_logs VALUES ('10','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"站点配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484930393','1','站点配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('11','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"站点配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484930404','1','站点配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('12','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"站点配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484930442','1','站点配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('13','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"邮件配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484931664','1','邮件配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('14','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"附件配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484931776','1','附件配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('15','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"附件配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484931795','1','附件配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('16','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"附件配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484931810','1','附件配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('17','1','管理员','admin','flobal','editCredit','0.0.0.0','a:4:{s:3:\"uid\";i:1;s:4:\"type\";s:1:\"3\";s:4:\"data\";s:557:\"a:3:{i:0;s:37:\"全局 - 积分配置 - 积分规则 \";i:1;a:10:{s:2:\"id\";i:192;s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";i:0;s:3:\"des\";s:0:\"\";s:4:\"info\";s:0:\"\";s:5:\"score\";i:1;s:10:\"experience\";i:1;}i:2;a:10:{s:2:\"id\";s:3:\"192\";s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";s:1:\"0\";s:3:\"des\";s:0:\"\";s:10:\"experience\";s:1:\"2\";s:5:\"score\";s:1:\"1\";s:4:\"info\";s:0:\"\";}}\";s:5:\"ctime\";i:1484966457;}','/ttcms/index.php?app=admin&mod=Global&act=doEditCredit','1484966457','1','1 3 a:3:{i:0;s:37:\"全局 - 积分配置 - 积分规则 \";i:1;a:10:{s:2:\"id\";i:192;s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";i:0;s:3:\"des\";s:0:\"\";s:4:\"info\";s:0:\"\";s:5:\"score\";i:1;s:10:\"experience\";i:1;}i:2;a:10:{s:2:\"id\";s:3:\"192\";s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";s:1:\"0\";s:3:\"des\";s:0:\"\";s:10:\"experience\";s:1:\"2\";s:5:\"score\";s:1:\"1\";s:4:\"info\";s:0:\"\";}} 1484966457');
+INSERT INTO tt_x_logs VALUES ('18','1','管理员','admin','global','editCredit','0.0.0.0','a:3:{s:3:\"uid\";i:1;s:4:\"type\";s:1:\"3\";s:4:\"data\";s:557:\"a:3:{i:0;s:37:\"全局 - 积分配置 - 积分规则 \";i:1;a:10:{s:2:\"id\";i:192;s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";i:0;s:3:\"des\";s:0:\"\";s:4:\"info\";s:0:\"\";s:5:\"score\";i:1;s:10:\"experience\";i:2;}i:2;a:10:{s:2:\"id\";s:3:\"192\";s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";s:1:\"0\";s:3:\"des\";s:0:\"\";s:10:\"experience\";s:1:\"1\";s:5:\"score\";s:1:\"1\";s:4:\"info\";s:0:\"\";}}\";}','/ttcms/index.php?app=admin&mod=Global&act=doEditCredit','1484966871','1','1 3 a:3:{i:0;s:37:\"全局 - 积分配置 - 积分规则 \";i:1;a:10:{s:2:\"id\";i:192;s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";i:0;s:3:\"des\";s:0:\"\";s:4:\"info\";s:0:\"\";s:5:\"score\";i:1;s:10:\"experience\";i:2;}i:2;a:10:{s:2:\"id\";s:3:\"192\";s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";s:1:\"0\";s:3:\"des\";s:0:\"\";s:10:\"experience\";s:1:\"1\";s:5:\"score\";s:1:\"1\";s:4:\"info\";s:0:\"\";}}');
+INSERT INTO tt_x_logs VALUES ('19','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:9:\"编辑SEO\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Config&act=saveConfigData','1484996319','1','编辑SEO 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('20','1','管理员','admin','config','editPagekey','0.0.0.0','a:2:{s:4:\"name\";s:0:\"\";s:2:\"k1\";s:30:\"保存修改编辑页面配置\";}','/ttcms/index.php?app=admin&mod=Index&act=savePageConfig','1485003274','1',' 保存修改编辑页面配置');
 
 DROP TABLE IF EXISTS tt_addons;
 CREATE TABLE `tt_addons` (
@@ -6356,13 +6480,38 @@ CREATE TABLE `tt_addons` (
   UNIQUE KEY `name` (`name`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_addons VALUES ('3','RelatedUser','可能感兴趣的人','t3','根据当前用户推荐可能感兴趣的人','3.0','1','','','3.0','0');
-INSERT INTO tt_addons VALUES ('4','Login','分享同步V3','智士软件','第三方账号登录插件','3.0','1','','t.thinksns.com','3.0','0');
-INSERT INTO tt_addons VALUES ('6','AdSpace','广告位 - 官方版','智士软件','广告位官方版','1.0','1','','http://www.thinksns.com','3.0','0');
-INSERT INTO tt_addons VALUES ('9','FeedTop','分享置顶','云脉网','分享置顶','1.0','1','','','3.0','0');
-INSERT INTO tt_addons VALUES ('13','Contribute','分享投稿','thinksns','向频道管理员投稿','3.0','1','','http://www.thinksns.com','3.0','0');
-INSERT INTO tt_addons VALUES ('20','InviteTest','邀请内测 - 官方版','while','邀请内测插件（官方版） - 以发放邀请码的方式邀请用户测试','1.0','0','','master@xiew.net','4.0','0');
-INSERT INTO tt_addons VALUES ('21','FeedTopHome','空间分享置顶','智士软件','空间分享置顶','1.0','1','','http://www.thinksns.com','3.0','0');
+INSERT INTO tt_addons VALUES ('3','RelatedUser','可能感兴趣的人','t3','根据当前用户推荐可能感兴趣的人','3.0','0','','','3.0','0');
+INSERT INTO tt_addons VALUES ('4','Login','分享同步','智士软件','第三方账号登录插件','3.0','1','','','3.0','0');
+INSERT INTO tt_addons VALUES ('6','AdSpace','广告位 - 官方版','智士软件','广告位官方版','1.0','0','','','3.0','0');
+INSERT INTO tt_addons VALUES ('9','FeedTop','分享置顶','云脉网','分享置顶','1.0','0','','','3.0','0');
+INSERT INTO tt_addons VALUES ('13','Contribute','分享投稿','thinksns','向频道管理员投稿','3.0','0','','','3.0','0');
+INSERT INTO tt_addons VALUES ('20','InviteTest','邀请内测 - 官方版','while','邀请内测插件（官方版） - 以发放邀请码的方式邀请用户测试','1.0','0','','','4.0','0');
+INSERT INTO tt_addons VALUES ('21','FeedTopHome','空间分享置顶','智士软件','空间分享置顶','1.0','0','','','3.0','0');
+
+DROP TABLE IF EXISTS tt_app_tag;
+CREATE TABLE `tt_app_tag` (
+  `app` char(15) NOT NULL COMMENT '所属应用',
+  `table` char(15) NOT NULL COMMENT '所属表名',
+  `row_id` int(11) DEFAULT '0' COMMENT '所属应用的内容的编号或者用户编号',
+  `tag_id` int(11) NOT NULL COMMENT 'Tag 编号',
+  UNIQUE KEY `app` (`table`,`row_id`,`tag_id`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO tt_app_tag VALUES ('public','user','1','6');
+INSERT INTO tt_app_tag VALUES ('public','user','1','11');
+INSERT INTO tt_app_tag VALUES ('public','user','1','12');
+
+DROP TABLE IF EXISTS tt_application_slide;
+CREATE TABLE `tt_application_slide` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
+  `image` int(10) NOT NULL COMMENT '图片ID',
+  `type` varchar(20) NOT NULL DEFAULT 'false' COMMENT '类型',
+  `data` varchar(255) NOT NULL DEFAULT '' COMMENT '数据',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='客户端幻灯设置表';
+
+INSERT INTO tt_application_slide VALUES ('1','asasd','83','url','ZX');
 
 DROP TABLE IF EXISTS tt_area;
 CREATE TABLE `tt_area` (
@@ -9701,7 +9850,7 @@ CREATE TABLE `tt_attach` (
   `height` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`attach_id`),
   KEY `userId` (`uid`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_attach VALUES ('82','','','0','','1','1484815544','请求量.png','image/png','404498','png','2bb0d8ef8d0d5075fb8d85e99af776a6','0','0','2017/0119/16/','58807cb84f3fb42de7c8.png','0','0','2560','1402');
 INSERT INTO tt_attach VALUES ('72','','','0','feed_image','1','1436956686','557141a953668.png','image/png','14850','png','dcba2a008076198e9520da29fd5a3713','0','0','2015/0715/18/','55a6380e408a3.png','0','0','48','10');
@@ -9714,6 +9863,7 @@ INSERT INTO tt_attach VALUES ('78','','','0','feed_image','1','1436956782','5571
 INSERT INTO tt_attach VALUES ('79','','','0','feed_image','1','1436956793','5571428166417.png','image/png','14872','png','aaf37a251443585f35e5982f37671c09','0','0','2015/0715/18/','55a6387915016.png','0','0','48','10');
 INSERT INTO tt_attach VALUES ('80','','','0','feed_image','1','1436956802','5571429aa4fe3.png','image/png','14873','png','cda48ace4d5b691e81d13bb6f12acf55','0','0','2015/0715/18/','55a6388241e1d.png','0','0','48','10');
 INSERT INTO tt_attach VALUES ('81','','','0','feed_image','1','1436956809','557142bfdca0c.png','image/png','14846','png','ac8dab678ddcf3d536996910025d3e89','0','0','2015/0715/18/','55a6388988dc5.png','0','0','48','10');
+INSERT INTO tt_attach VALUES ('83','','','0','admin_image','1','1485002633','IMG_8672.jpg','image/jpeg','2058402','jpg','801e125d3b2090eb122e96cf0cd85851','0','0','2017/0121/20/','58835789153389b74635.jpg','0','0','3456','5184');
 
 DROP TABLE IF EXISTS tt_credit_record;
 CREATE TABLE `tt_credit_record` (
@@ -9728,11 +9878,15 @@ CREATE TABLE `tt_credit_record` (
   `detail` varchar(255) DEFAULT NULL COMMENT 'API所需描述',
   `reason` varchar(255) DEFAULT NULL COMMENT '驳回理由',
   PRIMARY KEY (`rid`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_credit_record VALUES ('1','40','1','1','用户登录','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1484730034','{\"experience\":\"+1\",\"score\":\"+2\"}','');
 INSERT INTO tt_credit_record VALUES ('2','40','1','1','用户登录','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1484808006','{\"experience\":\"+1\",\"score\":\"+2\"}','');
 INSERT INTO tt_credit_record VALUES ('3','186','1','1','个人主页被访问','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1484814912','{\"experience\":\"+1\",\"score\":\"+2\"}','');
+INSERT INTO tt_credit_record VALUES ('4','40','1','1','用户登录','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1484889836','{\"experience\":\"+1\",\"score\":\"+2\"}','');
+INSERT INTO tt_credit_record VALUES ('5','186','1','1','个人主页被访问','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1484931501','{\"experience\":\"+1\",\"score\":\"+2\"}','');
+INSERT INTO tt_credit_record VALUES ('6','186','1','1','个人主页被访问','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1485004233','{\"experience\":\"+1\",\"score\":\"+2\"}','');
+INSERT INTO tt_credit_record VALUES ('7','186','1','1','个人主页被访问','','经验<font color=\"red\">+1</font>,积分<font color=\"red\">+2</font>','1485007535','{\"experience\":\"+1\",\"score\":\"+2\"}','');
 
 DROP TABLE IF EXISTS tt_credit_setting;
 CREATE TABLE `tt_credit_setting` (
@@ -9792,7 +9946,7 @@ INSERT INTO tt_credit_setting VALUES ('188','collect_weibo','收藏分享','weib
 INSERT INTO tt_credit_setting VALUES ('189','report_weibo','举报分享','weibo','','0','','','1','1');
 INSERT INTO tt_credit_setting VALUES ('190','collected_weibo','分享被收藏','weibo','','0','','','1','1');
 INSERT INTO tt_credit_setting VALUES ('191','reported_weibo','分享被举报','weibo','','0','','','-1','-1');
-INSERT INTO tt_credit_setting VALUES ('192','recommend_to_channel','推荐至频道','channel','','0','','','1','1');
+INSERT INTO tt_credit_setting VALUES ('192','recommend_to_channel','推荐至频道','channel','day','0','','','1','1');
 INSERT INTO tt_credit_setting VALUES ('193','unrecommend_to_channel','取消推荐至频道','channel','','0','','','1','1');
 INSERT INTO tt_credit_setting VALUES ('194','publish_topic','发表帖子','weiba','','0','','','5','5');
 INSERT INTO tt_credit_setting VALUES ('195','forward_topic','转发帖子','weiba','','0','','','0','0');
@@ -9842,23 +9996,7 @@ CREATE TABLE `tt_credit_user` (
   KEY `uid` (`uid`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_credit_user VALUES ('1','1','6','3');
-
-DROP TABLE IF EXISTS tt_denounce;
-CREATE TABLE `tt_denounce` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `from` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '资源来源位置',
-  `aid` int(10) NOT NULL COMMENT '资源ID',
-  `state` tinyint(3) NOT NULL COMMENT '状态',
-  `uid` int(10) NOT NULL COMMENT '举报人',
-  `fuid` int(10) NOT NULL COMMENT '被举报人',
-  `reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '举报原因',
-  `content` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '举报内容',
-  `ctime` int(10) NOT NULL COMMENT '举报时间',
-  `source_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '资源来源页面',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
+INSERT INTO tt_credit_user VALUES ('1','1','14','7');
 
 DROP TABLE IF EXISTS tt_expression;
 CREATE TABLE `tt_expression` (
@@ -9933,11 +10071,34 @@ CREATE TABLE `tt_invite_code` (
   `receiver_email` varchar(50) DEFAULT NULL COMMENT '邀请人注册邮箱',
   `ctime` int(11) NOT NULL COMMENT '注册时间',
   PRIMARY KEY (`invite_code_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_invite_code VALUES ('1','1','bdb270149075268e','0','0','link','0','0','','1484815603');
 INSERT INTO tt_invite_code VALUES ('2','1','94e190d12461d2b9','0','0','link','0','0','','1484815603');
 INSERT INTO tt_invite_code VALUES ('3','1','7f19ddb93617b30a','0','0','link','0','0','','1484815603');
+INSERT INTO tt_invite_code VALUES ('4','1','16aeef2f9a5c770a','0','1','email','0','0','','1484931067');
+INSERT INTO tt_invite_code VALUES ('5','1','67197a44f55035ef','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('6','1','6d4053960ff01b1e','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('7','1','2598690a3e916df2','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('8','1','c86476deab4aeb35','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('9','1','8f4a130e75c46f3d','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('10','1','5e6e2ea778921509','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('11','1','c69c252824afc8cf','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('12','1','538dcb1909aa55a8','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('13','1','c4135314dfd9df62','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('14','1','7ded77fa3bc67e2a','0','1','link','0','0','','1484931259');
+INSERT INTO tt_invite_code VALUES ('15','1','f86b5c6c2b5457fd','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('16','1','9995b359cb38099f','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('17','1','9e869b7571f1ef2a','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('18','1','da8867867fd4bf94','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('19','1','488c6760d0191c63','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('20','1','9bc0178e7add0364','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('21','1','ee74c3b21509368f','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('22','1','c2623c3ed3a8ca2f','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('23','1','0a45c5eebe7d1bbf','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('24','1','c5159a9d06ff1b7f','0','1','link','0','0','','1484931406');
+INSERT INTO tt_invite_code VALUES ('25','1','c005c69692467e1d','0','0','email','0','0','','1485010194');
+INSERT INTO tt_invite_code VALUES ('26','1','9d5e6543cbdcbf3c','0','0','email','0','0','','1485010715');
 
 DROP TABLE IF EXISTS tt_invite_test;
 CREATE TABLE `tt_invite_test` (
@@ -9985,7 +10146,7 @@ INSERT INTO tt_lang VALUES ('17','NOTIFY_NEW_MESSAGE_CONTENT','PUBLIC','0','您�
 INSERT INTO tt_lang VALUES ('18','NOTIFY_NEW_MESSAGE_TITLE','PUBLIC','0','[ {site} ]您收到1封新的私信','[{site}]You received a new private message','[{site} ]您收到1封新的私信');
 INSERT INTO tt_lang VALUES ('19','NOTIFY_SHARE_USER_CONTENT','PUBLIC','0','您的好友 {name} 给您转发了内容：【{content}】快去<a href=\"{sourceurl}\" target=\"_blank\">看看</a>吧。','Your friend {name} shared [{content}] with you ,<a href=\"{sourceurl}\" target=\'_blank\'> go and see it</a>.','您的好友 {name} 給您轉發了內容：【{content}】，快去<a href=\"{sourceurl}\" target=\'_blank\'>看看</a>吧。');
 INSERT INTO tt_lang VALUES ('20','NOTIFY_SHARE_USER_TITLE','PUBLIC','0','[ {site} ]您收到1条新的转发','[{site}] You received a new share','[ {site} ]您收到1條新的轉發');
-INSERT INTO tt_lang VALUES ('21','','','','您有微事务需要处理','','');
+INSERT INTO tt_lang VALUES ('21','','','0','您有微事务需要处理','','');
 INSERT INTO tt_lang VALUES ('22','NOTIFY_REGISTER_INVATE_TITLE','PUBLIC','0','[ {site} ]您的好友 {name} 邀请您注册网站','[{site}] Your friend {name} invited you register for the site','[ {site} ]您的好友 {name} 邀請您註冊網站');
 INSERT INTO tt_lang VALUES ('23','NOTIFY_REGISTER_INVATE_OK_CONTENT','PUBLIC','0','您的好友 <a href=\"{space_url}\" target=\'_blank\' style=\"text-decoration:none;color:#3366cc;\">{name}</a> 刚刚注册开通了帐号，系统已经自动为你们互相关注，快去<a href=\"{space_url}\" target=\"_blank\">TA的主页</a>看看吧。',' You friend {name} has just opened the account, the system has automatically mutual concern for you, go and say hello with TA. <a href=\"{spaceurl}\" target=\"_blank\">Go to his/her home page >></a>','您邀請的好友 {name} 剛剛註冊開通了帳號，系統已經自動為你們互相關注，快去跟TA打聲招呼吧。<a href=\"{spaceurl}\" target=\"_blank\">去TA的主頁看看>></a>');
 INSERT INTO tt_lang VALUES ('24','NOTIFY_REGISTER_INVATE_OK_TITLE','PUBLIC','0','[ {site} ]您的好友 {name} 开通了帐号','[{site}] Your friend {name} opened the account','[ {site} ]您的好友 {name} 開通了帳號');
@@ -10120,7 +10281,7 @@ INSERT INTO tt_lang VALUES ('156','PUBLIC_SYSTEM_MANAGEMENT','PUBLIC','0','后�
 INSERT INTO tt_lang VALUES ('157','PUBLIC_LOGOUT','PUBLIC','0','退出','Logout','退出');
 INSERT INTO tt_lang VALUES ('158','PUBLIC_SYSTEM','PUBLIC','0','系统','System','系統');
 INSERT INTO tt_lang VALUES ('159','PUBLIC_SYSTEM_INFO','PUBLIC','0','系统信息','System Message','系統信息');
-INSERT INTO tt_lang VALUES ('161','PUBLIC_WELCOME_TIPS','PUBLIC','0','欢迎使用ThinkSNS社会化沟通、协作、管理平台','Welcome to use ThinkSNS social communication, collaboration, and management platform','歡迎使用ThinkSNS社會化溝通、協作、管理平台');
+INSERT INTO tt_lang VALUES ('161','PUBLIC_WELCOME_TIPS','PUBLIC','0','欢迎使用TTCMS社会化沟通、协作、管理平台','Welcome to use TTCMS social communication, collaboration, and management platform','歡迎使用TTCMS社會化溝通、協作、管理平台');
 INSERT INTO tt_lang VALUES ('162','PUBLIC_SERVER_INFO','PUBLIC','0','服务器信息','Server Information','服務器信息');
 INSERT INTO tt_lang VALUES ('163','PUBLIC_CORE_VERSION','PUBLIC','0','核心版本','Core Version','核心版本');
 INSERT INTO tt_lang VALUES ('164','PUBLIC_SERVER_PHP','PUBLIC','0','服务器系统及PHP版本','Server system and PHP version','服務器系統及PHP版本');
@@ -10445,7 +10606,7 @@ INSERT INTO tt_lang VALUES ('501','PUBLIC_CHANGE_ONE','PUBLIC','0','换一张','
 INSERT INTO tt_lang VALUES ('502','PUBLIC_TRANSFER_USER','PUBLIC','0','将用户转移至下面的部门下','Transfer the user to the following departments','將用戶轉移至下面的部門下');
 INSERT INTO tt_lang VALUES ('503','PUBLIC_SELECT_USERGROUP','PUBLIC','0','请选择用户组','Please select the user group','請選擇用戶組');
 INSERT INTO tt_lang VALUES ('504','PUBLIC_HELLO','PUBLIC','0','您好','Hello','您好');
-INSERT INTO tt_lang VALUES ('505','PUBLIC_WELCOME','PUBLIC','0','欢迎使用ThinkSNS社会化沟通、协作、管理平台','Welcome to use ThinkSNS social communication, collaboration, and management platform','歡迎使用ThinkSNS社會化溝通、協作、管理平台');
+INSERT INTO tt_lang VALUES ('505','PUBLIC_WELCOME','PUBLIC','0','欢迎使用TTCMS社会化沟通、协作、管理平台','Welcome to use TTCMS social communication, collaboration, and management platform','歡迎使用TTCMS社會化溝通、協作、管理平台');
 INSERT INTO tt_lang VALUES ('506','PUBLIC_FOLD_TIPS','PUBLIC','0','提示：点击标题可以折叠栏目','Tip: Click on the title can be folded part','提示：點擊標題可以折疊欄目');
 INSERT INTO tt_lang VALUES ('507','PUBLIC_USER＿INFORMATION','PUBLIC','0','用户信息','User Information','用戶信息');
 INSERT INTO tt_lang VALUES ('508','PUBLIC_TOTAL_REGISTERED_USERS','PUBLIC','0','总注册用户','Total registered users','總注冊用戶');
@@ -11510,7 +11671,7 @@ CREATE TABLE `tt_login_record` (
   PRIMARY KEY (`login_record_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_login_record VALUES ('1','1','0.0.0.0','','1484825180','0');
+INSERT INTO tt_login_record VALUES ('1','1','0.0.0.0','','1484915009','0');
 
 DROP TABLE IF EXISTS tt_navi;
 CREATE TABLE `tt_navi` (
@@ -11527,16 +11688,32 @@ CREATE TABLE `tt_navi` (
   `order_sort` int(11) DEFAULT NULL COMMENT '应用排序 默认255',
   PRIMARY KEY (`navi_id`),
   KEY `status_postion` (`status`,`position`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_navi VALUES ('1','首页','square','{website}','_self','0','0','1','0','0','1');
 INSERT INTO tt_navi VALUES ('12','首页','index','{website}','_self','1','2','1','0','0','1');
 INSERT INTO tt_navi VALUES ('7','朋友圈','public','{website}/index.php?app=public','_self','1','0','1','0','0','1');
-INSERT INTO tt_navi VALUES ('14','广场','square','{website}/index.php?app=square&mod=Index&act=index','_self','1','2','1','0','0','2');
-INSERT INTO tt_navi VALUES ('37','TS 官网','TS','http://www.thinksns.com','_blank','1','1','1','0','0','2');
-INSERT INTO tt_navi VALUES ('38','智士官网','zhishisoft','http://www.zhishisoft.com/','_blank','1','1','1','0','0','3');
-INSERT INTO tt_navi VALUES ('39','联系我们','connect us','http://www.thinksns.com/buy.html','_blank','1','1','1','0','0','4');
-INSERT INTO tt_navi VALUES ('40','关于我们','ABOUTUS','http://www.thinksns.com/about.html','_blank','1','1','1','0','0','1');
+INSERT INTO tt_navi VALUES ('37','TTCMS官网','TTCMS','http://www.9aipay.com','_blank','1','1','1','0','0','2');
+INSERT INTO tt_navi VALUES ('39','联系我们','connect us','http://www.9aipay.com/buy.html','_blank','1','1','1','0','0','4');
+INSERT INTO tt_navi VALUES ('40','关于我们','ABOUTUS','http://www.9aipay.com/about.html','_blank','1','1','1','0','0','1');
+
+DROP TABLE IF EXISTS tt_notify_email;
+CREATE TABLE `tt_notify_email` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `uid` int(10) NOT NULL COMMENT 'UiD',
+  `node` varchar(50) NOT NULL COMMENT '节点名称',
+  `appname` varchar(50) NOT NULL COMMENT '应用名称',
+  `email` varchar(250) NOT NULL COMMENT '邮件接受地址',
+  `is_send` tinyint(2) NOT NULL COMMENT '是否已经发送',
+  `title` varchar(250) NOT NULL COMMENT '邮件标题',
+  `body` text NOT NULL COMMENT '邮件内容',
+  `ctime` int(11) NOT NULL COMMENT '添加时间',
+  `sendtime` int(11) NOT NULL COMMENT '发送时间',
+  `from_uid` int(11) NOT NULL DEFAULT '0' COMMENT '发送人uid',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='邮件发送队列表';
+
+INSERT INTO tt_notify_email VALUES ('1','0','register_invate','public','1042745891@qq.com','0','','<style>a.email_btn,a.email_btn:link,a.email_btn:visited{background:#0F8CA8;padding:5px 10px;color:#fff;width:80px;text-align:center;}</style><div style=\"width:540px;border:#0F8CA8 solid 2px;margin:0 auto\"><div style=\"color:#bbb;background:#0f8ca8;padding:5px;overflow:hidden;zoom:1\"><div style=\"float:right;height:15px;line-height:15px;padding:10px 0;display:none\">2012年07月15日</div>\n					<div style=\"float:left;overflow:hidden;position:relative\"><a><img style=\"border:0 none\" src=\"http://localhost/ttcms/resources/theme/stv1/_static/image/logo.png\"></a></div></div>\n					<div style=\"background:#fff;padding:20px;min-height:300px;position:relative\">		<div style=\"font-size:14px;\">			\n						            	<p style=\"padding:0 0 20px;margin:0;font-size:12px\"></p>\n						            </div></div><div style=\"background:#fff;\">\n			            <div style=\"text-align:center;height:18px;line-height:18px;color:#999;padding:6px 0;font-size:12px\">若不想再收到此类邮件，请点击<a href=\"http://localhost/ttcms/index.php?app=public&mod=Account&act=notify\" style=\"text-decoration:none;color:#3366cc\">设置</a></div>\n			            <div style=\"line-height:18px;text-align:center\"><p style=\"color:#999;font-size:12px\">©2012 TTCMS All Rights Reserved.</p></div>\n			        </div></div>','1485010715','0','0');
 
 DROP TABLE IF EXISTS tt_online;
 CREATE TABLE `tt_online` (
@@ -11553,8 +11730,8 @@ CREATE TABLE `tt_online` (
   KEY `uid_activeTime` (`uid`,`activeTime`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_online VALUES ('1','0','guest','public','::1','Google','1484810859');
-INSERT INTO tt_online VALUES ('2','1','管理员','public','::1','Google','1484825103');
+INSERT INTO tt_online VALUES ('1','0','guest','public','::1','Google','1485001224');
+INSERT INTO tt_online VALUES ('2','1','管理员','public','::1','Google','1485004954');
 
 DROP TABLE IF EXISTS tt_online_logs;
 CREATE TABLE `tt_online_logs` (
@@ -11571,109 +11748,93 @@ CREATE TABLE `tt_online_logs` (
   `ext` varchar(20) NOT NULL COMMENT '扩展字段',
   `statsed` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否已经统计过',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=207 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_online_logs VALUES ('29','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('28','2017-01-19','0','guest','public/Register/index','http://localhost/thinksns/index.php?app=public&mod=Register&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('27','2017-01-19','0','guest','people/Index/index','http://localhost/thinksns/index.php?app=people','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('26','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('25','2017-01-19','1','管理员','weiba/Index/myWeiba','http://localhost/thinksns/index.php?app=weiba&mod=Index&act=myWeiba&type=myFollowing','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('24','2017-01-19','1','管理员','weiba/Index/weibaList','http://localhost/thinksns/index.php?app=weiba&mod=Index&act=weibaList','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('10','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('11','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('12','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('13','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people&mod=Index&act=index&type=tag','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('14','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people&mod=Index&act=index&type=area','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('15','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people&mod=Index&act=index&type=verify','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('16','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people&mod=Index&act=index&type=official','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('17','2017-01-19','1','管理员','channel/Index/index','http://localhost/thinksns/index.php?app=channel','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('18','2017-01-19','1','管理员','people/Index/index','http://localhost/thinksns/index.php?app=people','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('19','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('20','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('21','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index&type=channel','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('23','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('22','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('30','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('31','2017-01-19','0','guest','public/Passport/login','http://localhost/thinksns/','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('32','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('33','2017-01-19','0','guest','public/Passport/login','http://localhost/thinksns/','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('34','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('35','2017-01-19','0','guest','public/Passport/login','http://localhost/thinksns/','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('36','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('37','2017-01-19','0','guest','public/Register/index','http://localhost/thinksns/index.php?app=public&mod=Register&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('38','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('39','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('40','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('41','2017-01-19','0','guest','public/Passport/login','http://localhost/thinksns/','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('42','2017-01-19','0','guest','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('43','2017-01-19','0','guest','square/Index/index','http://localhost/thinksns/index.php?app=square&mod=Index&act=index','1','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('44','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('45','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('46','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('47','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('48','2017-01-19','1','管理员','weiba/Index/index','http://localhost/thinksns/index.php?app=weiba','0','0','::1','Firefox','','1');
-INSERT INTO tt_online_logs VALUES ('49','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('50','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('51','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('52','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('53','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('54','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','1');
-INSERT INTO tt_online_logs VALUES ('55','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('56','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('57','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('58','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('59','2017-01-19','1','管理员','public/Account/index','http://localhost/thinksns/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('60','2017-01-19','1','管理员','public/Rank/index','http://localhost/thinksns/index.php?app=public&mod=Rank&act=index&type=2','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('61','2017-01-19','1','管理员','public/Profile/index','http://localhost/thinksns/index.php?app=public&mod=Profile&act=index&uid=1','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('62','2017-01-19','1','管理员','public/Profile/collection','http://localhost/thinksns/index.php?app=public&mod=Profile&act=collection&tab=collect','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('63','2017-01-19','1','管理员','public/Profile/following','http://localhost/thinksns/index.php?app=public&mod=Profile&act=following&tab=following&uid=1','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('64','2017-01-19','1','管理员','public/Profile/follower','http://localhost/thinksns/index.php?app=public&mod=Profile&act=follower&tab=follow&uid=1','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('65','2017-01-19','1','管理员','public/Account/index','http://localhost/thinksns/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('66','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('67','2017-01-19','1','管理员','public/Account/domain','http://localhost/thinksns/index.php?app=public&mod=Account&act=domain','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('68','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('69','2017-01-19','1','管理员','public/Account/domain','http://localhost/thinksns/index.php?app=public&mod=Account&act=domain','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('70','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('71','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('72','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('73','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('74','2017-01-19','1','管理员','public/Account/tag','http://localhost/thinksns/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('75','2017-01-19','1','管理员','public/Account/edu','http://localhost/thinksns/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('76','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('77','2017-01-19','1','管理员','public/Account/domain','http://localhost/thinksns/index.php?app=public&mod=Account&act=domain','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('78','2017-01-19','1','管理员','public/Account/authenticate','http://localhost/thinksns/index.php?app=public&mod=Account&act=authenticate','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('79','2017-01-19','1','管理员','public/Account/scoredetail','http://localhost/thinksns/index.php?app=public&mod=Account&act=scoredetail','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('80','2017-01-19','1','管理员','public/Account/scorerule','http://localhost/thinksns/index.php?app=public&mod=Account&act=scorerule','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('81','2017-01-19','1','管理员','public/Account/scorelevel','http://localhost/thinksns/index.php?app=public&mod=Account&act=scorelevel','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('82','2017-01-19','1','管理员','public/Account/scorecharge','http://localhost/thinksns/index.php?app=public&mod=Account&act=scorecharge','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('83','2017-01-19','1','管理员','public/Account/scoretransfer','http://localhost/thinksns/index.php?app=public&mod=Account&act=scoretransfer','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('84','2017-01-19','1','管理员','public/Account/scorecharge','http://localhost/thinksns/index.php?app=public&mod=Account&act=scorecharge','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('85','2017-01-19','1','管理员','public/Account/notify','http://localhost/thinksns/index.php?app=public&mod=Account&act=notify','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('86','2017-01-19','1','管理员','public/Account/blacklist','http://localhost/thinksns/index.php?app=public&mod=Account&act=blacklist','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('87','2017-01-19','1','管理员','public/Account/security','http://localhost/thinksns/index.php?app=public&mod=Account&act=security','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('88','2017-01-19','1','管理员','public/Account/bind','http://localhost/thinksns/index.php?app=public&mod=Account&act=bind','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('89','2017-01-19','1','管理员','public/Invite/invite','http://localhost/thinksns/index.php?app=public&mod=Invite&act=invite','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('90','2017-01-19','1','管理员','public/Invite/linvite','http://localhost/thinksns/index.php?app=public&mod=Invite&act=linvite','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('91','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('92','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('93','2017-01-19','1','管理员','public/Account/index','http://localhost/thinksns/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('94','2017-01-19','1','管理员','public/Account/authenticate','http://localhost/thinksns/index.php?app=public&mod=Account&act=authenticate','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('95','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('96','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('97','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('98','2017-01-19','1','管理员','public/Account/authenticate','http://localhost/thinksns/index.php?app=public&mod=Account&act=authenticate','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('99','2017-01-19','1','管理员','public/Account/scoredetail','http://localhost/thinksns/index.php?app=public&mod=Account&act=scoredetail','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('100','2017-01-19','1','管理员','public/Account/edu','http://localhost/thinksns/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('101','2017-01-19','1','管理员','public/Account/avatar','http://localhost/thinksns/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('102','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('103','2017-01-19','0','guest','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','1','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('104','2017-01-19','0','guest','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','1','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('105','2017-01-19','0','guest','public/Passport/login','http://localhost/thinksns/','1','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('106','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('107','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('108','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('109','2017-01-19','0','guest','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','1','0','::1','Google','','0');
-INSERT INTO tt_online_logs VALUES ('110','2017-01-19','1','管理员','public/Index/index','http://localhost/thinksns/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','0');
+INSERT INTO tt_online_logs VALUES ('206','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','0');
+INSERT INTO tt_online_logs VALUES ('205','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('204','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('203','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('202','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('201','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('200','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('199','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('198','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('197','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('196','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('195','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('194','2017-01-21','1','管理员1','public/Account/avatar','http://localhost/ttcms/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('193','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('192','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('191','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('190','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('189','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('188','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('187','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('186','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('185','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('184','2017-01-21','1','管理员1','public/Account/avatar','http://localhost/ttcms/index.php?app=public&mod=Account&act=avatar','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('183','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('182','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('181','2017-01-21','1','管理员1','public/Account/edu','http://localhost/ttcms/index.php?app=public&mod=Account&act=edu','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('180','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('179','2017-01-21','1','管理员1','public/Account/privacy','http://localhost/ttcms/index.php?app=public&mod=Account&act=privacy','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('178','2017-01-21','1','管理员1','public/Account/privacy','http://localhost/ttcms/index.php?app=public&mod=Account&act=privacy','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('174','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('173','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('172','2017-01-21','1','管理员1','public/Profile/index','http://localhost/ttcms/index.php?app=public&mod=Profile&act=index&uid=1','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('171','2017-01-21','1','管理员1','public/Medal/index','http://localhost/ttcms/index.php?app=public&mod=Medal&act=index&type=1&uid=1','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('170','2017-01-21','1','管理员1','public/Medal/index','http://localhost/ttcms/index.php?app=public&mod=Medal&act=index&type=2&uid=1','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('158','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('156','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('157','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('155','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('154','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('152','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('153','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('151','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('150','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('149','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('147','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('146','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('144','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('145','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('143','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('141','2017-01-21','1','管理员','public/Account/privacy','http://localhost/ttcms/index.php?app=public&mod=Account&act=privacy','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('140','2017-01-21','1','管理员','public/Account/scoretransfer','http://localhost/ttcms/index.php?app=public&mod=Account&act=scoretransfer','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('136','2017-01-21','1','管理员','public/Account/scoredetail','http://localhost/ttcms/index.php?app=public&mod=Account&act=scoredetail','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('135','2017-01-21','1','管理员','public/Account/authenticate','http://localhost/ttcms/index.php?app=public&mod=Account&act=authenticate','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('134','2017-01-21','1','管理员','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('133','2017-01-21','1','管理员','public/Profile/index','http://localhost/ttcms/index.php?app=public&mod=Profile&act=index&uid=1','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('132','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index&type=following','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('131','2017-01-21','0','guest','public/Register/index','http://localhost/ttcms/index.php?app=public&mod=Register&act=index&t=email&invite=67197a44f55035ef','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('130','2017-01-21','0','guest','public/Register/index','http://localhost/ttcms/index.php?app=public&mod=Register&act=index&t=phone&invite=67197a44f55035ef','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('129','2017-01-21','0','guest','public/Register/index','http://localhost/ttcms/index.php?app=public&mod=Register&act=index&invite=67197a44f55035ef','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('128','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('125','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('122','2017-01-21','1','管理员','public/Medal/index','http://localhost/ttcms/index.php?app=public&mod=Medal&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('168','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('167','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('160','2017-01-21','1','管理员','public/Account/privacy','http://localhost/ttcms/index.php?app=public&mod=Account&act=privacy','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('161','2017-01-21','1','管理员','public/Account/notify','http://localhost/ttcms/index.php?app=public&mod=Account&act=notify','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('162','2017-01-21','1','管理员','public/Account/privacy','http://localhost/ttcms/index.php?app=public&mod=Account&act=privacy','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('163','2017-01-21','1','管理员','public/Account/security','http://localhost/ttcms/index.php?app=public&mod=Account&act=security','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('177','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('176','2017-01-21','1','管理员1','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('175','2017-01-21','1','管理员1','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('148','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('142','2017-01-21','0','guest','public/Register/index','http://localhost/ttcms/index.php?app=public&mod=Register&act=index&t=email&invite=67197a44f55035ef','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('139','2017-01-21','1','管理员','public/Account/scorecharge','http://localhost/ttcms/index.php?app=public&mod=Account&act=scorecharge','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('138','2017-01-21','1','管理员','public/Account/scorelevel','http://localhost/ttcms/index.php?app=public&mod=Account&act=scorelevel','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('137','2017-01-21','1','管理员','public/Account/scorerule','http://localhost/ttcms/index.php?app=public&mod=Account&act=scorerule','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('127','2017-01-21','0','guest','public/Passport/login','http://localhost/ttcms/','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('126','2017-01-21','0','guest','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','1','0','::1','Firefox','','1');
+INSERT INTO tt_online_logs VALUES ('124','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('123','2017-01-21','1','管理员','public/Index/index','http://localhost/ttcms/index.php?app=public&mod=Index&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('169','2017-01-21','1','管理员1','public/Medal/index','http://localhost/ttcms/index.php?app=public&mod=Medal&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('166','2017-01-21','1','管理员','public/Account/index','http://localhost/ttcms/index.php?app=public&mod=Account&act=index','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('165','2017-01-21','1','管理员','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('164','2017-01-21','1','管理员','public/Account/tag','http://localhost/ttcms/index.php?app=public&mod=Account&act=tag','0','0','::1','Google','','1');
+INSERT INTO tt_online_logs VALUES ('159','2017-01-21','1','管理员','public/Account/notify','http://localhost/ttcms/index.php?app=public&mod=Account&act=notify','0','0','::1','Google','','1');
 
 DROP TABLE IF EXISTS tt_online_stats;
 CREATE TABLE `tt_online_stats` (
@@ -11688,10 +11849,12 @@ CREATE TABLE `tt_online_stats` (
   `most_online` int(11) NOT NULL DEFAULT '0' COMMENT '最大在线人数',
   PRIMARY KEY (`id`),
   KEY `day` (`day`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_online_stats VALUES ('1','2017-01-18','1','1','9','1','1','1484731382','2');
-INSERT INTO tt_online_stats VALUES ('2','2017-01-19','1','15','46','1','1','1484812610','2');
+INSERT INTO tt_online_stats VALUES ('2','2017-01-19','1','19','101','1','1','1484812610','2');
+INSERT INTO tt_online_stats VALUES ('3','2017-01-20','1','5','11','1','1','1484925228','2');
+INSERT INTO tt_online_stats VALUES ('4','2017-01-21','1','21','85','1','0','1485003688','1');
 
 DROP TABLE IF EXISTS tt_permission_group;
 CREATE TABLE `tt_permission_group` (
@@ -11765,7 +11928,7 @@ CREATE TABLE `tt_schedule` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
-INSERT INTO tt_schedule VALUES ('3','addons/Online/checkOnline','MINUTE','1','','','2013-03-01 18:18:00','0000-00-00 00:00:00','2017-01-19 19:26:00','自动更新统计数','0');
+INSERT INTO tt_schedule VALUES ('3','addons/Online/checkOnline','MINUTE','1','','','2013-03-01 18:18:00','0000-00-00 00:00:00','2017-01-21 23:06:00','自动更新统计数','0');
 INSERT INTO tt_schedule VALUES ('4','addons/Message/doSendFeedMail','MINUTE','1','','','2013-07-01 11:21:00','2015-07-01 11:21:01','2015-07-01 11:21:00','每分钟都检查并发送一批邮件，给最近没登录的用户','0');
 INSERT INTO tt_schedule VALUES ('5','addons/Video/video_transfer','MINUTE','1','','','2014-05-23 11:53:00','2016-05-23 11:53:30','2015-07-14 17:05:00','视频转码','0');
 
@@ -11825,6 +11988,33 @@ INSERT INTO tt_search_select VALUES ('1','public','0','用户','1');
 INSERT INTO tt_search_select VALUES ('2','public','0','分享','2');
 INSERT INTO tt_search_select VALUES ('3','ask','27','问答','1');
 
+DROP TABLE IF EXISTS tt_sensitive_category;
+CREATE TABLE `tt_sensitive_category` (
+  `sensitive_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(225) NOT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `ext` text,
+  PRIMARY KEY (`sensitive_category_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO tt_sensitive_category VALUES ('1','默认','0','1','');
+INSERT INTO tt_sensitive_category VALUES ('2','涉黄','0','2','');
+
+DROP TABLE IF EXISTS tt_sensitive_word;
+CREATE TABLE `tt_sensitive_word` (
+  `sensitive_word_id` int(11) NOT NULL AUTO_INCREMENT,
+  `word` varchar(45) NOT NULL,
+  `replace` varchar(45) NOT NULL DEFAULT '',
+  `type` tinyint(4) NOT NULL,
+  `sensitive_category_id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `ctime` int(11) NOT NULL,
+  PRIMARY KEY (`sensitive_word_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO tt_sensitive_word VALUES ('1','草','','1','2','1','1484932341');
+
 DROP TABLE IF EXISTS tt_sms;
 CREATE TABLE `tt_sms` (
   `phone` varchar(50) NOT NULL COMMENT '手机号码|兼容email验证码',
@@ -11844,7 +12034,7 @@ CREATE TABLE `tt_system_config` (
   `mtime` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `list_key` (`list`,`key`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=6714 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6719 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_system_config VALUES ('119','pageKey','admin_Home_logsArchive','a:4:{s:3:\"key\";a:10:{s:4:\"Name\";s:4:\"Name\";s:6:\"Engine\";s:6:\"Engine\";s:7:\"Version\";s:7:\"Version\";s:4:\"Rows\";s:4:\"Rows\";s:11:\"Data_length\";s:11:\"Data_length\";s:9:\"Data_free\";s:9:\"Data_free\";s:11:\"Create_time\";s:11:\"Create_time\";s:11:\"Update_time\";s:11:\"Update_time\";s:9:\"Collation\";s:9:\"Collation\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:10:{s:4:\"Name\";s:6:\"表名\";s:6:\"Engine\";s:12:\"数据引擎\";s:7:\"Version\";s:6:\"版本\";s:4:\"Rows\";s:6:\"条数\";s:11:\"Data_length\";s:12:\"数据大小\";s:9:\"Data_free\";s:12:\"数据空闲\";s:11:\"Create_time\";s:12:\"创建时间\";s:11:\"Update_time\";s:12:\"最后纪录\";s:9:\"Collation\";s:9:\"字符集\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:10:{s:4:\"Name\";s:1:\"0\";s:6:\"Engine\";s:1:\"0\";s:7:\"Version\";s:1:\"1\";s:4:\"Rows\";s:1:\"0\";s:11:\"Data_length\";s:1:\"0\";s:9:\"Data_free\";s:1:\"1\";s:11:\"Create_time\";s:1:\"0\";s:11:\"Update_time\";s:1:\"0\";s:9:\"Collation\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:10:{s:4:\"Name\";s:0:\"\";s:6:\"Engine\";s:0:\"\";s:7:\"Version\";s:0:\"\";s:4:\"Rows\";s:0:\"\";s:11:\"Data_length\";s:0:\"\";s:9:\"Data_free\";s:0:\"\";s:11:\"Create_time\";s:0:\"\";s:11:\"Update_time\";s:0:\"\";s:9:\"Collation\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2012-03-28 18:49:33');
 INSERT INTO tt_system_config VALUES ('137','pageKey','admin_Config_addannoun','a:6:{s:3:\"key\";a:4:{s:2:\"id\";s:2:\"id\";s:5:\"title\";s:5:\"title\";s:7:\"content\";s:7:\"content\";s:6:\"attach\";s:6:\"attach\";}s:8:\"key_name\";a:4:{s:2:\"id\";s:2:\"ID\";s:5:\"title\";s:12:\"公告标题\";s:7:\"content\";s:12:\"公告内容\";s:6:\"attach\";s:6:\"附件\";}s:8:\"key_type\";a:4:{s:2:\"id\";s:6:\"hidden\";s:5:\"title\";s:4:\"text\";s:7:\"content\";s:8:\"textarea\";s:6:\"attach\";s:4:\"file\";}s:11:\"key_default\";a:4:{s:2:\"id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:7:\"content\";s:0:\"\";s:6:\"attach\";s:0:\"\";}s:9:\"key_tishi\";a:4:{s:2:\"id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:7:\"content\";s:0:\"\";s:6:\"attach\";s:0:\"\";}s:14:\"key_javascript\";a:4:{s:2:\"id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:7:\"content\";s:0:\"\";s:6:\"attach\";s:0:\"\";}}','2012-04-12 17:39:54');
@@ -11871,7 +12061,6 @@ INSERT INTO tt_system_config VALUES ('639','pageKey','admin_Apps_editCreditNode'
 INSERT INTO tt_system_config VALUES ('641','pageKey','admin_Apps_editFeedNode','a:6:{s:3:\"key\";a:5:{s:2:\"id\";s:2:\"id\";s:7:\"appname\";s:7:\"appname\";s:8:\"nodetype\";s:8:\"nodetype\";s:8:\"nodeinfo\";s:8:\"nodeinfo\";s:3:\"xml\";s:3:\"xml\";}s:8:\"key_name\";a:5:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:6:\"应用\";s:8:\"nodetype\";s:6:\"类型\";s:8:\"nodeinfo\";s:12:\"类型别名\";s:3:\"xml\";s:12:\"模板内容\";}s:8:\"key_type\";a:5:{s:2:\"id\";s:6:\"hidden\";s:7:\"appname\";s:4:\"text\";s:8:\"nodetype\";s:4:\"text\";s:8:\"nodeinfo\";s:4:\"text\";s:3:\"xml\";s:8:\"textarea\";}s:11:\"key_default\";a:5:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:8:\"nodetype\";s:0:\"\";s:8:\"nodeinfo\";s:0:\"\";s:3:\"xml\";s:0:\"\";}s:9:\"key_tishi\";a:5:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:8:\"nodetype\";s:0:\"\";s:8:\"nodeinfo\";s:0:\"\";s:3:\"xml\";s:0:\"\";}s:14:\"key_javascript\";a:5:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:8:\"nodetype\";s:0:\"\";s:8:\"nodeinfo\";s:0:\"\";s:3:\"xml\";s:0:\"\";}}','2012-06-07 06:43:09');
 INSERT INTO tt_system_config VALUES ('732','pageKey','admin_Config_nav','a:4:{s:3:\"key\";a:12:{s:7:\"navi_id\";s:7:\"navi_id\";s:9:\"navi_name\";s:9:\"navi_name\";s:8:\"app_name\";s:8:\"app_name\";s:3:\"url\";s:3:\"url\";s:6:\"target\";s:6:\"target\";s:6:\"status\";s:6:\"status\";s:8:\"position\";s:8:\"position\";s:5:\"guest\";s:5:\"guest\";s:11:\"is_app_navi\";s:11:\"is_app_navi\";s:9:\"parent_id\";s:9:\"parent_id\";s:10:\"order_sort\";s:10:\"order_sort\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:12:{s:7:\"navi_id\";s:8:\"导航ID\";s:9:\"navi_name\";s:12:\"导航名称\";s:8:\"app_name\";s:12:\"英文名称\";s:3:\"url\";s:12:\"链接地址\";s:6:\"target\";s:12:\"打开方式\";s:6:\"status\";s:6:\"状态\";s:8:\"position\";s:12:\"导航位置\";s:5:\"guest\";s:12:\"游客可见\";s:11:\"is_app_navi\";s:18:\"应用内部导航\";s:9:\"parent_id\";s:9:\"父导航\";s:10:\"order_sort\";s:12:\"应用排序\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:12:{s:7:\"navi_id\";s:1:\"0\";s:9:\"navi_name\";s:1:\"0\";s:8:\"app_name\";s:1:\"0\";s:3:\"url\";s:1:\"0\";s:6:\"target\";s:1:\"0\";s:6:\"status\";s:1:\"0\";s:8:\"position\";s:1:\"0\";s:5:\"guest\";s:1:\"1\";s:11:\"is_app_navi\";s:1:\"1\";s:9:\"parent_id\";s:1:\"1\";s:10:\"order_sort\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:12:{s:7:\"navi_id\";s:0:\"\";s:9:\"navi_name\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:3:\"url\";s:0:\"\";s:6:\"target\";s:0:\"\";s:6:\"status\";s:0:\"\";s:8:\"position\";s:0:\"\";s:5:\"guest\";s:0:\"\";s:11:\"is_app_navi\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";s:10:\"order_sort\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2012-06-21 15:41:00');
 INSERT INTO tt_system_config VALUES ('740','pageKey','admin_Apps_editPermNode','a:6:{s:3:\"key\";a:6:{s:2:\"id\";s:2:\"id\";s:7:\"appname\";s:7:\"appname\";s:7:\"appinfo\";s:7:\"appinfo\";s:6:\"module\";s:6:\"module\";s:4:\"rule\";s:4:\"rule\";s:8:\"ruleinfo\";s:8:\"ruleinfo\";}s:8:\"key_name\";a:6:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:6:\"应用\";s:7:\"appinfo\";s:12:\"应用别名\";s:6:\"module\";s:6:\"模块\";s:4:\"rule\";s:12:\"权限节点\";s:8:\"ruleinfo\";s:12:\"节点别名\";}s:8:\"key_type\";a:6:{s:2:\"id\";s:6:\"hidden\";s:7:\"appname\";s:4:\"text\";s:7:\"appinfo\";s:4:\"text\";s:6:\"module\";s:5:\"radio\";s:4:\"rule\";s:4:\"text\";s:8:\"ruleinfo\";s:4:\"text\";}s:11:\"key_default\";a:6:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:7:\"appinfo\";s:0:\"\";s:6:\"module\";s:0:\"\";s:4:\"rule\";s:0:\"\";s:8:\"ruleinfo\";s:0:\"\";}s:9:\"key_tishi\";a:6:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:7:\"appinfo\";s:0:\"\";s:6:\"module\";s:0:\"\";s:4:\"rule\";s:0:\"\";s:8:\"ruleinfo\";s:0:\"\";}s:14:\"key_javascript\";a:6:{s:2:\"id\";s:0:\"\";s:7:\"appname\";s:0:\"\";s:7:\"appinfo\";s:0:\"\";s:6:\"module\";s:0:\"\";s:4:\"rule\";s:0:\"\";s:8:\"ruleinfo\";s:0:\"\";}}','2012-06-27 13:43:43');
-INSERT INTO tt_system_config VALUES ('810','searchPageKey','S_admin_Home_logs','a:5:{s:3:\"key\";a:5:{s:5:\"uname\";s:5:\"uname\";s:8:\"app_name\";s:8:\"app_name\";s:5:\"ctime\";s:5:\"ctime\";s:7:\"isAdmin\";s:7:\"isAdmin\";s:7:\"keyword\";s:7:\"keyword\";}s:8:\"key_name\";a:5:{s:5:\"uname\";s:12:\"用户帐号\";s:8:\"app_name\";s:12:\"操作详情\";s:5:\"ctime\";s:12:\"时间范围\";s:7:\"isAdmin\";s:12:\"知识类型\";s:7:\"keyword\";s:15:\"查询关键字\";}s:8:\"key_type\";a:5:{s:5:\"uname\";s:4:\"text\";s:8:\"app_name\";s:6:\"select\";s:5:\"ctime\";s:4:\"date\";s:7:\"isAdmin\";s:8:\"checkbox\";s:7:\"keyword\";s:4:\"text\";}s:9:\"key_tishi\";a:5:{s:5:\"uname\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:7:\"isAdmin\";s:0:\"\";s:7:\"keyword\";s:0:\"\";}s:14:\"key_javascript\";a:5:{s:5:\"uname\";s:0:\"\";s:8:\"app_name\";s:27:\"admin.selectLog(this.value)\";s:5:\"ctime\";s:0:\"\";s:7:\"isAdmin\";s:0:\"\";s:7:\"keyword\";s:0:\"\";}}','2012-07-03 11:44:51');
 INSERT INTO tt_system_config VALUES ('811','pageKey','admin_Home_logs','a:4:{s:3:\"key\";a:10:{s:2:\"id\";s:2:\"id\";s:3:\"uid\";s:3:\"uid\";s:5:\"uname\";s:5:\"uname\";s:8:\"app_name\";s:8:\"app_name\";s:2:\"ip\";s:2:\"ip\";s:4:\"data\";s:4:\"data\";s:5:\"ctime\";s:5:\"ctime\";s:7:\"isAdmin\";s:7:\"isAdmin\";s:9:\"type_info\";s:9:\"type_info\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:10:{s:2:\"id\";s:2:\"ID\";s:3:\"uid\";s:8:\"用户ID\";s:5:\"uname\";s:12:\"用户帐号\";s:8:\"app_name\";s:12:\"操作详情\";s:2:\"ip\";s:2:\"IP\";s:4:\"data\";s:12:\"知识数据\";s:5:\"ctime\";s:12:\"记录时间\";s:7:\"isAdmin\";s:6:\"类型\";s:9:\"type_info\";s:12:\"知识类型\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:10:{s:2:\"id\";s:1:\"1\";s:3:\"uid\";s:1:\"0\";s:5:\"uname\";s:1:\"0\";s:8:\"app_name\";s:1:\"0\";s:2:\"ip\";s:1:\"0\";s:4:\"data\";s:1:\"0\";s:5:\"ctime\";s:1:\"0\";s:7:\"isAdmin\";s:1:\"0\";s:9:\"type_info\";s:1:\"1\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:10:{s:2:\"id\";s:0:\"\";s:3:\"uid\";s:0:\"\";s:5:\"uname\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:2:\"ip\";s:0:\"\";s:4:\"data\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:7:\"isAdmin\";s:0:\"\";s:9:\"type_info\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2012-07-03 11:45:09');
 INSERT INTO tt_system_config VALUES ('1071','pageKey','admin_Department_index','a:6:{s:3:\"key\";a:6:{s:13:\"department_id\";s:13:\"department_id\";s:5:\"title\";s:5:\"title\";s:14:\"parent_dept_id\";s:14:\"parent_dept_id\";s:13:\"display_order\";s:13:\"display_order\";s:5:\"ctime\";s:5:\"ctime\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:6:{s:13:\"department_id\";s:8:\"部门ID\";s:5:\"title\";s:12:\"部门名称\";s:14:\"parent_dept_id\";s:12:\"上级部门\";s:13:\"display_order\";s:6:\"顺序\";s:5:\"ctime\";s:12:\"添加时间\";s:8:\"DOACTION\";s:6:\"操作\";}s:8:\"key_type\";a:6:{s:13:\"department_id\";s:6:\"hidden\";s:5:\"title\";s:4:\"text\";s:14:\"parent_dept_id\";s:6:\"select\";s:13:\"display_order\";s:6:\"hidden\";s:5:\"ctime\";s:6:\"hidden\";s:8:\"DOACTION\";s:6:\"hidden\";}s:11:\"key_default\";a:6:{s:13:\"department_id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:14:\"parent_dept_id\";s:0:\"\";s:13:\"display_order\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}s:9:\"key_tishi\";a:6:{s:13:\"department_id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:14:\"parent_dept_id\";s:0:\"\";s:13:\"display_order\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}s:14:\"key_javascript\";a:6:{s:13:\"department_id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:14:\"parent_dept_id\";s:38:\"admin.selectDepart(this.value,$(this))\";s:13:\"display_order\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2012-07-13 12:50:00');
 INSERT INTO tt_system_config VALUES ('1073','pageKey','admin_Config_announcement','a:4:{s:3:\"key\";a:5:{s:2:\"id\";s:2:\"id\";s:5:\"title\";s:5:\"title\";s:3:\"uid\";s:3:\"uid\";s:4:\"sort\";s:4:\"sort\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:5:{s:2:\"id\";s:2:\"ID\";s:5:\"title\";s:12:\"公告标题\";s:3:\"uid\";s:9:\"发布者\";s:4:\"sort\";s:6:\"排序\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:5:{s:2:\"id\";s:1:\"0\";s:5:\"title\";s:1:\"0\";s:3:\"uid\";s:1:\"0\";s:4:\"sort\";s:1:\"1\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:5:{s:2:\"id\";s:0:\"\";s:5:\"title\";s:0:\"\";s:3:\"uid\";s:0:\"\";s:4:\"sort\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2012-07-13 13:50:15');
@@ -11997,15 +12186,14 @@ INSERT INTO tt_system_config VALUES ('6515','pageKey','admin_Config_setUcenter',
 INSERT INTO tt_system_config VALUES ('6517','pageKey','admin_Apps_preinstall','a:6:{s:3:\"key\";a:19:{s:6:\"app_id\";s:6:\"app_id\";s:8:\"app_name\";s:8:\"app_name\";s:9:\"app_alias\";s:9:\"app_alias\";s:9:\"app_entry\";s:9:\"app_entry\";s:11:\"description\";s:11:\"description\";s:6:\"status\";s:6:\"status\";s:9:\"host_type\";s:9:\"host_type\";s:8:\"icon_url\";s:8:\"icon_url\";s:14:\"large_icon_url\";s:14:\"large_icon_url\";s:11:\"admin_entry\";s:11:\"admin_entry\";s:16:\"statistics_entry\";s:16:\"statistics_entry\";s:12:\"company_name\";s:12:\"company_name\";s:13:\"display_order\";s:13:\"display_order\";s:7:\"version\";s:7:\"version\";s:7:\"api_key\";s:7:\"api_key\";s:10:\"secure_key\";s:10:\"secure_key\";s:13:\"add_front_top\";s:13:\"add_front_top\";s:17:\"add_front_applist\";s:17:\"add_front_applist\";s:9:\"add_tonav\";s:9:\"add_tonav\";}s:8:\"key_name\";a:19:{s:6:\"app_id\";s:8:\"应用ID\";s:8:\"app_name\";s:15:\"应用英文名\";s:9:\"app_alias\";s:12:\"应用名称\";s:9:\"app_entry\";s:12:\"前台入口\";s:11:\"description\";s:12:\"应用描述\";s:6:\"status\";s:12:\"应用状态\";s:9:\"host_type\";s:12:\"托管类别\";s:8:\"icon_url\";s:12:\"图标地址\";s:14:\"large_icon_url\";s:15:\"大图标地址\";s:11:\"admin_entry\";s:12:\"后台入口\";s:16:\"statistics_entry\";s:12:\"统计入口\";s:12:\"company_name\";s:12:\"公司名称\";s:13:\"display_order\";s:6:\"排序\";s:7:\"version\";s:6:\"版本\";s:7:\"api_key\";s:7:\"API_KEY\";s:10:\"secure_key\";s:10:\"SECURE_KEY\";s:13:\"add_front_top\";s:24:\"添加到前台应用框\";s:17:\"add_front_applist\";s:27:\"添加到前台应用列表\";s:9:\"add_tonav\";s:15:\"添加到导航\";}s:8:\"key_type\";a:19:{s:6:\"app_id\";s:6:\"hidden\";s:8:\"app_name\";s:6:\"hidden\";s:9:\"app_alias\";s:4:\"text\";s:9:\"app_entry\";s:6:\"hidden\";s:11:\"description\";s:8:\"textarea\";s:6:\"status\";s:5:\"radio\";s:9:\"host_type\";s:6:\"hidden\";s:8:\"icon_url\";s:6:\"hidden\";s:14:\"large_icon_url\";s:6:\"hidden\";s:11:\"admin_entry\";s:6:\"hidden\";s:16:\"statistics_entry\";s:6:\"hidden\";s:12:\"company_name\";s:4:\"text\";s:13:\"display_order\";s:6:\"hidden\";s:7:\"version\";s:4:\"text\";s:7:\"api_key\";s:6:\"hidden\";s:10:\"secure_key\";s:6:\"hidden\";s:13:\"add_front_top\";s:5:\"radio\";s:17:\"add_front_applist\";s:5:\"radio\";s:9:\"add_tonav\";s:5:\"radio\";}s:11:\"key_default\";a:19:{s:6:\"app_id\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:9:\"app_alias\";s:0:\"\";s:9:\"app_entry\";s:0:\"\";s:11:\"description\";s:0:\"\";s:6:\"status\";s:1:\"1\";s:9:\"host_type\";s:0:\"\";s:8:\"icon_url\";s:0:\"\";s:14:\"large_icon_url\";s:0:\"\";s:11:\"admin_entry\";s:0:\"\";s:16:\"statistics_entry\";s:0:\"\";s:12:\"company_name\";s:12:\"智士软件\";s:13:\"display_order\";s:0:\"\";s:7:\"version\";s:0:\"\";s:7:\"api_key\";s:0:\"\";s:10:\"secure_key\";s:0:\"\";s:13:\"add_front_top\";s:1:\"1\";s:17:\"add_front_applist\";s:1:\"1\";s:9:\"add_tonav\";s:1:\"1\";}s:9:\"key_tishi\";a:19:{s:6:\"app_id\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:9:\"app_alias\";s:39:\"前台展示的应用名称（必填）\";s:9:\"app_entry\";s:0:\"\";s:11:\"description\";s:27:\"前台展示的应用简介\";s:6:\"status\";s:0:\"\";s:9:\"host_type\";s:0:\"\";s:8:\"icon_url\";s:0:\"\";s:14:\"large_icon_url\";s:0:\"\";s:11:\"admin_entry\";s:0:\"\";s:16:\"statistics_entry\";s:0:\"\";s:12:\"company_name\";s:0:\"\";s:13:\"display_order\";s:0:\"\";s:7:\"version\";s:0:\"\";s:7:\"api_key\";s:0:\"\";s:10:\"secure_key\";s:0:\"\";s:13:\"add_front_top\";s:0:\"\";s:17:\"add_front_applist\";s:0:\"\";s:9:\"add_tonav\";s:0:\"\";}s:14:\"key_javascript\";a:19:{s:6:\"app_id\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:9:\"app_alias\";s:0:\"\";s:9:\"app_entry\";s:0:\"\";s:11:\"description\";s:0:\"\";s:6:\"status\";s:0:\"\";s:9:\"host_type\";s:0:\"\";s:8:\"icon_url\";s:0:\"\";s:14:\"large_icon_url\";s:0:\"\";s:11:\"admin_entry\";s:0:\"\";s:16:\"statistics_entry\";s:0:\"\";s:12:\"company_name\";s:0:\"\";s:13:\"display_order\";s:0:\"\";s:7:\"version\";s:0:\"\";s:7:\"api_key\";s:0:\"\";s:10:\"secure_key\";s:0:\"\";s:13:\"add_front_top\";s:0:\"\";s:17:\"add_front_applist\";s:0:\"\";s:9:\"add_tonav\";s:0:\"\";}}','2013-05-10 13:49:36');
 INSERT INTO tt_system_config VALUES ('6523','pageKey','admin_Config_cloudimage','a:6:{s:3:\"key\";a:7:{s:16:\"cloud_image_open\";s:16:\"cloud_image_open\";s:19:\"cloud_image_api_url\";s:19:\"cloud_image_api_url\";s:18:\"cloud_image_bucket\";s:18:\"cloud_image_bucket\";s:24:\"cloud_image_form_api_key\";s:24:\"cloud_image_form_api_key\";s:23:\"cloud_image_prefix_urls\";s:23:\"cloud_image_prefix_urls\";s:17:\"cloud_image_admin\";s:17:\"cloud_image_admin\";s:20:\"cloud_image_password\";s:20:\"cloud_image_password\";}s:8:\"key_name\";a:7:{s:16:\"cloud_image_open\";s:21:\"开启又拍云图片\";s:19:\"cloud_image_api_url\";s:15:\"默认API地址\";s:18:\"cloud_image_bucket\";s:12:\"图片bucket\";s:24:\"cloud_image_form_api_key\";s:15:\"表单API密钥\";s:23:\"cloud_image_prefix_urls\";s:12:\"域名前缀\";s:17:\"cloud_image_admin\";s:15:\"操作员帐号\";s:20:\"cloud_image_password\";s:15:\"操作员密码\";}s:8:\"key_type\";a:7:{s:16:\"cloud_image_open\";s:5:\"radio\";s:19:\"cloud_image_api_url\";s:4:\"text\";s:18:\"cloud_image_bucket\";s:4:\"text\";s:24:\"cloud_image_form_api_key\";s:4:\"text\";s:23:\"cloud_image_prefix_urls\";s:8:\"textarea\";s:17:\"cloud_image_admin\";s:4:\"text\";s:20:\"cloud_image_password\";s:8:\"password\";}s:11:\"key_default\";a:7:{s:16:\"cloud_image_open\";s:1:\"1\";s:19:\"cloud_image_api_url\";s:23:\"http://v0.api.upyun.com\";s:18:\"cloud_image_bucket\";s:0:\"\";s:24:\"cloud_image_form_api_key\";s:0:\"\";s:23:\"cloud_image_prefix_urls\";s:0:\"\";s:17:\"cloud_image_admin\";s:0:\"\";s:20:\"cloud_image_password\";s:0:\"\";}s:9:\"key_tishi\";a:7:{s:16:\"cloud_image_open\";s:0:\"\";s:19:\"cloud_image_api_url\";s:0:\"\";s:18:\"cloud_image_bucket\";s:0:\"\";s:24:\"cloud_image_form_api_key\";s:0:\"\";s:23:\"cloud_image_prefix_urls\";s:75:\"需要在又拍云绑定过的域名，多个域名请用半角逗号分隔\";s:17:\"cloud_image_admin\";s:0:\"\";s:20:\"cloud_image_password\";s:0:\"\";}s:14:\"key_javascript\";a:7:{s:16:\"cloud_image_open\";s:0:\"\";s:19:\"cloud_image_api_url\";s:0:\"\";s:18:\"cloud_image_bucket\";s:0:\"\";s:24:\"cloud_image_form_api_key\";s:0:\"\";s:23:\"cloud_image_prefix_urls\";s:0:\"\";s:17:\"cloud_image_admin\";s:0:\"\";s:20:\"cloud_image_password\";s:0:\"\";}}','2013-05-27 01:33:15');
 INSERT INTO tt_system_config VALUES ('6524','pageKey','admin_Medal_addUserMedal','a:6:{s:3:\"key\";a:7:{s:4:\"user\";s:4:\"user\";s:5:\"medal\";s:5:\"medal\";s:9:\"attach_id\";s:9:\"attach_id\";s:12:\"attach_small\";s:12:\"attach_small\";s:10:\"medal_name\";s:10:\"medal_name\";s:10:\"medal_desc\";s:10:\"medal_desc\";s:4:\"desc\";s:4:\"desc\";}s:8:\"key_name\";a:7:{s:4:\"user\";s:9:\"用户名\";s:5:\"medal\";s:12:\"选择勋章\";s:9:\"attach_id\";s:18:\"上传勋章大图\";s:12:\"attach_small\";s:18:\"上传勋章小图\";s:10:\"medal_name\";s:12:\"勋章名称\";s:10:\"medal_desc\";s:12:\"勋章描述\";s:4:\"desc\";s:12:\"颁发描述\";}s:8:\"key_type\";a:7:{s:4:\"user\";s:4:\"user\";s:5:\"medal\";s:6:\"select\";s:9:\"attach_id\";s:5:\"image\";s:12:\"attach_small\";s:4:\"text\";s:10:\"medal_name\";s:4:\"text\";s:10:\"medal_desc\";s:4:\"text\";s:4:\"desc\";s:4:\"text\";}s:11:\"key_default\";a:7:{s:4:\"user\";s:0:\"\";s:5:\"medal\";s:0:\"\";s:9:\"attach_id\";s:0:\"\";s:12:\"attach_small\";s:0:\"\";s:10:\"medal_name\";s:0:\"\";s:10:\"medal_desc\";s:0:\"\";s:4:\"desc\";s:0:\"\";}s:9:\"key_tishi\";a:7:{s:4:\"user\";s:0:\"\";s:5:\"medal\";s:0:\"\";s:9:\"attach_id\";s:7:\"100x100\";s:12:\"attach_small\";s:5:\"30x30\";s:10:\"medal_name\";s:0:\"\";s:10:\"medal_desc\";s:0:\"\";s:4:\"desc\";s:0:\"\";}s:14:\"key_javascript\";a:7:{s:4:\"user\";s:0:\"\";s:5:\"medal\";s:26:\"admin.addmedal(this.value)\";s:9:\"attach_id\";s:0:\"\";s:12:\"attach_small\";s:0:\"\";s:10:\"medal_name\";s:0:\"\";s:10:\"medal_desc\";s:0:\"\";s:4:\"desc\";s:0:\"\";}}','2013-05-27 10:44:57');
-INSERT INTO tt_system_config VALUES ('6525','pageKey','support_Admin_index','a:6:{s:3:\"key\";a:6:{s:4:\"lang\";s:4:\"lang\";s:7:\"comment\";s:7:\"comment\";s:7:\"retaing\";s:7:\"retaing\";s:10:\"searchWord\";s:10:\"searchWord\";s:6:\"notify\";s:6:\"notify\";s:5:\"audit\";s:5:\"audit\";}s:8:\"key_name\";a:6:{s:4:\"lang\";s:12:\"双语开关\";s:7:\"comment\";s:13:\"评论开关	\";s:7:\"retaing\";s:12:\"评价开关\";s:10:\"searchWord\";s:15:\"推荐搜索词\";s:6:\"notify\";s:18:\"通知服务开关\";s:5:\"audit\";s:18:\"问题审核开关\";}s:8:\"key_type\";a:6:{s:4:\"lang\";s:5:\"radio\";s:7:\"comment\";s:5:\"radio\";s:7:\"retaing\";s:5:\"radio\";s:10:\"searchWord\";s:8:\"textarea\";s:6:\"notify\";s:5:\"radio\";s:5:\"audit\";s:5:\"radio\";}s:11:\"key_default\";a:6:{s:4:\"lang\";s:1:\"1\";s:7:\"comment\";s:1:\"1\";s:7:\"retaing\";s:1:\"1\";s:10:\"searchWord\";s:0:\"\";s:6:\"notify\";s:1:\"1\";s:5:\"audit\";s:1:\"1\";}s:9:\"key_tishi\";a:6:{s:4:\"lang\";s:0:\"\";s:7:\"comment\";s:0:\"\";s:7:\"retaing\";s:0:\"\";s:10:\"searchWord\";s:54:\"多个推荐搜索词之间用英文逗号符号分隔\";s:6:\"notify\";s:0:\"\";s:5:\"audit\";s:60:\"关闭审核后，后台配置的专家将不起实质作用\";}s:14:\"key_javascript\";a:6:{s:4:\"lang\";s:0:\"\";s:7:\"comment\";s:0:\"\";s:7:\"retaing\";s:0:\"\";s:10:\"searchWord\";s:0:\"\";s:6:\"notify\";s:0:\"\";s:5:\"audit\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6526','pageKey','support_Admin_ommissioner','a:6:{s:3:\"key\";a:3:{s:10:\"support_sa\";s:10:\"support_sa\";s:10:\"support_er\";s:10:\"support_er\";s:8:\"feedback\";s:8:\"feedback\";}s:8:\"key_name\";a:3:{s:10:\"support_sa\";s:12:\"服务专员\";s:10:\"support_er\";s:6:\"专家\";s:8:\"feedback\";s:14:\"feedback专员\";}s:8:\"key_type\";a:3:{s:10:\"support_sa\";s:4:\"user\";s:10:\"support_er\";s:4:\"user\";s:8:\"feedback\";s:4:\"user\";}s:11:\"key_default\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}s:9:\"key_tishi\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}s:14:\"key_javascript\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6527','pageKey','support_Admin_questionCategory','a:4:{s:3:\"key\";a:5:{s:11:\"category_id\";s:11:\"category_id\";s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:9:\"parent_id\";s:9:\"parent_id\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:5:{s:11:\"category_id\";s:8:\"分类ID\";s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";s:9:\"parent_id\";s:9:\"父分类\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:5:{s:11:\"category_id\";s:1:\"0\";s:16:\"category_name_cn\";s:1:\"0\";s:16:\"category_name_en\";s:1:\"0\";s:9:\"parent_id\";s:1:\"1\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:5:{s:11:\"category_id\";s:0:\"\";s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6528','pageKey','support_Admin_feedbackCategory','a:4:{s:3:\"key\";a:4:{s:20:\"feedback_category_id\";s:20:\"feedback_category_id\";s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:4:{s:20:\"feedback_category_id\";s:16:\"feedback分类ID\";s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:4:{s:20:\"feedback_category_id\";s:1:\"0\";s:16:\"category_name_cn\";s:1:\"0\";s:16:\"category_name_en\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:4:{s:20:\"feedback_category_id\";s:0:\"\";s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6529','pageKey','support_Admin_addFeedbackType','a:6:{s:3:\"key\";a:2:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";}s:8:\"key_name\";a:2:{s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";}s:8:\"key_type\";a:2:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";}s:11:\"key_default\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}s:9:\"key_tishi\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}s:14:\"key_javascript\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6530','pageKey','support_Admin_addCategory','a:6:{s:3:\"key\";a:3:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:12:\"category_pic\";s:12:\"category_pic\";}s:8:\"key_name\";a:3:{s:16:\"category_name_cn\";s:15:\"中文分类名\";s:16:\"category_name_en\";s:15:\"英文分类名\";s:12:\"category_pic\";s:12:\"分类图片\";}s:8:\"key_type\";a:3:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";s:12:\"category_pic\";s:5:\"image\";}s:11:\"key_default\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}s:9:\"key_tishi\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}s:14:\"key_javascript\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}}','');
-INSERT INTO tt_system_config VALUES ('6531','pageKey','support_Admin_addCategory_son','a:6:{s:3:\"key\";a:5:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:16:\"category_tags_cn\";s:16:\"category_tags_cn\";s:16:\"category_tags_en\";s:16:\"category_tags_en\";s:9:\"parent_id\";s:9:\"parent_id\";}s:8:\"key_name\";a:5:{s:16:\"category_name_cn\";s:15:\"中文分类名\";s:16:\"category_name_en\";s:15:\"英文分类名\";s:16:\"category_tags_cn\";s:12:\"中文标签\";s:16:\"category_tags_en\";s:12:\"英文标签\";s:9:\"parent_id\";s:12:\"上级分类\";}s:8:\"key_type\";a:5:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";s:16:\"category_tags_cn\";s:4:\"text\";s:16:\"category_tags_en\";s:4:\"text\";s:9:\"parent_id\";s:6:\"select\";}s:11:\"key_default\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:0:\"\";s:16:\"category_tags_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";}s:9:\"key_tishi\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:39:\"多个标签之间用英文逗号分隔\";s:16:\"category_tags_en\";s:39:\"多个标签之间用英文逗号分隔\";s:9:\"parent_id\";s:0:\"\";}s:14:\"key_javascript\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:0:\"\";s:16:\"category_tags_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";}}','');
+INSERT INTO tt_system_config VALUES ('6525','pageKey','support_Admin_index','a:6:{s:3:\"key\";a:6:{s:4:\"lang\";s:4:\"lang\";s:7:\"comment\";s:7:\"comment\";s:7:\"retaing\";s:7:\"retaing\";s:10:\"searchWord\";s:10:\"searchWord\";s:6:\"notify\";s:6:\"notify\";s:5:\"audit\";s:5:\"audit\";}s:8:\"key_name\";a:6:{s:4:\"lang\";s:12:\"双语开关\";s:7:\"comment\";s:13:\"评论开关	\";s:7:\"retaing\";s:12:\"评价开关\";s:10:\"searchWord\";s:15:\"推荐搜索词\";s:6:\"notify\";s:18:\"通知服务开关\";s:5:\"audit\";s:18:\"问题审核开关\";}s:8:\"key_type\";a:6:{s:4:\"lang\";s:5:\"radio\";s:7:\"comment\";s:5:\"radio\";s:7:\"retaing\";s:5:\"radio\";s:10:\"searchWord\";s:8:\"textarea\";s:6:\"notify\";s:5:\"radio\";s:5:\"audit\";s:5:\"radio\";}s:11:\"key_default\";a:6:{s:4:\"lang\";s:1:\"1\";s:7:\"comment\";s:1:\"1\";s:7:\"retaing\";s:1:\"1\";s:10:\"searchWord\";s:0:\"\";s:6:\"notify\";s:1:\"1\";s:5:\"audit\";s:1:\"1\";}s:9:\"key_tishi\";a:6:{s:4:\"lang\";s:0:\"\";s:7:\"comment\";s:0:\"\";s:7:\"retaing\";s:0:\"\";s:10:\"searchWord\";s:54:\"多个推荐搜索词之间用英文逗号符号分隔\";s:6:\"notify\";s:0:\"\";s:5:\"audit\";s:60:\"关闭审核后，后台配置的专家将不起实质作用\";}s:14:\"key_javascript\";a:6:{s:4:\"lang\";s:0:\"\";s:7:\"comment\";s:0:\"\";s:7:\"retaing\";s:0:\"\";s:10:\"searchWord\";s:0:\"\";s:6:\"notify\";s:0:\"\";s:5:\"audit\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6526','pageKey','support_Admin_ommissioner','a:6:{s:3:\"key\";a:3:{s:10:\"support_sa\";s:10:\"support_sa\";s:10:\"support_er\";s:10:\"support_er\";s:8:\"feedback\";s:8:\"feedback\";}s:8:\"key_name\";a:3:{s:10:\"support_sa\";s:12:\"服务专员\";s:10:\"support_er\";s:6:\"专家\";s:8:\"feedback\";s:14:\"feedback专员\";}s:8:\"key_type\";a:3:{s:10:\"support_sa\";s:4:\"user\";s:10:\"support_er\";s:4:\"user\";s:8:\"feedback\";s:4:\"user\";}s:11:\"key_default\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}s:9:\"key_tishi\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}s:14:\"key_javascript\";a:3:{s:10:\"support_sa\";s:0:\"\";s:10:\"support_er\";s:0:\"\";s:8:\"feedback\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6527','pageKey','support_Admin_questionCategory','a:4:{s:3:\"key\";a:5:{s:11:\"category_id\";s:11:\"category_id\";s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:9:\"parent_id\";s:9:\"parent_id\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:5:{s:11:\"category_id\";s:8:\"分类ID\";s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";s:9:\"parent_id\";s:9:\"父分类\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:5:{s:11:\"category_id\";s:1:\"0\";s:16:\"category_name_cn\";s:1:\"0\";s:16:\"category_name_en\";s:1:\"0\";s:9:\"parent_id\";s:1:\"1\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:5:{s:11:\"category_id\";s:0:\"\";s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6528','pageKey','support_Admin_feedbackCategory','a:4:{s:3:\"key\";a:4:{s:20:\"feedback_category_id\";s:20:\"feedback_category_id\";s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:4:{s:20:\"feedback_category_id\";s:16:\"feedback分类ID\";s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:4:{s:20:\"feedback_category_id\";s:1:\"0\";s:16:\"category_name_cn\";s:1:\"0\";s:16:\"category_name_en\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:4:{s:20:\"feedback_category_id\";s:0:\"\";s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6529','pageKey','support_Admin_addFeedbackType','a:6:{s:3:\"key\";a:2:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";}s:8:\"key_name\";a:2:{s:16:\"category_name_cn\";s:12:\"中文分类\";s:16:\"category_name_en\";s:12:\"英文分类\";}s:8:\"key_type\";a:2:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";}s:11:\"key_default\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}s:9:\"key_tishi\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}s:14:\"key_javascript\";a:2:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6530','pageKey','support_Admin_addCategory','a:6:{s:3:\"key\";a:3:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:12:\"category_pic\";s:12:\"category_pic\";}s:8:\"key_name\";a:3:{s:16:\"category_name_cn\";s:15:\"中文分类名\";s:16:\"category_name_en\";s:15:\"英文分类名\";s:12:\"category_pic\";s:12:\"分类图片\";}s:8:\"key_type\";a:3:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";s:12:\"category_pic\";s:5:\"image\";}s:11:\"key_default\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}s:9:\"key_tishi\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}s:14:\"key_javascript\";a:3:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:12:\"category_pic\";s:0:\"\";}}','0000-00-00 00:00:00');
+INSERT INTO tt_system_config VALUES ('6531','pageKey','support_Admin_addCategory_son','a:6:{s:3:\"key\";a:5:{s:16:\"category_name_cn\";s:16:\"category_name_cn\";s:16:\"category_name_en\";s:16:\"category_name_en\";s:16:\"category_tags_cn\";s:16:\"category_tags_cn\";s:16:\"category_tags_en\";s:16:\"category_tags_en\";s:9:\"parent_id\";s:9:\"parent_id\";}s:8:\"key_name\";a:5:{s:16:\"category_name_cn\";s:15:\"中文分类名\";s:16:\"category_name_en\";s:15:\"英文分类名\";s:16:\"category_tags_cn\";s:12:\"中文标签\";s:16:\"category_tags_en\";s:12:\"英文标签\";s:9:\"parent_id\";s:12:\"上级分类\";}s:8:\"key_type\";a:5:{s:16:\"category_name_cn\";s:4:\"text\";s:16:\"category_name_en\";s:4:\"text\";s:16:\"category_tags_cn\";s:4:\"text\";s:16:\"category_tags_en\";s:4:\"text\";s:9:\"parent_id\";s:6:\"select\";}s:11:\"key_default\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:0:\"\";s:16:\"category_tags_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";}s:9:\"key_tishi\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:39:\"多个标签之间用英文逗号分隔\";s:16:\"category_tags_en\";s:39:\"多个标签之间用英文逗号分隔\";s:9:\"parent_id\";s:0:\"\";}s:14:\"key_javascript\";a:5:{s:16:\"category_name_cn\";s:0:\"\";s:16:\"category_name_en\";s:0:\"\";s:16:\"category_tags_cn\";s:0:\"\";s:16:\"category_tags_en\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";}}','0000-00-00 00:00:00');
 INSERT INTO tt_system_config VALUES ('6534','pageKey','admin_Home_schedule','a:4:{s:3:\"key\";a:10:{s:2:\"id\";s:2:\"id\";s:6:\"method\";s:6:\"method\";s:13:\"schedule_type\";s:13:\"schedule_type\";s:8:\"modifier\";s:8:\"modifier\";s:7:\"dirlist\";s:7:\"dirlist\";s:5:\"month\";s:5:\"month\";s:14:\"start_datetime\";s:14:\"start_datetime\";s:12:\"end_datetime\";s:12:\"end_datetime\";s:13:\"last_run_time\";s:13:\"last_run_time\";s:4:\"info\";s:4:\"info\";}s:8:\"key_name\";a:10:{s:2:\"id\";s:2:\"ID\";s:6:\"method\";s:12:\"执行函数\";s:13:\"schedule_type\";s:6:\"类型\";s:8:\"modifier\";s:12:\"执行频率\";s:7:\"dirlist\";s:7:\"dirlist\";s:5:\"month\";s:5:\"month\";s:14:\"start_datetime\";s:12:\"开始时间\";s:12:\"end_datetime\";s:12:\"失效时间\";s:13:\"last_run_time\";s:12:\"上次执行\";s:4:\"info\";s:6:\"简介\";}s:10:\"key_hidden\";a:10:{s:2:\"id\";s:1:\"0\";s:6:\"method\";s:1:\"0\";s:13:\"schedule_type\";s:1:\"0\";s:8:\"modifier\";s:1:\"0\";s:7:\"dirlist\";s:1:\"1\";s:5:\"month\";s:1:\"1\";s:14:\"start_datetime\";s:1:\"0\";s:12:\"end_datetime\";s:1:\"0\";s:13:\"last_run_time\";s:1:\"0\";s:4:\"info\";s:1:\"0\";}s:14:\"key_javascript\";a:10:{s:2:\"id\";s:0:\"\";s:6:\"method\";s:0:\"\";s:13:\"schedule_type\";s:0:\"\";s:8:\"modifier\";s:0:\"\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:0:\"\";s:12:\"end_datetime\";s:0:\"\";s:13:\"last_run_time\";s:0:\"\";s:4:\"info\";s:0:\"\";}}','2013-07-01 11:10:55');
-INSERT INTO tt_system_config VALUES ('6535','pageKey','admin_Home_newschedule','a:6:{s:3:\"key\";a:8:{s:11:\"task_to_run\";s:11:\"task_to_run\";s:13:\"schedule_type\";s:13:\"schedule_type\";s:8:\"modifier\";s:8:\"modifier\";s:7:\"dirlist\";s:7:\"dirlist\";s:5:\"month\";s:5:\"month\";s:14:\"start_datetime\";s:14:\"start_datetime\";s:12:\"end_datetime\";s:12:\"end_datetime\";s:4:\"info\";s:4:\"info\";}s:8:\"key_name\";a:8:{s:11:\"task_to_run\";s:12:\"执行函数\";s:13:\"schedule_type\";s:12:\"任务类型\";s:8:\"modifier\";s:12:\"执行频率\";s:7:\"dirlist\";s:24:\"某天（默认每天）\";s:5:\"month\";s:24:\"某月（默认每月）\";s:14:\"start_datetime\";s:12:\"开始时间\";s:12:\"end_datetime\";s:12:\"结束时间\";s:4:\"info\";s:6:\"简介\";}s:8:\"key_type\";a:8:{s:11:\"task_to_run\";s:4:\"text\";s:13:\"schedule_type\";s:4:\"text\";s:8:\"modifier\";s:4:\"text\";s:7:\"dirlist\";s:4:\"text\";s:5:\"month\";s:4:\"text\";s:14:\"start_datetime\";s:4:\"date\";s:12:\"end_datetime\";s:4:\"date\";s:4:\"info\";s:4:\"text\";}s:11:\"key_default\";a:8:{s:11:\"task_to_run\";s:0:\"\";s:13:\"schedule_type\";s:0:\"\";s:8:\"modifier\";s:0:\"\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:0:\"\";s:12:\"end_datetime\";s:0:\"\";s:4:\"info\";s:0:\"\";}s:9:\"key_tishi\";a:8:{s:11:\"task_to_run\";s:58:\"计划任务执行的函数，格式为：app/Model/method\";s:13:\"schedule_type\";s:56:\"ONCE、MINUTE、HOURLY、DAILY、WEEKLY、MONTHLY 之一\";s:8:\"modifier\";s:75:\"类型为MONTHLY时必须；ONCE时无效；其他时为可选，默认为1\";s:7:\"dirlist\";s:100:\"指定周或月的一天或多天。只与WEEKLY和MONTHLY共同使用时有效，其他时忽略。\";s:5:\"month\";s:191:\"指定一年中的一个月或多个月.只在schedule_type=MONTHLY时有效，其他时忽略。当modifier=LASTDAY时必须，其他时可选。有效值：Jan - Dec，默认为*(每个月)\";s:14:\"start_datetime\";s:50:\"任务启动时间，使用“Y-m-d H:i:s”格式\";s:12:\"end_datetime\";s:44:\"失效时间，使用“Y-m-d H:i:s”格式\";s:4:\"info\";s:30:\"对计划任务的简要描述\";}s:14:\"key_javascript\";a:8:{s:11:\"task_to_run\";s:0:\"\";s:13:\"schedule_type\";s:0:\"\";s:8:\"modifier\";s:0:\"\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:0:\"\";s:12:\"end_datetime\";s:0:\"\";s:4:\"info\";s:0:\"\";}}','2013-07-01 11:12:31');
 INSERT INTO tt_system_config VALUES ('6537','pageKey','admin_Config_guestNav','a:4:{s:3:\"key\";a:12:{s:7:\"navi_id\";s:7:\"navi_id\";s:9:\"navi_name\";s:9:\"navi_name\";s:8:\"app_name\";s:8:\"app_name\";s:3:\"url\";s:3:\"url\";s:6:\"target\";s:6:\"target\";s:6:\"status\";s:6:\"status\";s:8:\"position\";s:8:\"position\";s:5:\"guest\";s:5:\"guest\";s:11:\"is_app_navi\";s:11:\"is_app_navi\";s:9:\"parent_id\";s:9:\"parent_id\";s:10:\"order_sort\";s:10:\"order_sort\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:12:{s:7:\"navi_id\";s:8:\"导航ID\";s:9:\"navi_name\";s:12:\"导航名称\";s:8:\"app_name\";s:12:\"英文名称\";s:3:\"url\";s:12:\"链接地址\";s:6:\"target\";s:12:\"打开方式\";s:6:\"status\";s:6:\"状态\";s:8:\"position\";s:12:\"导航位置\";s:5:\"guest\";s:12:\"游客可见\";s:11:\"is_app_navi\";s:18:\"应用内部导航\";s:9:\"parent_id\";s:9:\"父导航\";s:10:\"order_sort\";s:6:\"排序\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:12:{s:7:\"navi_id\";s:1:\"0\";s:9:\"navi_name\";s:1:\"0\";s:8:\"app_name\";s:1:\"0\";s:3:\"url\";s:1:\"0\";s:6:\"target\";s:1:\"0\";s:6:\"status\";s:1:\"0\";s:8:\"position\";s:1:\"0\";s:5:\"guest\";s:1:\"1\";s:11:\"is_app_navi\";s:1:\"1\";s:9:\"parent_id\";s:1:\"0\";s:10:\"order_sort\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:12:{s:7:\"navi_id\";s:0:\"\";s:9:\"navi_name\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:3:\"url\";s:0:\"\";s:6:\"target\";s:0:\"\";s:6:\"status\";s:0:\"\";s:8:\"position\";s:0:\"\";s:5:\"guest\";s:0:\"\";s:11:\"is_app_navi\";s:0:\"\";s:9:\"parent_id\";s:0:\"\";s:10:\"order_sort\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2013-07-02 09:17:01');
 INSERT INTO tt_system_config VALUES ('6543','pageKey','admin_Apps_install','a:4:{s:3:\"key\";a:7:{s:8:\"icon_url\";s:8:\"icon_url\";s:8:\"app_name\";s:8:\"app_name\";s:9:\"app_alias\";s:9:\"app_alias\";s:11:\"description\";s:11:\"description\";s:15:\"host_type_alias\";s:15:\"host_type_alias\";s:12:\"company_name\";s:12:\"company_name\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:7:{s:8:\"icon_url\";s:12:\"图标地址\";s:8:\"app_name\";s:12:\"应用名称\";s:9:\"app_alias\";s:12:\"应用别名\";s:11:\"description\";s:12:\"应用描述\";s:15:\"host_type_alias\";s:12:\"托管类型\";s:12:\"company_name\";s:12:\"公司名称\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:7:{s:8:\"icon_url\";s:1:\"0\";s:8:\"app_name\";s:1:\"0\";s:9:\"app_alias\";s:1:\"0\";s:11:\"description\";s:1:\"0\";s:15:\"host_type_alias\";s:1:\"0\";s:12:\"company_name\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:7:{s:8:\"icon_url\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:9:\"app_alias\";s:0:\"\";s:11:\"description\";s:0:\"\";s:15:\"host_type_alias\";s:0:\"\";s:12:\"company_name\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2013-08-15 10:42:39');
 INSERT INTO tt_system_config VALUES ('6547','pageKey','admin_Config_attachimage','a:6:{s:3:\"key\";a:3:{s:15:\"attach_max_size\";s:15:\"attach_max_size\";s:22:\"attach_allow_extension\";s:22:\"attach_allow_extension\";s:10:\"auto_thumb\";s:10:\"auto_thumb\";}s:8:\"key_name\";a:3:{s:15:\"attach_max_size\";s:18:\"图片大小限制\";s:22:\"attach_allow_extension\";s:18:\"允许的扩展名\";s:10:\"auto_thumb\";s:15:\"自动缩略图\";}s:8:\"key_type\";a:3:{s:15:\"attach_max_size\";s:4:\"text\";s:22:\"attach_allow_extension\";s:10:\"stringText\";s:10:\"auto_thumb\";s:5:\"radio\";}s:11:\"key_default\";a:3:{s:15:\"attach_max_size\";s:1:\"2\";s:22:\"attach_allow_extension\";s:11:\"jpg,png,gif\";s:10:\"auto_thumb\";s:1:\"1\";}s:9:\"key_tishi\";a:3:{s:15:\"attach_max_size\";s:56:\"单位：兆(M) 允许使用小数点。如：0.5或2等\";s:22:\"attach_allow_extension\";s:55:\"按回车添加，多个输入后用英文逗号,分割\";s:10:\"auto_thumb\";s:0:\"\";}s:14:\"key_javascript\";a:3:{s:15:\"attach_max_size\";s:0:\"\";s:22:\"attach_allow_extension\";s:0:\"\";s:10:\"auto_thumb\";s:0:\"\";}}','2013-08-17 22:43:25');
@@ -12063,11 +12251,13 @@ INSERT INTO tt_system_config VALUES ('6703','pageKey','admin_Mobile_w3gLogo','a:
 INSERT INTO tt_system_config VALUES ('6704','pageKey','admin_Mobile_w3gAbout','a:6:{s:3:\"key\";a:1:{s:5:\"about\";s:5:\"about\";}s:8:\"key_name\";a:1:{s:5:\"about\";s:12:\"关于我们\";}s:8:\"key_type\";a:1:{s:5:\"about\";s:6:\"editor\";}s:11:\"key_default\";a:1:{s:5:\"about\";s:0:\"\";}s:9:\"key_tishi\";a:1:{s:5:\"about\";s:35:\"设置3G页面关于我们的内容\";}s:14:\"key_javascript\";a:1:{s:5:\"about\";s:0:\"\";}}','2015-07-24 20:32:59');
 INSERT INTO tt_system_config VALUES ('6705','pageKey','admin_Application_socket','a:6:{s:3:\"key\";a:1:{s:12:\"socketaddres\";s:12:\"socketaddres\";}s:8:\"key_name\";a:1:{s:12:\"socketaddres\";s:21:\"Socket服务器地址\";}s:8:\"key_type\";a:1:{s:12:\"socketaddres\";s:4:\"text\";}s:11:\"key_default\";a:1:{s:12:\"socketaddres\";s:0:\"\";}s:9:\"key_tishi\";a:1:{s:12:\"socketaddres\";s:79:\"设置APP端调用的Socket服务器地址，例如”demo.thinksns.com:1243“\";}s:14:\"key_javascript\";a:1:{s:12:\"socketaddres\";s:0:\"\";}}','2015-08-07 17:30:09');
 INSERT INTO tt_system_config VALUES ('6708','pageKey','admin_Application_about','a:6:{s:3:\"key\";a:1:{s:5:\"about\";s:5:\"about\";}s:8:\"key_name\";a:1:{s:5:\"about\";s:12:\"关于我们\";}s:8:\"key_type\";a:1:{s:5:\"about\";s:6:\"editor\";}s:11:\"key_default\";a:1:{s:5:\"about\";s:0:\"\";}s:9:\"key_tishi\";a:1:{s:5:\"about\";s:27:\"设置APP端的关于我们\";}s:14:\"key_javascript\";a:1:{s:5:\"about\";s:0:\"\";}}','2015-08-12 15:20:47');
-INSERT INTO tt_system_config VALUES ('6709','pageKey','admin_Application_feedback','a:4:{s:3:\"key\";a:4:{s:4:\"user\";s:4:\"user\";s:7:\"content\";s:7:\"content\";s:4:\"time\";s:4:\"time\";s:8:\"doaction\";s:8:\"doaction\";}s:8:\"key_name\";a:4:{s:4:\"user\";s:6:\"用户\";s:7:\"content\";s:12:\"反馈内容\";s:4:\"time\";s:12:\"反馈时间\";s:8:\"doaction\";s:6:\"操作\";}s:10:\"key_hidden\";a:4:{s:4:\"user\";s:1:\"0\";s:7:\"content\";s:1:\"0\";s:4:\"time\";s:1:\"0\";s:8:\"doaction\";s:1:\"0\";}s:14:\"key_javascript\";a:4:{s:4:\"user\";s:0:\"\";s:7:\"content\";s:0:\"\";s:4:\"time\";s:0:\"\";s:8:\"doaction\";s:0:\"\";}}','2015-08-13 11:57:04');
 INSERT INTO tt_system_config VALUES ('6710','pageKey','admin_Mobile_setting','a:6:{s:3:\"key\";a:1:{s:6:\"switch\";s:6:\"switch\";}s:8:\"key_name\";a:1:{s:6:\"switch\";s:9:\"开关：\";}s:8:\"key_type\";a:1:{s:6:\"switch\";s:5:\"radio\";}s:11:\"key_default\";a:1:{s:6:\"switch\";s:0:\"\";}s:9:\"key_tishi\";a:1:{s:6:\"switch\";s:26:\"设置3G版本是否开启\";}s:14:\"key_javascript\";a:1:{s:6:\"switch\";s:0:\"\";}}','2015-08-13 16:07:29');
 INSERT INTO tt_system_config VALUES ('6711','pageKey','admin_Application_index','a:4:{s:3:\"key\";a:5:{s:5:\"title\";s:5:\"title\";s:5:\"image\";s:5:\"image\";s:4:\"type\";s:4:\"type\";s:4:\"data\";s:4:\"data\";s:8:\"doAction\";s:8:\"doAction\";}s:8:\"key_name\";a:5:{s:5:\"title\";s:6:\"标题\";s:5:\"image\";s:6:\"图片\";s:4:\"type\";s:6:\"类型\";s:4:\"data\";s:6:\"数据\";s:8:\"doAction\";s:6:\"操作\";}s:10:\"key_hidden\";a:5:{s:5:\"title\";s:1:\"0\";s:5:\"image\";s:1:\"0\";s:4:\"type\";s:1:\"0\";s:4:\"data\";s:1:\"0\";s:8:\"doAction\";s:1:\"0\";}s:14:\"key_javascript\";a:5:{s:5:\"title\";s:0:\"\";s:5:\"image\";s:0:\"\";s:4:\"type\";s:0:\"\";s:4:\"data\";s:0:\"\";s:8:\"doAction\";s:0:\"\";}}','2015-07-31 17:05:01');
 INSERT INTO tt_system_config VALUES ('6712','pageKey','admin_Application_addSlide','a:6:{s:3:\"key\";a:4:{s:5:\"title\";s:5:\"title\";s:5:\"image\";s:5:\"image\";s:4:\"type\";s:4:\"type\";s:4:\"data\";s:4:\"data\";}s:8:\"key_name\";a:4:{s:5:\"title\";s:12:\"轮播标题\";s:5:\"image\";s:12:\"轮播图片\";s:4:\"type\";s:12:\"跳转类型\";s:4:\"data\";s:12:\"类型参数\";}s:8:\"key_type\";a:4:{s:5:\"title\";s:4:\"text\";s:5:\"image\";s:5:\"image\";s:4:\"type\";s:6:\"select\";s:4:\"data\";s:4:\"text\";}s:11:\"key_default\";a:4:{s:5:\"title\";s:0:\"\";s:5:\"image\";s:0:\"\";s:4:\"type\";s:0:\"\";s:4:\"data\";s:0:\"\";}s:9:\"key_tishi\";a:4:{s:5:\"title\";s:30:\"幻灯片显示的文字信息\";s:5:\"image\";s:0:\"\";s:4:\"type\";s:63:\"选择轮播点击后跳转位置，默认仅展示轮播图片\";s:4:\"data\";s:300:\"当存在跳转类型的时候必须设置，否则APP会出错，举例：选择“url地址”,则这里填写url地址，app上点击会跳转到该地址，例如：选择“微吧”，那么类型参数则填写一个微吧的ID，app上点击后直接进入该微吧，其他不一一列举！\";}s:14:\"key_javascript\";a:4:{s:5:\"title\";s:0:\"\";s:5:\"image\";s:0:\"\";s:4:\"type\";s:0:\"\";s:4:\"data\";s:0:\"\";}}','2015-07-31 15:53:09');
 INSERT INTO tt_system_config VALUES ('6713','pageKey','admin_Application_jpush','a:6:{s:3:\"key\";a:2:{s:3:\"key\";s:3:\"key\";s:6:\"secret\";s:6:\"secret\";}s:8:\"key_name\";a:2:{s:3:\"key\";s:7:\"App Key\";s:6:\"secret\";s:13:\"Master Secret\";}s:8:\"key_type\";a:2:{s:3:\"key\";s:4:\"text\";s:6:\"secret\";s:4:\"text\";}s:11:\"key_default\";a:2:{s:3:\"key\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:9:\"key_tishi\";a:2:{s:3:\"key\";s:0:\"\";s:6:\"secret\";s:0:\"\";}s:14:\"key_javascript\";a:2:{s:3:\"key\";s:0:\"\";s:6:\"secret\";s:0:\"\";}}','2015-09-02 11:39:48');
+INSERT INTO tt_system_config VALUES ('6716','searchPageKey','S_admin_Home_logs','a:5:{s:3:\"key\";a:5:{s:5:\"uname\";s:5:\"uname\";s:8:\"app_name\";s:8:\"app_name\";s:5:\"ctime\";s:5:\"ctime\";s:7:\"isAdmin\";s:7:\"isAdmin\";s:7:\"keyword\";s:7:\"keyword\";}s:8:\"key_name\";a:5:{s:5:\"uname\";s:12:\"用户帐号\";s:8:\"app_name\";s:12:\"操作详情\";s:5:\"ctime\";s:12:\"时间范围\";s:7:\"isAdmin\";s:12:\"知识类型\";s:7:\"keyword\";s:15:\"查询关键字\";}s:8:\"key_type\";a:5:{s:5:\"uname\";s:4:\"text\";s:8:\"app_name\";s:6:\"select\";s:5:\"ctime\";s:4:\"date\";s:7:\"isAdmin\";s:8:\"checkbox\";s:7:\"keyword\";s:4:\"text\";}s:9:\"key_tishi\";a:5:{s:5:\"uname\";s:0:\"\";s:8:\"app_name\";s:0:\"\";s:5:\"ctime\";s:0:\"\";s:7:\"isAdmin\";s:0:\"\";s:7:\"keyword\";s:0:\"\";}s:14:\"key_javascript\";a:5:{s:5:\"uname\";s:0:\"\";s:8:\"app_name\";s:27:\"admin.selectLog(this.value)\";s:5:\"ctime\";s:0:\"\";s:7:\"isAdmin\";s:0:\"\";s:7:\"keyword\";s:0:\"\";}}','2017-01-20 21:35:53');
+INSERT INTO tt_system_config VALUES ('6717','pageKey','admin_Home_newschedule','a:6:{s:3:\"key\";a:8:{s:11:\"task_to_run\";s:11:\"task_to_run\";s:13:\"schedule_type\";s:13:\"schedule_type\";s:8:\"modifier\";s:8:\"modifier\";s:7:\"dirlist\";s:7:\"dirlist\";s:5:\"month\";s:5:\"month\";s:14:\"start_datetime\";s:14:\"start_datetime\";s:12:\"end_datetime\";s:12:\"end_datetime\";s:4:\"info\";s:4:\"info\";}s:8:\"key_name\";a:8:{s:11:\"task_to_run\";s:12:\"执行函数\";s:13:\"schedule_type\";s:12:\"任务类型\";s:8:\"modifier\";s:12:\"执行频率\";s:7:\"dirlist\";s:24:\"某天（默认每天）\";s:5:\"month\";s:24:\"某月（默认每月）\";s:14:\"start_datetime\";s:12:\"开始时间\";s:12:\"end_datetime\";s:12:\"结束时间\";s:4:\"info\";s:6:\"简介\";}s:8:\"key_type\";a:8:{s:11:\"task_to_run\";s:4:\"text\";s:13:\"schedule_type\";s:4:\"text\";s:8:\"modifier\";s:4:\"text\";s:7:\"dirlist\";s:4:\"text\";s:5:\"month\";s:4:\"text\";s:14:\"start_datetime\";s:4:\"date\";s:12:\"end_datetime\";s:4:\"date\";s:4:\"info\";s:4:\"text\";}s:11:\"key_default\";a:8:{s:11:\"task_to_run\";s:0:\"\";s:13:\"schedule_type\";s:0:\"\";s:8:\"modifier\";s:0:\"\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:0:\"\";s:12:\"end_datetime\";s:0:\"\";s:4:\"info\";s:0:\"\";}s:9:\"key_tishi\";a:8:{s:11:\"task_to_run\";s:58:\"计划任务执行的函数，格式为：app/Model/method\";s:13:\"schedule_type\";s:56:\"ONCE、MINUTE、HOURLY、DAILY、WEEKLY、MONTHLY 之一\";s:8:\"modifier\";s:75:\"类型为MONTHLY时必须；ONCE时无效；其他时为可选，默认为1\";s:7:\"dirlist\";s:100:\"指定周或月的一天或多天。只与WEEKLY和MONTHLY共同使用时有效，其他时忽略。\";s:5:\"month\";s:191:\"指定一年中的一个月或多个月.只在schedule_type=MONTHLY时有效，其他时忽略。当modifier=LASTDAY时必须，其他时可选。有效值：Jan - Dec，默认为*(每个月)\";s:14:\"start_datetime\";s:50:\"任务启动时间，使用“Y-m-d H:i:s”格式\";s:12:\"end_datetime\";s:44:\"失效时间，使用“Y-m-d H:i:s”格式\";s:4:\"info\";s:30:\"对计划任务的简要描述\";}s:14:\"key_javascript\";a:8:{s:11:\"task_to_run\";s:0:\"\";s:13:\"schedule_type\";s:0:\"\";s:8:\"modifier\";s:0:\"\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:0:\"\";s:12:\"end_datetime\";s:0:\"\";s:4:\"info\";s:0:\"\";}}','2017-01-20 22:11:31');
+INSERT INTO tt_system_config VALUES ('6718','pageKey','admin_Application_feedback','a:4:{s:3:\"key\";a:4:{s:4:\"user\";s:4:\"user\";s:7:\"content\";s:7:\"content\";s:4:\"time\";s:4:\"time\";s:8:\"doaction\";s:8:\"doaction\";}s:8:\"key_name\";a:4:{s:4:\"user\";s:6:\"用户\";s:7:\"content\";s:12:\"反馈内容\";s:4:\"time\";s:12:\"反馈时间\";s:8:\"doaction\";s:6:\"操作\";}s:10:\"key_hidden\";a:4:{s:4:\"user\";s:1:\"0\";s:7:\"content\";s:1:\"0\";s:4:\"time\";s:1:\"0\";s:8:\"doaction\";s:1:\"0\";}s:14:\"key_javascript\";a:4:{s:4:\"user\";s:0:\"\";s:7:\"content\";s:0:\"\";s:4:\"time\";s:0:\"\";s:8:\"doaction\";s:0:\"\";}}','2017-01-21 20:54:34');
 
 DROP TABLE IF EXISTS tt_system_data;
 CREATE TABLE `tt_system_data` (
@@ -12079,7 +12269,7 @@ CREATE TABLE `tt_system_data` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `list_key` (`list`,`key`) USING BTREE,
   KEY `list_id` (`list`,`id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=5230 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5290 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_system_data VALUES ('95','admin_Home','newschedule','a:8:{s:11:\"task_to_run\";s:19:\"admin/Home/schedule\";s:13:\"schedule_type\";s:5:\"DAILY\";s:8:\"modifier\";s:1:\"1\";s:7:\"dirlist\";s:0:\"\";s:5:\"month\";s:0:\"\";s:14:\"start_datetime\";s:19:\"2012-04-10 18:41:54\";s:12:\"end_datetime\";s:19:\"2012-04-26 18:41:56\";s:4:\"info\";s:6:\"简介\";}','2012-04-07 18:47:56');
 INSERT INTO tt_system_data VALUES ('115','admin_Config','announcement','a:2:{s:7:\"is_open\";s:1:\"1\";s:7:\"content\";s:22:\"欢迎使用SociaxTeam\";}','2012-03-26 03:06:29');
@@ -12313,7 +12503,6 @@ INSERT INTO tt_system_data VALUES ('2830','attach','attach_allow_extension','s:5
 INSERT INTO tt_system_data VALUES ('2836','admin_Config','seo_user_profile','a:6:{s:4:\"name\";s:12:\"个人主页\";s:5:\"title\";s:16:\"{uname}的空间\";s:8:\"keywords\";s:7:\"{uname}\";s:3:\"des\";s:10:\"{lastFeed}\";s:4:\"node\";s:0:\"\";s:3:\"sub\";s:6:\"保存\";}','2013-03-12 17:20:08');
 INSERT INTO tt_system_data VALUES ('2837','admin_Config','seo_feed_detail','a:6:{s:4:\"name\";s:15:\"分享详情页\";s:5:\"title\";s:16:\"{uname}的分享\";s:8:\"keywords\";s:7:\"{uname}\";s:3:\"des\";s:9:\"{content}\";s:4:\"node\";s:0:\"\";s:3:\"sub\";s:6:\"保存\";}','2013-03-12 17:20:32');
 INSERT INTO tt_system_data VALUES ('2838','admin_Config','seo_feed_topic','a:6:{s:4:\"name\";s:9:\"话题页\";s:5:\"title\";s:11:\"{topicName}\";s:8:\"keywords\";s:11:\"{topicName}\";s:3:\"des\";s:10:\"{topicDes}\";s:4:\"node\";s:0:\"\";s:3:\"sub\";s:6:\"保存\";}','2013-03-12 17:21:15');
-INSERT INTO tt_system_data VALUES ('2840','admin_Config','seo_login','a:6:{s:4:\"name\";s:9:\"登录页\";s:5:\"title\";s:49:\"ThinkSNS官方社区 - ThinkSNS开源分享系统\";s:8:\"keywords\";s:44:\"ThinkSNS 开源分享 免费分享 开源SNS\";s:3:\"des\";s:600:\"ThinkSNS开源分享程序致力于提供中国最好的分享程序、轻知识系统、SNS社交网络平台解决方案，提供分享源代码免费下载。内置分享插件机制和API体系，功能覆盖微群功能、社区群组、论坛分享整合、cms分享整合、长分享、图片分享、等综合功能，使分享二次开发更简单。系统采用php+mysql开发，开源发布，支持多个分享系统同步登陆，是能与ucenter整合的分享系统。智士软件使企业或个人快速拥有分享建站能力，为客户提供高质量的分享软件平台服务。\";s:4:\"node\";s:0:\"\";s:3:\"sub\";s:6:\"保存\";}','2013-03-12 17:22:34');
 INSERT INTO tt_system_data VALUES ('2841','pageKey','admin_Content_topic','a:4:{s:3:\"key\";a:9:{s:8:\"topic_id\";s:8:\"topic_id\";s:10:\"topic_name\";s:10:\"topic_name\";s:4:\"note\";s:4:\"note\";s:6:\"domain\";s:6:\"domain\";s:3:\"des\";s:3:\"des\";s:3:\"pic\";s:3:\"pic\";s:10:\"topic_user\";s:10:\"topic_user\";s:7:\"outlink\";s:7:\"outlink\";s:8:\"DOACTION\";s:8:\"DOACTION\";}s:8:\"key_name\";a:9:{s:8:\"topic_id\";s:8:\"话题ID\";s:10:\"topic_name\";s:12:\"话题名称\";s:4:\"note\";s:12:\"话题注释\";s:6:\"domain\";s:12:\"话题域名\";s:3:\"des\";s:12:\"详细说明\";s:3:\"pic\";s:12:\"话题图片\";s:10:\"topic_user\";s:18:\"话题人物推荐\";s:7:\"outlink\";s:6:\"外链\";s:8:\"DOACTION\";s:6:\"操作\";}s:10:\"key_hidden\";a:9:{s:8:\"topic_id\";s:1:\"0\";s:10:\"topic_name\";s:1:\"0\";s:4:\"note\";s:1:\"0\";s:6:\"domain\";s:1:\"0\";s:3:\"des\";s:1:\"0\";s:3:\"pic\";s:1:\"0\";s:10:\"topic_user\";s:1:\"0\";s:7:\"outlink\";s:1:\"0\";s:8:\"DOACTION\";s:1:\"0\";}s:14:\"key_javascript\";a:9:{s:8:\"topic_id\";s:0:\"\";s:10:\"topic_name\";s:0:\"\";s:4:\"note\";s:0:\"\";s:6:\"domain\";s:0:\"\";s:3:\"des\";s:0:\"\";s:3:\"pic\";s:0:\"\";s:10:\"topic_user\";s:0:\"\";s:7:\"outlink\";s:0:\"\";s:8:\"DOACTION\";s:0:\"\";}}','2013-03-13 13:39:18');
 INSERT INTO tt_system_data VALUES ('2852','pageKey','weiba_Admin_addWeiba','a:6:{s:3:\"key\";a:6:{s:10:\"weiba_name\";s:10:\"weiba_name\";s:4:\"logo\";s:4:\"logo\";s:5:\"intro\";s:5:\"intro\";s:12:\"who_can_post\";s:12:\"who_can_post\";s:9:\"admin_uid\";s:9:\"admin_uid\";s:9:\"recommend\";s:9:\"recommend\";}s:8:\"key_name\";a:6:{s:10:\"weiba_name\";s:12:\"微吧名称\";s:4:\"logo\";s:4:\"logo\";s:5:\"intro\";s:12:\"微吧简介\";s:12:\"who_can_post\";s:12:\"发帖权限\";s:9:\"admin_uid\";s:6:\"圈主\";s:9:\"recommend\";s:12:\"是否推荐\";}s:8:\"key_type\";a:6:{s:10:\"weiba_name\";s:4:\"text\";s:4:\"logo\";s:5:\"image\";s:5:\"intro\";s:8:\"textarea\";s:12:\"who_can_post\";s:5:\"radio\";s:9:\"admin_uid\";s:4:\"user\";s:9:\"recommend\";s:5:\"radio\";}s:11:\"key_default\";a:6:{s:10:\"weiba_name\";s:0:\"\";s:4:\"logo\";s:0:\"\";s:5:\"intro\";s:0:\"\";s:12:\"who_can_post\";s:1:\"0\";s:9:\"admin_uid\";s:0:\"\";s:9:\"recommend\";s:1:\"0\";}s:9:\"key_tishi\";a:6:{s:10:\"weiba_name\";s:0:\"\";s:4:\"logo\";s:73:\"附件格式：gif，jpg，jpeg，png，bmp； 附件大小：不超过2M\";s:5:\"intro\";s:0:\"\";s:12:\"who_can_post\";s:0:\"\";s:9:\"admin_uid\";s:0:\"\";s:9:\"recommend\";s:0:\"\";}s:14:\"key_javascript\";a:6:{s:10:\"weiba_name\";s:0:\"\";s:4:\"logo\";s:0:\"\";s:5:\"intro\";s:0:\"\";s:12:\"who_can_post\";s:0:\"\";s:9:\"admin_uid\";s:0:\"\";s:9:\"recommend\";s:0:\"\";}}','2013-03-15 17:53:23');
 INSERT INTO tt_system_data VALUES ('2853','pageKey','category_conf_channel_category','a:6:{s:3:\"key\";a:4:{s:6:\"attach\";s:6:\"attach\";s:9:\"show_type\";s:9:\"show_type\";s:9:\"user_bind\";s:9:\"user_bind\";s:10:\"topic_bind\";s:10:\"topic_bind\";}s:8:\"key_name\";a:4:{s:6:\"attach\";s:12:\"分类图片\";s:9:\"show_type\";s:18:\"默认展示方式\";s:9:\"user_bind\";s:12:\"用户绑定\";s:10:\"topic_bind\";s:12:\"话题绑定\";}s:8:\"key_type\";a:4:{s:6:\"attach\";s:5:\"image\";s:9:\"show_type\";s:5:\"radio\";s:9:\"user_bind\";s:4:\"user\";s:10:\"topic_bind\";s:10:\"stringText\";}s:11:\"key_default\";a:4:{s:6:\"attach\";s:0:\"\";s:9:\"show_type\";s:0:\"\";s:9:\"user_bind\";s:0:\"\";s:10:\"topic_bind\";s:0:\"\";}s:9:\"key_tishi\";a:4:{s:6:\"attach\";s:0:\"\";s:9:\"show_type\";s:0:\"\";s:9:\"user_bind\";s:0:\"\";s:10:\"topic_bind\";s:0:\"\";}s:14:\"key_javascript\";a:4:{s:6:\"attach\";s:0:\"\";s:9:\"show_type\";s:0:\"\";s:9:\"user_bind\";s:0:\"\";s:10:\"topic_bind\";s:0:\"\";}}','2013-03-15 21:38:37');
@@ -12360,35 +12549,19 @@ INSERT INTO tt_system_data VALUES ('4557','weiba_Admin','weibaAdminAuditConfig',
 INSERT INTO tt_system_data VALUES ('4564','guestConfig','','a:11:{s:17:\"weiba/Index/index\";b:1;s:18:\"weiba/Index/detail\";b:1;s:22:\"weiba/Index/postDetail\";b:1;s:20:\"weiba/Index/postList\";b:1;s:21:\"weiba/Index/weibaList\";b:1;s:18:\"square/Index/index\";b:1;s:14:\"people/Index/*\";b:1;s:15:\"develop/Index/*\";b:1;s:16:\"develop/Public/*\";b:1;s:15:\"channel/Index/*\";b:1;s:16:\"blog/Index/index\";b:1;}','2014-12-16 09:50:31');
 INSERT INTO tt_system_data VALUES ('4636','permission','1','a:4:{s:4:\"core\";a:2:{s:6:\"normal\";a:11:{s:9:\"feed_view\";s:1:\"1\";s:9:\"read_data\";s:1:\"1\";s:11:\"invite_user\";s:1:\"1\";s:12:\"send_message\";s:1:\"1\";s:11:\"search_info\";s:1:\"1\";s:11:\"comment_del\";s:1:\"1\";s:8:\"feed_del\";s:1:\"1\";s:9:\"feed_post\";s:1:\"1\";s:12:\"feed_comment\";s:1:\"1\";s:11:\"feed_report\";s:1:\"1\";s:10:\"feed_share\";s:1:\"1\";}s:5:\"admin\";a:5:{s:8:\"feed_del\";s:1:\"1\";s:11:\"comment_del\";s:1:\"1\";s:11:\"message_del\";s:1:\"1\";s:11:\"admin_login\";s:1:\"1\";s:14:\"feed_recommend\";s:1:\"1\";}}s:5:\"weiba\";a:2:{s:6:\"normal\";a:6:{s:10:\"weiba_post\";s:1:\"1\";s:11:\"weiba_reply\";s:1:\"1\";s:9:\"weiba_del\";s:1:\"1\";s:15:\"weiba_del_reply\";s:1:\"1\";s:10:\"weiba_edit\";s:1:\"1\";s:18:\"weiba_apply_manage\";s:1:\"1\";}s:5:\"admin\";a:6:{s:9:\"weiba_del\";s:1:\"1\";s:10:\"weiba_edit\";s:1:\"1\";s:16:\"weiba_global_top\";s:1:\"1\";s:12:\"weiba_marrow\";s:1:\"1\";s:9:\"weiba_top\";s:1:\"1\";s:15:\"weiba_recommend\";s:1:\"1\";}}s:7:\"channel\";a:1:{s:5:\"admin\";a:1:{s:17:\"channel_recommend\";s:1:\"1\";}}s:5:\"vtask\";a:1:{s:5:\"admin\";a:1:{s:15:\"vtask_recommend\";s:1:\"1\";}}}','2015-01-05 16:15:29');
 INSERT INTO tt_system_data VALUES ('4908','weiba_Admin','weibaAuditConfig','a:8:{s:16:\"apply_weiba_open\";i:1;s:13:\"follower_open\";i:0;s:8:\"follower\";i:0;s:10:\"level_open\";i:0;s:5:\"level\";i:0;s:15:\"weiba_post_open\";i:0;s:10:\"weiba_post\";i:0;s:12:\"manager_open\";i:0;}','2015-04-07 10:01:07');
-INSERT INTO tt_system_data VALUES ('5003','login','open','a:6:{i:0;s:4:\"sina\";i:1;s:5:\"qzone\";i:2;s:2:\"qq\";i:3;s:6:\"renren\";i:4;s:5:\"baidu\";i:5;s:6:\"taobao\";}','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5004','login','platformMeta','s:0:\"\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5005','login','sina_wb_akey','s:10:\"2256583756\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5006','login','sina_wb_skey','s:32:\"20dd17063d9760a3164a9bfdf9f45991\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5007','login','qzone_key','s:9:\"100358969\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5008','login','qzone_secret','s:32:\"1000ae79d56306cec5cf6a63ef16f96e\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5009','login','qq_key','s:9:\"801299167\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5010','login','qq_secret','s:32:\"93b62958ac5577bd56364e09cd802878\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5011','login','renren_key','s:32:\"26161c548a3d445799b2396bdf7f7e34\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5012','login','renren_secret','s:32:\"37ec1516560641fc822f0d43a5fdcaf4\";','2015-04-08 00:07:25');
 INSERT INTO tt_system_data VALUES ('5013','login','douban_key','s:32:\"03bf91c53ce11a950b3eb54fb6a34fbf\";','2015-04-08 00:07:25');
 INSERT INTO tt_system_data VALUES ('5014','login','douban_secret','s:16:\"9a84ac4b69207f74\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5015','login','baidu_key','s:24:\"EnqL8gqVVQUbvGnyBm7GdYVv\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5016','login','baidu_secret','s:32:\"O2qxo5WDiBci5xWh2TxQcINR37MW74TN\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5017','login','taobao_key','s:8:\"21353628\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5018','login','taobao_secret','s:32:\"6c334d2e22d4a4d45554a7bcec518c3d\";','2015-04-08 00:07:25');
-INSERT INTO tt_system_data VALUES ('5019','login','bindemail','i:0;','2015-04-08 00:07:25');
 INSERT INTO tt_system_data VALUES ('5046','permission','3','a:2:{s:4:\"core\";a:1:{s:6:\"normal\";a:11:{s:9:\"feed_view\";s:1:\"1\";s:9:\"read_data\";s:1:\"1\";s:11:\"invite_user\";s:1:\"1\";s:12:\"send_message\";s:1:\"1\";s:11:\"search_info\";s:1:\"1\";s:11:\"comment_del\";s:1:\"1\";s:8:\"feed_del\";s:1:\"1\";s:9:\"feed_post\";s:1:\"1\";s:12:\"feed_comment\";s:1:\"1\";s:11:\"feed_report\";s:1:\"1\";s:10:\"feed_share\";s:1:\"1\";}}s:5:\"weiba\";a:1:{s:6:\"normal\";a:6:{s:10:\"weiba_post\";s:1:\"1\";s:11:\"weiba_reply\";s:1:\"1\";s:9:\"weiba_del\";s:1:\"1\";s:15:\"weiba_del_reply\";s:1:\"1\";s:10:\"weiba_edit\";s:1:\"1\";s:18:\"weiba_apply_manage\";s:1:\"1\";}}}','2015-04-08 04:55:55');
 INSERT INTO tt_system_data VALUES ('5053','InviteTest','bgimg','i:42107;','2015-04-08 10:22:02');
 INSERT INTO tt_system_data VALUES ('5054','InviteTest','rule','s:256:\"<p>\r\n <span style=\"color:#E53333;line-height:1.5;\"><img src=\"/ts4/data/upload/2015/0408/00/55240236b25d6.jpg\" alt=\"\" />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span> \r\n</p>\r\n<p>\r\n <br />\r\n</p>\";','2015-04-08 10:22:02');
 INSERT INTO tt_system_data VALUES ('5058','admin_Config','attachimage','a:3:{s:15:\"attach_max_size\";s:1:\"2\";s:22:\"attach_allow_extension\";s:16:\"png,gif,jpg,jpeg\";s:10:\"auto_thumb\";s:1:\"1\";}','2015-04-11 15:42:55');
 INSERT INTO tt_system_data VALUES ('5064','admin_Config','attach','a:3:{s:16:\"attach_path_rule\";s:7:\"Y/md/H/\";s:15:\"attach_max_size\";s:3:\"100\";s:22:\"attach_allow_extension\";s:59:\"png,jpeg,zip,rar,doc,xls,ppt,docx,xlsx,pptx,pdf,jpg,gif,mp3\";}','2015-05-05 22:42:47');
-INSERT INTO tt_system_data VALUES ('5087','default','default','20','');
+INSERT INTO tt_system_data VALUES ('5087','default','default','20','0000-00-00 00:00:00');
 INSERT INTO tt_system_data VALUES ('5176','weixin','AppId','s:18:\"wxc50b6d3673d0c77f\";','2015-06-10 17:00:53');
 INSERT INTO tt_system_data VALUES ('5177','weixin','AppSecret','s:32:\"a83b0a82238b53098cd18607d2c4ead7\";','2015-06-10 17:00:53');
 INSERT INTO tt_system_data VALUES ('5178','weixin','appidsubmit','s:4:\"true\";','2015-06-10 17:00:53');
 INSERT INTO tt_system_data VALUES ('5179','outside','video','a:2:{s:15:\"youku_client_id\";s:16:\"d8555afde73b6888\";s:13:\"tudou_app_key\";s:16:\"4e9c6b498970d8e4\";}','2015-06-11 10:29:28');
 INSERT INTO tt_system_data VALUES ('5186','channel_Admin','index','a:3:{s:8:\"is_audit\";s:1:\"0\";s:16:\"default_category\";s:2:\"40\";s:9:\"show_type\";s:1:\"1\";}','2015-07-09 12:18:50');
-INSERT INTO tt_system_data VALUES ('5197','admin_Config','site','a:23:{s:11:\"site_closed\";s:1:\"1\";s:9:\"site_name\";s:8:\"ThinkSNS\";s:11:\"site_slogan\";s:30:\"为移动互联网添动力！\";s:20:\"site_header_keywords\";s:45:\"ThinkSNS a开源微博 免费微博 开源SNS\";s:23:\"site_header_description\";s:600:\"ThinkSNS开源微博程序致力于提供中国最好的微博程序、轻博客系统、SNS社交网络平台解决方案，提供微博源代码免费下载。内置微博插件机制和API体系，功能覆盖微群功能、社区群组、论坛微博整合、cms微博整合、长微博、图片微博、等综合功能，使微博二次开发更简单。系统采用php+mysql开发，开源发布，支持多个微博系统同步登陆，是能与ucenter整合的微博系统。智士软件使企业或个人快速拥有微博建站能力，为客户提供高质量的微博软件平台服务。\";s:12:\"site_company\";s:0:\"\";s:11:\"site_footer\";s:38:\"©2012 ZhishiSoft All Rights Reserved.\";s:15:\"site_footer_des\";s:217:\"ThinkSNS是智士软件旗下开源社交软件，适合懂技术的站长和软件公司基于系统进行二次开发商业使用请授权，个人使用请保留ThinkSNS标示。商业授权可直接来电咨询。\";s:9:\"site_logo\";s:5:\"47635\";s:13:\"site_logo_w3g\";s:0:\"\";s:12:\"site_qr_code\";s:5:\"47634\";s:15:\"sina_weibo_link\";s:26:\"http://weibo.com/ithinksns\";s:8:\"login_bg\";s:5:\"45095\";s:18:\"site_closed_reason\";s:120:\"大伙儿不要害怕，我是来测试功能的，一会儿就给你们恢复，这个页面太丑了我要换一个。\";s:10:\"sys_domain\";s:71:\"admin,thinksns,kefu,liuxiaoqing,hujintao,liaosunan,xijinping,zhishisoft\";s:12:\"sys_nickname\";s:187:\"管理员,超级管理员,法轮功,胡锦涛,江泽民,邓小平,小秘书,刘晓庆,廖素南,共产党,党,习近平,李宇春,政府,小胡祖宗,国民党,admin,智士软件,thinksns\";s:9:\"sys_email\";s:23:\"thinksns@zhishisoft.com\";s:9:\"home_page\";s:1:\"0\";s:11:\"sys_version\";s:10:\"2015050501\";s:17:\"site_online_count\";s:1:\"1\";s:15:\"site_rewrite_on\";s:1:\"0\";s:10:\"web_closed\";s:1:\"1\";s:19:\"site_analytics_code\";s:144:\"PHNjcmlwdCBzcmM9Imh0dHA6Ly9zMTEuY256ei5jb20vc3RhdC5waHA/aWQ9MTI1NDkzMjcyNiZ3ZWJfaWQ9MTI1NDkzMjcyNiIgbGFuZ3VhZ2U9IkphdmFTY3JpcHQiPjwvc2NyaXB0Pg==\";}','2015-07-13 18:54:51');
 INSERT INTO tt_system_data VALUES ('5199','cacheconfig','cachetype','s:4:\"File\";','2015-07-14 13:55:21');
 INSERT INTO tt_system_data VALUES ('5200','cacheconfig','cachesetting','s:0:\"\";','2015-07-14 13:55:21');
 INSERT INTO tt_system_data VALUES ('5201','square','channel','s:1:\"0\";','2015-07-14 14:12:07');
@@ -12402,12 +12575,52 @@ INSERT INTO tt_system_data VALUES ('5210','admin_nav','top','a:0:{}','2015-07-14
 INSERT INTO tt_system_data VALUES ('5211','admin_Content','video_config','a:5:{s:11:\"ffmpeg_path\";s:0:\"\";s:12:\"video_server\";s:0:\"\";s:9:\"video_ext\";s:3:\"mp4\";s:10:\"video_size\";s:2:\"20\";s:20:\"video_transfer_async\";s:1:\"1\";}','2015-07-14 14:20:53');
 INSERT INTO tt_system_data VALUES ('5213','admin_Config','register','a:16:{s:13:\"register_type\";s:4:\"open\";s:12:\"account_type\";s:3:\"all\";s:12:\"email_suffix\";s:0:\"\";s:7:\"captcha\";s:0:\"\";s:14:\"register_audit\";s:1:\"0\";s:11:\"need_active\";s:1:\"0\";s:13:\"personal_open\";s:1:\"0\";s:17:\"personal_required\";a:3:{i:0;s:4:\"face\";i:1;s:3:\"tag\";i:2;s:5:\"intro\";}s:7:\"tag_num\";s:1:\"5\";s:15:\"interester_rule\";a:1:{i:0;s:3:\"tag\";}s:19:\"avoidSubmitByReturn\";s:0:\"\";s:20:\"interester_recommend\";s:0:\"\";s:14:\"default_follow\";s:0:\"\";s:11:\"each_follow\";s:0:\"\";s:18:\"default_user_group\";a:1:{i:0;s:1:\"3\";}s:14:\"welcome_notify\";s:0:\"\";}','2015-07-14 15:07:00');
 INSERT INTO tt_system_data VALUES ('5214','admin_Config','feed','a:7:{s:10:\"weibo_nums\";s:3:\"140\";s:10:\"weibo_type\";a:6:{i:0;s:4:\"face\";i:1;s:2:\"at\";i:2;s:5:\"image\";i:3;s:5:\"video\";i:4;s:4:\"file\";i:5;s:5:\"topic\";}s:22:\"weibo_uploadvideo_open\";s:1:\"0\";s:16:\"weibo_premission\";a:2:{i:0;s:6:\"repost\";i:1;s:7:\"comment\";}s:15:\"weibo_send_info\";s:79:\"新注册的童鞋如果体验社区功能欢迎到任务中心去做任务哦~\";s:19:\"weibo_default_topic\";s:0:\"\";s:11:\"weibo_at_me\";s:1:\"0\";}','2015-07-14 15:09:58');
-INSERT INTO tt_system_data VALUES ('5215','admin_Config','email','a:9:{s:14:\"email_sendtype\";s:4:\"smtp\";s:10:\"email_host\";s:14:\"smtp.admin.com\";s:9:\"email_ssl\";s:1:\"0\";s:10:\"email_port\";s:2:\"25\";s:13:\"email_account\";s:15:\"admin@admin.com\";s:14:\"email_password\";s:5:\"admin\";s:17:\"email_sender_name\";s:20:\"ThinkSNS官方社区\";s:18:\"email_sender_email\";s:15:\"admin@admin.com\";s:10:\"email_test\";s:0:\"\";}','2015-07-14 15:11:01');
 INSERT INTO tt_system_data VALUES ('5216','admin_Config','sms','a:5:{s:10:\"sms_server\";s:52:\"http://106.ihuyi.cn/webservice/sms.php?method=Submit\";s:9:\"sms_param\";s:59:\"account=admin&password=admin&mobile={tel}&content={message}\";s:12:\"success_code\";s:14:\"<code>2</code>\";s:9:\"send_type\";s:4:\"post\";s:7:\"service\";s:5:\"ihuyi\";}','2015-07-14 15:11:39');
-INSERT INTO tt_system_data VALUES ('5217','admin_Config','cloudimage','a:7:{s:16:\"cloud_image_open\";s:1:\"0\";s:19:\"cloud_image_api_url\";s:23:\"http://v0.api.upyun.com\";s:18:\"cloud_image_bucket\";s:11:\"thinksns_v4\";s:24:\"cloud_image_form_api_key\";s:26:\"asdPKsdjfshnjfsPQ7cVBRasfd\";s:23:\"cloud_image_prefix_urls\";s:23:\"http://www.thinksns.com\";s:17:\"cloud_image_admin\";s:5:\"admin\";s:20:\"cloud_image_password\";s:5:\"admin\";}','2015-07-14 15:13:06');
-INSERT INTO tt_system_data VALUES ('5218','admin_Config','cloudattach','a:7:{s:17:\"cloud_attach_open\";s:1:\"0\";s:20:\"cloud_attach_api_url\";s:23:\"http://v0.api.upyun.com\";s:19:\"cloud_attach_bucket\";s:8:\"thinksns\";s:25:\"cloud_attach_form_api_key\";s:33:\"ajskdhnajkshbfdajjkdhnakjsndjkans\";s:24:\"cloud_attach_prefix_urls\";s:23:\"http://www.thinksns.com\";s:18:\"cloud_attach_admin\";s:5:\"admin\";s:21:\"cloud_attach_password\";s:5:\"admin\";}','2015-07-14 15:13:43');
 INSERT INTO tt_system_data VALUES ('5228','admin_Credit','level','a:10:{i:0;a:5:{s:5:\"level\";i:1;s:4:\"name\";s:3:\"LV1\";s:5:\"image\";s:2:\"72\";s:5:\"start\";s:1:\"0\";s:3:\"end\";s:2:\"10\";}i:1;a:5:{s:5:\"level\";i:2;s:4:\"name\";s:3:\"LV2\";s:5:\"image\";s:2:\"73\";s:5:\"start\";s:2:\"11\";s:3:\"end\";s:3:\"100\";}i:2;a:5:{s:5:\"level\";i:3;s:4:\"name\";s:3:\"LV3\";s:5:\"image\";s:2:\"74\";s:5:\"start\";s:3:\"101\";s:3:\"end\";s:3:\"500\";}i:3;a:5:{s:5:\"level\";i:4;s:4:\"name\";s:3:\"LV4\";s:5:\"image\";s:2:\"75\";s:5:\"start\";s:3:\"501\";s:3:\"end\";s:4:\"1000\";}i:4;a:5:{s:5:\"level\";i:5;s:4:\"name\";s:3:\"LV5\";s:5:\"image\";s:2:\"76\";s:5:\"start\";s:4:\"1001\";s:3:\"end\";s:4:\"5000\";}i:5;a:5:{s:5:\"level\";i:6;s:4:\"name\";s:3:\"LV6\";s:5:\"image\";s:2:\"77\";s:5:\"start\";s:4:\"5001\";s:3:\"end\";s:4:\"6000\";}i:6;a:5:{s:5:\"level\";i:7;s:4:\"name\";s:3:\"LV7\";s:5:\"image\";s:2:\"78\";s:5:\"start\";s:4:\"6001\";s:3:\"end\";s:4:\"7000\";}i:7;a:5:{s:5:\"level\";i:8;s:4:\"name\";s:3:\"LV8\";s:5:\"image\";s:2:\"79\";s:5:\"start\";s:4:\"7001\";s:3:\"end\";s:4:\"8000\";}i:8;a:5:{s:5:\"level\";i:9;s:4:\"name\";s:3:\"LV9\";s:5:\"image\";s:2:\"80\";s:5:\"start\";s:4:\"8001\";s:3:\"end\";s:4:\"9000\";}i:9;a:5:{s:5:\"level\";i:10;s:4:\"name\";s:4:\"LV10\";s:5:\"image\";s:2:\"81\";s:5:\"start\";s:4:\"9001\";s:3:\"end\";s:7:\"1000000\";}}','2015-07-15 18:40:10');
 INSERT INTO tt_system_data VALUES ('5229','admin_Application','ZB_config','a:2:{s:7:\"version\";s:1:\"1\";s:24:\"cash_exchange_ratio_list\";s:19:\"1:100,2.5:200,4:300\";}','2016-11-15 17:29:38');
+INSERT INTO tt_system_data VALUES ('5233','admin_Config','site','a:23:{s:11:\"site_closed\";s:1:\"1\";s:9:\"site_name\";s:5:\"TTCMS\";s:11:\"site_slogan\";s:30:\"为移动互联网添动力！\";s:20:\"site_header_keywords\";s:41:\"TTCMS 开源微博 免费微博 开源CMS\";s:23:\"site_header_description\";s:597:\"TTCMS开源微博程序致力于提供中国最好的微博程序、轻博客系统、SNS社交网络平台解决方案，提供微博源代码免费下载。内置微博插件机制和API体系，功能覆盖微群功能、社区群组、论坛微博整合、cms微博整合、长微博、图片微博、等综合功能，使微博二次开发更简单。系统采用php+mysql开发，开源发布，支持多个微博系统同步登陆，是能与ucenter整合的微博系统。智士软件使企业或个人快速拥有微博建站能力，为客户提供高质量的微博软件平台服务。\";s:12:\"site_company\";s:0:\"\";s:11:\"site_footer\";s:33:\"©2012 TTCMS All Rights Reserved.\";s:15:\"site_footer_des\";s:95:\"TTCMS是开源cms软件，适合懂技术的站长和软件公司基于系统进行二次开发\";s:6:\"attach\";s:0:\"\";s:9:\"site_logo\";s:5:\"47635\";s:12:\"site_qr_code\";s:5:\"47634\";s:15:\"sina_weibo_link\";s:26:\"http://weibo.com/ithinksns\";s:8:\"login_bg\";s:5:\"45095\";s:18:\"site_closed_reason\";s:120:\"大伙儿不要害怕，我是来测试功能的，一会儿就给你们恢复，这个页面太丑了我要换一个。\";s:10:\"sys_domain\";s:71:\"admin,thinksns,kefu,liuxiaoqing,hujintao,liaosunan,xijinping,zhishisoft\";s:12:\"sys_nickname\";s:187:\"管理员,超级管理员,法轮功,胡锦涛,江泽民,邓小平,小秘书,刘晓庆,廖素南,共产党,党,习近平,李宇春,政府,小胡祖宗,国民党,admin,智士软件,thinksns\";s:9:\"sys_email\";s:18:\"yptangecho@163.com\";s:9:\"home_page\";s:1:\"0\";s:11:\"sys_version\";s:10:\"2015050501\";s:17:\"site_online_count\";s:1:\"1\";s:15:\"site_rewrite_on\";s:1:\"0\";s:10:\"web_closed\";s:1:\"1\";s:19:\"site_analytics_code\";s:144:\"PHNjcmlwdCBzcmM9Imh0dHA6Ly9zMTEuY256ei5jb20vc3RhdC5waHA/aWQ9MTI1NDkzMjcyNiZ3ZWJfaWQ9MTI1NDkzMjcyNiIgbGFuZ3VhZ2U9IkphdmFTY3JpcHQiPjwvc2NyaXB0Pg==\";}','2017-01-21 00:40:42');
+INSERT INTO tt_system_data VALUES ('5234','admin_Config','email','a:9:{s:14:\"email_sendtype\";s:4:\"smtp\";s:10:\"email_host\";s:14:\"smtp.admin.com\";s:9:\"email_ssl\";s:1:\"0\";s:10:\"email_port\";s:2:\"25\";s:13:\"email_account\";s:15:\"admin@admin.com\";s:14:\"email_password\";s:9:\"tt@123456\";s:17:\"email_sender_name\";s:17:\"TTCMS官方社区\";s:18:\"email_sender_email\";s:15:\"admin@admin.com\";s:10:\"email_test\";s:0:\"\";}','2017-01-21 01:01:04');
+INSERT INTO tt_system_data VALUES ('5236','admin_Config','cloudimage','a:7:{s:16:\"cloud_image_open\";s:1:\"0\";s:19:\"cloud_image_api_url\";s:23:\"http://v0.api.upyun.com\";s:18:\"cloud_image_bucket\";s:5:\"ttcms\";s:24:\"cloud_image_form_api_key\";s:26:\"asdPKsdjfshnjfsPQ7cVBRasfd\";s:23:\"cloud_image_prefix_urls\";s:21:\"http://www.9aipay.com\";s:17:\"cloud_image_admin\";s:5:\"admin\";s:20:\"cloud_image_password\";s:6:\"111111\";}','2017-01-21 01:03:15');
+INSERT INTO tt_system_data VALUES ('5237','admin_Config','cloudattach','a:7:{s:17:\"cloud_attach_open\";s:1:\"0\";s:20:\"cloud_attach_api_url\";s:23:\"http://v0.api.upyun.com\";s:19:\"cloud_attach_bucket\";s:5:\"ttcms\";s:25:\"cloud_attach_form_api_key\";s:33:\"ajskdhnajkshbfdajjkdhnakjsndjkans\";s:24:\"cloud_attach_prefix_urls\";s:21:\"http://www.9aipay.com\";s:18:\"cloud_attach_admin\";s:5:\"admin\";s:21:\"cloud_attach_password\";s:6:\"111111\";}','2017-01-21 01:03:30');
+INSERT INTO tt_system_data VALUES ('5238','admin_Config','seo_login','a:6:{s:4:\"name\";s:9:\"登录页\";s:5:\"title\";s:43:\"TTCMS官方社区 - TTCMS开源分享系统\";s:8:\"keywords\";s:41:\"TTCMS 开源分享 免费分享 开源CMS\";s:3:\"des\";s:41:\"TTCMS提供分享源代码免费下载。\";s:4:\"node\";s:0:\"\";s:3:\"sub\";s:6:\"提交\";}','2017-01-21 18:58:39');
+INSERT INTO tt_system_data VALUES ('5273','login','open','a:6:{i:0;s:4:\"sina\";i:1;s:5:\"qzone\";i:2;s:6:\"renren\";i:3;s:5:\"baidu\";i:4;s:6:\"taobao\";i:5;s:6:\"weixin\";}','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5274','login','platformMeta','s:0:\"\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5275','login','sina_wb_akey','s:10:\"2256583756\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5276','login','sina_wb_skey','s:32:\"20dd17063d9760a3164a9bfdf9f45991\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5277','login','qzone_key','s:9:\"100358969\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5278','login','qzone_secret','s:32:\"1000ae79d56306cec5cf6a63ef16f96e\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5279','login','qq_key','s:9:\"801299167\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5280','login','qq_secret','s:32:\"93b62958ac5577bd56364e09cd802878\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5281','login','renren_key','s:32:\"26161c548a3d445799b2396bdf7f7e34\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5282','login','renren_secret','s:32:\"37ec1516560641fc822f0d43a5fdcaf4\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5283','login','baidu_key','s:24:\"EnqL8gqVVQUbvGnyBm7GdYVv\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5284','login','baidu_secret','s:32:\"O2qxo5WDiBci5xWh2TxQcINR37MW74TN\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5285','login','taobao_key','s:8:\"21353628\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5286','login','taobao_secret','s:32:\"6c334d2e22d4a4d45554a7bcec518c3d\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5287','login','weixin_key','s:9:\"801299167\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5288','login','weixin_secret','s:32:\"93b62958ac5577bd56364e09cd802878\";','2017-01-21 20:11:33');
+INSERT INTO tt_system_data VALUES ('5289','login','bindemail','i:0;','2017-01-21 20:11:33');
+
+DROP TABLE IF EXISTS tt_tag;
+CREATE TABLE `tt_tag` (
+  `tag_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键，标签编号',
+  `name` varchar(255) NOT NULL COMMENT '标签名',
+  PRIMARY KEY (`tag_id`),
+  UNIQUE KEY `tag_name` (`name`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='标签表';
+
+INSERT INTO tt_tag VALUES ('1','Ts粉丝团');
+INSERT INTO tt_tag VALUES ('2','前端工程狮');
+INSERT INTO tt_tag VALUES ('3','画家');
+INSERT INTO tt_tag VALUES ('4','2B青年欢乐多');
+INSERT INTO tt_tag VALUES ('5','cc');
+INSERT INTO tt_tag VALUES ('6','酱油君');
+INSERT INTO tt_tag VALUES ('7','Ios程序猿');
+INSERT INTO tt_tag VALUES ('8','有钱任性');
+INSERT INTO tt_tag VALUES ('9','uuud');
+INSERT INTO tt_tag VALUES ('10','php工程狮');
+INSERT INTO tt_tag VALUES ('11','交互设计狮');
+INSERT INTO tt_tag VALUES ('12','美女');
 
 DROP TABLE IF EXISTS tt_user;
 CREATE TABLE `tt_user` (
@@ -12451,6 +12664,7 @@ CREATE TABLE `tt_user` (
   KEY `uname` (`uname`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+INSERT INTO tt_user VALUES ('1','','dff4573c396dda676ef6651d78856a94','11111','管理员1','admin@admin.com','1','北京 北京市 朝阳区','1','1','1','1484884999','1','','vvyyy','1','2','7','127.0.0.1','zh-cn','PRC','0','G','asdasd','1484915009','0','0','管理员1 guanliyuan1','','0','0','','','1');
 
 DROP TABLE IF EXISTS tt_user_blacklist;
 CREATE TABLE `tt_user_blacklist` (
@@ -12519,15 +12733,6 @@ CREATE TABLE `tt_user_category_link` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS tt_user_change_style;
-CREATE TABLE `tt_user_change_style` (
-  `uid` int(11) unsigned NOT NULL COMMENT '户用UID',
-  `classname` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '皮肤的样式表名称',
-  `background` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '肤的皮背景图片地址',
-  UNIQUE KEY `uid` (`uid`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
 DROP TABLE IF EXISTS tt_user_count;
 CREATE TABLE `tt_user_count` (
   `uid` int(11) NOT NULL,
@@ -12562,11 +12767,11 @@ CREATE TABLE `tt_user_data` (
   `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '前当时间戳',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user-key` (`uid`,`key`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 INSERT INTO tt_user_data VALUES ('5','1','view_follower_time','1484814921','2017-01-19 16:35:21');
 INSERT INTO tt_user_data VALUES ('6','1','new_folower_count','0','2017-01-19 16:35:21');
-INSERT INTO tt_user_data VALUES ('19','1','login_error_time','0','2017-01-19 19:26:20');
+INSERT INTO tt_user_data VALUES ('24','1','login_error_time','0','2017-01-20 20:23:29');
 
 DROP TABLE IF EXISTS tt_user_group;
 CREATE TABLE `tt_user_group` (
@@ -12607,14 +12812,6 @@ CREATE TABLE `tt_user_online` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS tt_user_privacy;
-CREATE TABLE `tt_user_privacy` (
-  `uid` int(11) NOT NULL COMMENT '户用UID',
-  `key` varchar(120) NOT NULL COMMENT '配置键名，如weibo_comment（评论）,message（私信）',
-  `value` varchar(120) NOT NULL COMMENT '配置值，0：所有人(不包括你的黑名单用户)；1：我关注的人'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
 DROP TABLE IF EXISTS tt_user_profile;
 CREATE TABLE `tt_user_profile` (
   `uid` int(11) unsigned NOT NULL COMMENT '户用UID',
@@ -12625,6 +12822,9 @@ CREATE TABLE `tt_user_profile` (
   KEY `uid_2` (`uid`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+INSERT INTO tt_user_profile VALUES ('1','22','博士','0');
+INSERT INTO tt_user_profile VALUES ('1','24','撒大声地','0');
+INSERT INTO tt_user_profile VALUES ('1','23','1483286400','0');
 
 DROP TABLE IF EXISTS tt_user_profile_setting;
 CREATE TABLE `tt_user_profile_setting` (
@@ -12652,29 +12852,77 @@ INSERT INTO tt_user_profile_setting VALUES ('22','2','edu_degrees','学历','21'
 INSERT INTO tt_user_profile_setting VALUES ('24','2','edu_school','学校名称','21','1','1','1','0','0','input','\" placeholder=\"请输入学校名称','','','0');
 INSERT INTO tt_user_profile_setting VALUES ('21','1','edu','教育信息','0','1','1','0','0','0','','','','','0');
 
-DROP TABLE IF EXISTS tt_weixin_log;
-CREATE TABLE `tt_weixin_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cTime` int(11) DEFAULT NULL,
-  `cTime_format` varchar(30) DEFAULT NULL,
-  `data` text,
-  `data_post` text,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
-DROP TABLE IF EXISTS tt_x_article;
-CREATE TABLE `tt_x_article` (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '标题',
-  `uid` int(10) NOT NULL COMMENT '发布者ID',
-  `mtime` int(11) NOT NULL COMMENT '修改时间',
-  `sort` tinyint(5) NOT NULL COMMENT '排序',
-  `content` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '内容',
-  `attach` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '附件信息',
-  `type` tinyint(3) NOT NULL COMMENT '类型:1公告，2页脚配置文章',
+DROP TABLE IF EXISTS tt_user_verified;
+CREATE TABLE `tt_user_verified` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `uid` int(11) unsigned NOT NULL COMMENT '户用UID',
+  `usergroup_id` int(11) NOT NULL COMMENT '认证类型，即所申请的认证组的ID',
+  `user_verified_category_id` int(11) NOT NULL DEFAULT '0' COMMENT '认证分类ID',
+  `company` varchar(255) NOT NULL COMMENT '公司名称',
+  `realname` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '真实姓名',
+  `idcard` varchar(50) NOT NULL COMMENT '证件号码',
+  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '联系方式',
+  `info` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '证认信息',
+  `verified` tinyint(2) NOT NULL DEFAULT '0' COMMENT '认证状态，0：否；1：是',
+  `attach_id` varchar(255) NOT NULL COMMENT '认证资料，存储用户上传的ID',
+  `reason` varchar(255) DEFAULT NULL COMMENT '证认理由',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `type` (`type`,`sort`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  UNIQUE KEY `uid` (`uid`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+INSERT INTO tt_user_verified VALUES ('1','1','5','7','','asd','430528198810210921','44444444444','','0','','44444');
+
+DROP TABLE IF EXISTS tt_user_verified_category;
+CREATE TABLE `tt_user_verified_category` (
+  `user_verified_category_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '认证分类主键',
+  `title` varchar(225) NOT NULL COMMENT '认证分类名称',
+  `pid` int(11) NOT NULL COMMENT '父分类ID',
+  `sort` int(11) NOT NULL COMMENT '排序值',
+  PRIMARY KEY (`user_verified_category_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+INSERT INTO tt_user_verified_category VALUES ('5','优秀Ts二开公司','6','0');
+INSERT INTO tt_user_verified_category VALUES ('6','合作机构','6','0');
+INSERT INTO tt_user_verified_category VALUES ('7','优秀二次开发者','5','0');
+INSERT INTO tt_user_verified_category VALUES ('8','Ts城市分舵主','5','0');
+INSERT INTO tt_user_verified_category VALUES ('9','Ts铁杆级粉丝','5','0');
+INSERT INTO tt_user_verified_category VALUES ('10','Ts团队人员','5','0');
+INSERT INTO tt_user_verified_category VALUES ('11','小编','5','0');
+
+DROP TABLE IF EXISTS tt_x_logs;
+CREATE TABLE `tt_x_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL COMMENT '用户ID',
+  `uname` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '帐号\r\n',
+  `app_name` char(80) NOT NULL COMMENT '知识所属应用',
+  `group` char(80) DEFAULT NULL COMMENT '知识分组',
+  `action` char(80) NOT NULL COMMENT '知识行为',
+  `ip` varchar(80) DEFAULT NULL COMMENT 'IP地址',
+  `data` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '序列化保存的模板变量',
+  `url` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '记录知识时的URL地址',
+  `ctime` int(11) NOT NULL COMMENT '创建时间',
+  `isAdmin` tinyint(2) NOT NULL COMMENT '是否是管理员知识',
+  `keyword` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '模板变量值',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+INSERT INTO tt_x_logs VALUES ('8','1','管理员','admin','system','dellog','0.0.0.0','a:2:{s:4:\"nums\";i:1;s:3:\"ids\";s:1:\"1\";}','/ttcms/index.php?app=admin&mod=Home&act=_delLogs','1484919878','1','1');
+INSERT INTO tt_x_logs VALUES ('9','1','管理员','admin','config','editPagekey','0.0.0.0','a:2:{s:4:\"name\";s:12:\"计划任务\";s:2:\"k1\";s:30:\"保存修改编辑页面配置\";}','/ttcms/index.php?app=admin&mod=Index&act=savePageConfig','1484921491','1','计划任务 保存修改编辑页面配置');
+INSERT INTO tt_x_logs VALUES ('2','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"站点配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484919241','1','站点配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('3','1','管理员','admin','config','editSearchPagekey','0.0.0.0','a:2:{s:4:\"name\";s:12:\"日志列表\";s:2:\"k1\";s:30:\"保存修改编辑页面配置\";}','/ttcms/index.php?app=admin&mod=Index&act=saveSearchConfig','1484919353','1','日志列表 保存修改编辑页面配置');
+INSERT INTO tt_x_logs VALUES ('4','1','管理员','admin','system','cleanlog','0.0.0.0','a:2:{s:4:\"date\";s:1:\"6\";s:1:\"k\";s:18:\"清理删除知识\";}','/ttcms/index.php?app=admin&mod=Home&act=_cleanLogs','1484919366','1','6 清理删除知识');
+INSERT INTO tt_x_logs VALUES ('5','1','管理员','admin','system','cleanlog','0.0.0.0','a:2:{s:4:\"date\";s:2:\"12\";s:1:\"k\";s:18:\"清理删除知识\";}','/ttcms/index.php?app=admin&mod=Home&act=_cleanLogs','1484919369','1','12 清理删除知识');
+INSERT INTO tt_x_logs VALUES ('6','1','管理员','admin','system','logsArchive','0.0.0.0','a:2:{s:3:\"msg\";s:27:\"没有需要归档的知识\";s:1:\"k\";s:12:\"知识归档\";}','/ttcms/index.php?app=admin&mod=Home&act=_logsArchive','1484919372','1','没有需要归档的知识 知识归档');
+INSERT INTO tt_x_logs VALUES ('7','1','管理员','admin','system','logsArchive','0.0.0.0','a:2:{s:3:\"msg\";s:27:\"没有需要归档的知识\";s:1:\"k\";s:12:\"知识归档\";}','/ttcms/index.php?app=admin&mod=Home&act=_logsArchive','1484919375','1','没有需要归档的知识 知识归档');
+INSERT INTO tt_x_logs VALUES ('10','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"站点配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484930393','1','站点配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('11','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"站点配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484930404','1','站点配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('12','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"站点配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484930442','1','站点配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('13','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"邮件配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484931664','1','邮件配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('14','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"附件配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484931776','1','附件配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('15','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"附件配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484931795','1','附件配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('16','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:12:\"附件配置\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Index&act=saveConfigData','1484931810','1','附件配置 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('17','1','管理员','admin','flobal','editCredit','0.0.0.0','a:4:{s:3:\"uid\";i:1;s:4:\"type\";s:1:\"3\";s:4:\"data\";s:557:\"a:3:{i:0;s:37:\"全局 - 积分配置 - 积分规则 \";i:1;a:10:{s:2:\"id\";i:192;s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";i:0;s:3:\"des\";s:0:\"\";s:4:\"info\";s:0:\"\";s:5:\"score\";i:1;s:10:\"experience\";i:1;}i:2;a:10:{s:2:\"id\";s:3:\"192\";s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";s:1:\"0\";s:3:\"des\";s:0:\"\";s:10:\"experience\";s:1:\"2\";s:5:\"score\";s:1:\"1\";s:4:\"info\";s:0:\"\";}}\";s:5:\"ctime\";i:1484966457;}','/ttcms/index.php?app=admin&mod=Global&act=doEditCredit','1484966457','1','1 3 a:3:{i:0;s:37:\"全局 - 积分配置 - 积分规则 \";i:1;a:10:{s:2:\"id\";i:192;s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";i:0;s:3:\"des\";s:0:\"\";s:4:\"info\";s:0:\"\";s:5:\"score\";i:1;s:10:\"experience\";i:1;}i:2;a:10:{s:2:\"id\";s:3:\"192\";s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";s:1:\"0\";s:3:\"des\";s:0:\"\";s:10:\"experience\";s:1:\"2\";s:5:\"score\";s:1:\"1\";s:4:\"info\";s:0:\"\";}} 1484966457');
+INSERT INTO tt_x_logs VALUES ('18','1','管理员','admin','global','editCredit','0.0.0.0','a:3:{s:3:\"uid\";i:1;s:4:\"type\";s:1:\"3\";s:4:\"data\";s:557:\"a:3:{i:0;s:37:\"全局 - 积分配置 - 积分规则 \";i:1;a:10:{s:2:\"id\";i:192;s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";i:0;s:3:\"des\";s:0:\"\";s:4:\"info\";s:0:\"\";s:5:\"score\";i:1;s:10:\"experience\";i:2;}i:2;a:10:{s:2:\"id\";s:3:\"192\";s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";s:1:\"0\";s:3:\"des\";s:0:\"\";s:10:\"experience\";s:1:\"1\";s:5:\"score\";s:1:\"1\";s:4:\"info\";s:0:\"\";}}\";}','/ttcms/index.php?app=admin&mod=Global&act=doEditCredit','1484966871','1','1 3 a:3:{i:0;s:37:\"全局 - 积分配置 - 积分规则 \";i:1;a:10:{s:2:\"id\";i:192;s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";i:0;s:3:\"des\";s:0:\"\";s:4:\"info\";s:0:\"\";s:5:\"score\";i:1;s:10:\"experience\";i:2;}i:2;a:10:{s:2:\"id\";s:3:\"192\";s:4:\"name\";s:20:\"recommend_to_channel\";s:5:\"alias\";s:15:\"推荐至频道\";s:4:\"type\";s:7:\"channel\";s:5:\"cycle\";s:3:\"day\";s:11:\"cycle_times\";s:1:\"0\";s:3:\"des\";s:0:\"\";s:10:\"experience\";s:1:\"1\";s:5:\"score\";s:1:\"1\";s:4:\"info\";s:0:\"\";}}');
+INSERT INTO tt_x_logs VALUES ('19','1','管理员','admin','config','editDetail','0.0.0.0','a:2:{s:4:\"name\";s:9:\"编辑SEO\";s:2:\"k1\";s:30:\"保存修改编辑详细数据\";}','/ttcms/index.php?app=admin&mod=Config&act=saveConfigData','1484996319','1','编辑SEO 保存修改编辑详细数据');
+INSERT INTO tt_x_logs VALUES ('20','1','管理员','admin','config','editPagekey','0.0.0.0','a:2:{s:4:\"name\";s:0:\"\";s:2:\"k1\";s:30:\"保存修改编辑页面配置\";}','/ttcms/index.php?app=admin&mod=Index&act=savePageConfig','1485003274','1',' 保存修改编辑页面配置');
 

@@ -49,18 +49,6 @@ class AccountAction extends Action
             'field_key'  => 'scoredetail',
             'field_name' => '积分规则',
         ); // 积分规则
-        $tab_list_preference[] = array(
-            'field_key'  => 'privacy',
-            'field_name' => L('PUBLIC_PRIVACY'),
-        ); // 隐私设置
-        $tab_list_preference[] = array(
-            'field_key'  => 'notify',
-            'field_name' => '通知设置',
-        ); // 通知设置
-        $tab_list_preference[] = array(
-            'field_key'  => 'blacklist',
-            'field_name' => '黑名单',
-        ); // 黑名单
         $tab_list_security[] = array(
             'field_key'  => 'security',
             'field_name' => L('PUBLIC_ACCOUNT_SECURITY'),
@@ -202,11 +190,11 @@ class AccountAction extends Action
 
             $res = model('User')->where("`uid`={$this->mid}")->save($save);
             $res && model('User')->cleanCache($this->mid);
-            $user_feeds = model('Feed')->where('uid='.$this->mid)->field('feed_id')->findAll();
-            if ($user_feeds) {
-                $feed_ids = getSubByKey($user_feeds, 'feed_id');
-                model('Feed')->cleanCache($feed_ids, $this->mid);
-            }
+            // $user_feeds = model('Feed')->where('uid='.$this->mid)->field('feed_id')->findAll();
+            // if ($user_feeds) {
+            //     $feed_ids = getSubByKey($user_feeds, 'feed_id');
+            //     model('Feed')->cleanCache($feed_ids, $this->mid);
+            // }
         }
         // 保存用户资料配置字段
         (false !== $res) && $res = $this->_profile_model->saveUserProfile($this->mid, $_POST);
@@ -275,11 +263,6 @@ class AccountAction extends Action
             $result = $dAvatar->dosave();
         }
         model('User')->cleanCache($this->mid);
-        $user_feeds = model('Feed')->where('uid='.$this->mid)->field('feed_id')->findAll();
-        if ($user_feeds) {
-            $feed_ids = getSubByKey($user_feeds, 'feed_id');
-            model('Feed')->cleanCache($feed_ids, $this->mid);
-        }
         $this->ajaxReturn($result['data'], $result['info'], $result['status']);
     }
 
@@ -331,44 +314,6 @@ class AccountAction extends Action
         $registerConfig = model('Xdata')->get('admin_Config:register');
         $this->assign('tag_num', $registerConfig['tag_num']);
         $this->display();
-    }
-
-    /**
-     * 隐私设置页面.
-     */
-    public function privacy()
-    {
-        $user_privacy = D('UserPrivacy')->getUserSet($this->mid);
-        $this->assign('user_privacy', $user_privacy);
-
-        $user = model('User')->getUserInfo($this->mid);
-        $this->setTitle(L('PUBLIC_PRIVACY'));
-        $this->setKeywords(L('PUBLIC_PRIVACY'));
-        // 获取用户职业信息
-        $userCategory = model('UserCategory')->getRelatedUserInfo($this->mid);
-        $userCateArray = array();
-        if (!empty($userCategory)) {
-            foreach ($userCategory as $value) {
-                $user['category'] .= '<a href="#" class="link btn-cancel"><span>'.$value['title'].'</span></a>&nbsp;&nbsp;';
-            }
-        }
-        $user_tag = model('Tag')->setAppName('User')->setAppTable('user')->getAppTags(array(
-            $this->mid,
-                ));
-        $this->setDescription(t($user['category'].$user['location'].','.implode(',', $user_tag[$this->mid]).','.$user['intro']));
-        $this->display();
-    }
-
-    /**
-     * 保存登录用户隐私设置操作.
-     *
-     * @return json 返回操作后的JSON信息数据
-     */
-    public function doSavePrivacy()
-    {
-        // dump($_POST);exit;
-        $res = model('UserPrivacy')->dosave($this->mid, $_POST);
-        $this->ajaxReturn(null, model('UserPrivacy')->getError(), $res);
     }
 
     /**
@@ -695,11 +640,6 @@ class AccountAction extends Action
             $res = D('user_verified')->add($data);
         }
         if (false !== $res) {
-            model('Notify')->sendNotify($this->mid, 'public_account_doAuthenticate');
-            $touid = D('user_group_link')->where('user_group_id=1')->field('uid')->findAll();
-            foreach ($touid as $k => $v) {
-                model('Notify')->sendNotify($v['uid'], 'verify_audit');
-            }
             echo '1';
             exit;
         } else {
@@ -726,55 +666,6 @@ class AccountAction extends Action
         } else {
             echo 0;
         }
-    }
-
-    /**
-     * 黑名单设置.
-     */
-    public function blacklist()
-    {
-        $user = model('User')->getUserInfo($this->mid);
-        $this->setTitle('黑名单');
-        $this->setKeywords('黑名单');
-        // 获取用户职业信息
-        $userCategory = model('UserCategory')->getRelatedUserInfo($this->mid);
-        $userCateArray = array();
-        if (!empty($userCategory)) {
-            foreach ($userCategory as $value) {
-                $user['category'] .= '<a href="#" class="link btn-cancel"><span>'.$value['title'].'</span></a>&nbsp;&nbsp;';
-            }
-        }
-        $user_tag = model('Tag')->setAppName('User')->setAppTable('user')->getAppTags(array(
-            $this->mid,
-                ));
-        $this->setDescription(t($user['category'].$user['location'].','.implode(',', $user_tag[$this->mid]).','.$user['intro']));
-        $this->display();
-    }
-
-    /**
-     * 通知设置.
-     */
-    public function notify()
-    {
-        $user_privacy = D('UserPrivacy')->getUserSet($this->mid);
-        $this->assign('user_privacy', $user_privacy);
-
-        $user = model('User')->getUserInfo($this->mid);
-        $this->setTitle('通知设置');
-        $this->setKeywords('通知设置');
-        // 获取用户职业信息
-        $userCategory = model('UserCategory')->getRelatedUserInfo($this->mid);
-        $userCateArray = array();
-        if (!empty($userCategory)) {
-            foreach ($userCategory as $value) {
-                $user['category'] .= '<a href="#" class="link btn-cancel"><span>'.$value['title'].'</span></a>&nbsp;&nbsp;';
-            }
-        }
-        $user_tag = model('Tag')->setAppName('User')->setAppTable('user')->getAppTags(array(
-            $this->mid,
-                ));
-        $this->setDescription(t($user['category'].$user['location'].','.implode(',', $user_tag[$this->mid]).','.$user['intro']));
-        $this->display();
     }
 
     /**
@@ -983,48 +874,6 @@ class AccountAction extends Action
         unset($sms);
     }
 
-    /*public function getCaptcha2() {
-        $type = t($_POST ['type']);
-        if (!in_array($type, array(
-                    'mobile',
-                    'email'
-                ))) {
-            $this->ajaxReturn(null, '参数错误', 0);
-        }
-        $msg = '';
-        $result = false;
-        $model = model('Captcha');
-        switch ($type) {
-            case 'mobile' :
-                $mobile = t($_POST ['mobile']);
-                $result = $model->sendLoginCode($mobile);
-                $msg    = $model->getError();
-                break;
-            case 'email' :
-                $email = t($_POST ['email']);
-                $result = $model->sendEmailCode($email);
-                $msg = $model->getError();
-                if ($result) {
-                    $map ['communication'] = $email;
-                    $map ['type'] = 5;
-                    $rand = $model->where($map)->order('captcha_id DESC')->getField('rand');
-                    $config ['uname'] = getUserName($this->mid);
-                    $config ['rand'] = $rand;
-                    $config ['date'] = date('Y-m-d', time());
-                    // model('Notify')->sendNotify($this->mid, 'email_verification', $config);
-                    model('Notify')->sendNotifyChangeEmail($this->mid, 'email_verification', $config, $email);
-                }
-                break;
-        }
-
-        if ($result) {
-            empty($msg) && $msg = '发生成功';
-            $this->ajaxReturn(null, $msg, 1);
-        } else {
-            empty($msg) && $msg = '发送失败';
-            $this->ajaxReturn(null, $msg, 0);
-        }
-    }*/
 
     public function scoredetail()
     {
@@ -1064,6 +913,7 @@ class AccountAction extends Action
         // 删除7天前还没支付的记录
         D('credit_charge')->where('status=0 AND ctime<'.(time() - (86400 * 7)));
         $data = model('Xdata')->get('admin_Config:charge');
+        dump($data);
         $charge_record = D('credit_charge')->where('status>0 and uid='.$this->mid)->order('charge_id desc')->findPage(100);
         $this->assign('chargeConfigs', $data);
         $this->assign('charge_record', $charge_record);

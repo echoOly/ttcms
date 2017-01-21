@@ -21,7 +21,7 @@ chmod -R  777 data storage install config
 ```
 >* Download
 https://github.com/echoOly/ttcms/releases
-下载的zip档案是进过composer初始化后的包，可以直接解压使用，无需使用composer初始化，如果需要升级，请执行
+下载的zip档案是进过composer初始化后的包，导入数据库/data/database/*, 可以直接解压使用，无需使用composer初始化，如果需要升级，请执行
 ```shell
 composer update
 ```
@@ -58,3 +58,5 @@ denounce|举报信息|model('denounce')
 addon|插件信息|model('addon')
 feedback|用户反馈|通用
 application_slide|轮播图|通用
+tag|标签|model('Tag')
+app_tag|应用|用户 - 标签关系表|model('Tag')
