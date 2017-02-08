@@ -15,8 +15,8 @@
     <div class="reg-tab-menu">
       <ul>
       <?php if(in_array($config['account_type'], array('all', 'email'))) { ?>
-        <li><a href="{:U('public/Register/index','t=email')}<php>if($_GET['invite']){</php>&invite={:t($_GET['invite'])}<php> } </php>" 
-          
+        <li><a href="{:U('public/Register/index','t=email')}<php>if($_GET['invite']){</php>&invite={:t($_GET['invite'])}<php> } </php>"
+
           <php>if($_GET['t']!='phone'){</php>
           class="cur"
           <php>}</php>
@@ -24,7 +24,7 @@
       <?php } ?>
       <?php if(in_array($config['account_type'], array('all', 'phone'))) { ?>
         <li><a href="{:U('public/Register/index','t=phone')}<php>if($_GET['invite']){</php>&invite={:t($_GET['invite'])}<php> } </php>"
-          
+
           <php>if($_GET['t']=='phone'){</php>
           class="cur"
           <php>}</php>
@@ -48,7 +48,6 @@
                 <b class="step-lineOn"></b></li>
                 <li><i class="step2"></i><span>上传头像</span><b class="step-line"></b></li>
                 <li><i class="step3"></i><span>填写基本信息</span><b class="step-line"></b></li>
-                <li><i class="step4"></i><span>选择感兴趣的人</span></li>
                 </if>
               </ul>
             </div>
@@ -57,7 +56,7 @@
               <img src="{$inviteInfo.avatar_small}" width="30" height="30"/>
               <p>Hi，我是{$inviteInfo.uname}，邀请你加入这里，随时分享我的最新动态。</p>
             </div>
-            <php>endif;</php> 
+            <php>endif;</php>
             <php>if($type === 'email' && (('email' == $account_type) || ('all' == $account_type))):</php>
             <!--邮箱注册-->
             <div class="base-info" id="base-info-email">
@@ -200,7 +199,7 @@ $(function() {
     $("input[type='password']").blur(function(event) {
       $(this).addClass('s-txt').removeClass('s-txt-focus');
     });
-    
+
     //回车自动提交
     $('body').keypress(function(event){
         if(event.which==13){
@@ -257,6 +256,6 @@ var PlaceHolder = {
 };
 PlaceHolder.init();
 
-</script> 
-<script type="text/javascript" src="__THEME__/js/module.form.js"></script> 
+</script>
+<script type="text/javascript" src="__THEME__/js/module.form.js"></script>
 <include file="__THEME__/public_footer" />

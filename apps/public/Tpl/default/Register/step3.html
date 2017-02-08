@@ -1,15 +1,14 @@
 <include file="__THEME__/public_header" />
 <link href="__APP__/login.css" rel="stylesheet" type="text/css" />
 <div id="page-wrap">
-  <div class="reg-wrap"> 
+  <div class="reg-wrap">
     <!--<div class="title">完善职业信息</div>-->
     <div class="reg-main clearfix">
       <div class="step-main">
         <ul>
           <li><i class="step1"></i><span>填写注册信息</span><b class="step-line"></b></li>
           <li><i class="step2"></i><span>上传头像</span><b class="step-line"></b></li>
-          <li class="on"><i class="step3-on"></i><span>填写基本信息</span><b class="step-lineOn"></b></li>
-          <li><i class="step4"></i><span>选择感兴趣的人</span></li>
+          <li class="on"><i class="step3-on"></i><span>填写基本信息</span></li>
         </ul>
       </div>
       <form id="ajax_register_form" action="{:U('public/Register/doStep3')}" method="post">
@@ -39,7 +38,7 @@
           </div>
         </div>
         <div> <a class="disable fr" href="javascript:;" onclick="doStep3()">下一步</a>
-        
+
         <if condition="$skip != 'false'">
         <a class="gray fl"  href="{:U('public/Register/step4')}">跳过</a>
         </if>
